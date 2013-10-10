@@ -14,13 +14,24 @@ struct memory{
 
 
 int main(int argc, char **argv) {
-	printf("lolofdfdasfd/n");
+	
+	if(argc != 4){
+
+		fprintf(stderr, "incorrect number of command line arguments");	
+		return 1;
+
+	}
 
 	FILE *data; 
-	data = fopen(argv[2], "r");
-	printf("lolofdfdasfd/n");
+	data = fopen(argv[3], "r");
+	if(!data){
+
+		fprintf(stderr, "file not found");	
+		return 1;
+
+	}
 	int top;
-	top = atoi(argv[1]);
+	top = atoi(argv[2]);
 
 	struct 	memory *root;
 	root = malloc(sizeof(struct memory));
@@ -28,10 +39,18 @@ int main(int argc, char **argv) {
 	char temp[15];	
 	int order = 0;
 	root->occurences = 0;
-	printf("lolofdfdasfd/n");
 
 	while(NULL != fgets(temp, 15, data)) {
+		if(strcmp(temp,"\n") == 0)
+			continue;
+		char *test;
+		test = strstr(temp, "\n");
+		if(test) {
 
+			strncpy(test, "\0", 1);
+	
+		}	
+		printf("%s \n",temp);
 		int exist = 0; 
 		if(root->occurences == 0){
 
@@ -58,24 +77,38 @@ int main(int argc, char **argv) {
 			current = current->next;
 	
 		}		
-		
+		if( strcmp(temp, current->memAdd) == 0 && exist == 0) {
+				
+				current->occurences++;
+				exist = 1;	
+			
+		}
+	
+
+	
 		if(exist == 0) {
 			
 			struct memory *new = malloc(sizeof(struct memory));
 			order++;
 			strcpy(new->memAdd,temp);
-			new->occurences = 0;
+			new->occurences = 1;
 			new->next = 0;
 			new->fileLoc = order;
 			current->next = new;			
 
 		}
 	} 
-	
-		
+	current = root;
+	while(current->next != 0){
+		printf("TEST %s :%d\n", current->memAdd, current->occurences);
+		current = current->next;
+
+	}	
+	current = root;	
 	if(top > order) {
 
-		printf("number of arguments exceeds total number of unique addresses /n");
+		fprintf(stderr, "number of arguments exceeds total number of unique addresses");
+
 		return 1;
 	}
 	struct memory *prev;
@@ -91,9 +124,9 @@ int main(int argc, char **argv) {
 			max = root;
 			prevMax = root;		
 		
-			while(current->next != 0) {
+			while(current != 0) {
 
-				if(current->occurences >= max->occurences && current->fileLoc < max->fileLoc){
+				if(current->occurences >  max->occurences){
 
 					prevMax=prev;
 					max=current;			
@@ -107,12 +140,12 @@ int main(int argc, char **argv) {
 
 			if(max == prevMax){
 
-				printf("stuff goes here");
+				printf("%s :%i\n",max->memAdd,max->occurences);
 				root=root->next;	
 
 			} else {
 
-				printf("stuff goes here");
+				printf("%s :%i\n",max->memAdd,max->occurences);
 				prevMax->next=max->next;
 
 			}
@@ -129,10 +162,11 @@ int main(int argc, char **argv) {
 			max = root;
 			prevMax = root;		
 		
-			while(current->next != 0) {
+			while(current != 0) {
 
-				if(current->occurences >= max->occurences && current->fileLoc < max->fileLoc){
+				if(current->occurences > max->occurences){
 
+		
 					prevMax=prev;
 					max=current;			
 
@@ -145,20 +179,20 @@ int main(int argc, char **argv) {
 
 			if(max == prevMax){
 
-				printf("stuff goes here");
+				printf("%s :%i\n",max->memAdd,max->occurences);
 				root=root->next;	
 
 			} else {
 
-				printf("stuff goes here");
+				printf("%s :%i\n",max->memAdd,max->occurences);
 				prevMax->next=max->next;
 
 			}
 
 
 		}
+		printf("%s :%i\n",root->memAdd,root->occurences);
 
-		printf("stuff goes here");
 	}
 
 	return 0;
