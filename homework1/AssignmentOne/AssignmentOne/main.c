@@ -52,7 +52,7 @@ TokenizerT *TKCreate(char *separators, char *ts) {
     token->deliminator = separators;
     token->ts = ts;
     
-    return *token;
+    return token;
 }
 
 /*
@@ -133,6 +133,7 @@ int main(int argc, char **argv) {
                     
                 }
             }
+            else (printf("%s", &argv[2][i]));
         }
      }
 	
