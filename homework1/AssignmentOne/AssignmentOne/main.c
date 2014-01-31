@@ -11,6 +11,7 @@
  */
 
 #include <stdio.h>
+#include <string.h>
 
 /*
  * Tokenizer type.  You need to fill in the type as part of your implementation.
@@ -88,14 +89,39 @@ int main(int argc, char **argv) {
 		return -1;
 	}
     
-    printf("%s", TKCreate(argv[1], argv[2])->ts);
+    *TKCreate(argv[1], argv[2]);
     
-    /*if (strcmp(argv[1], "")){
-     int i;
-     for (i = 0; i < sizeof(argv[2]); i--){
-     
+    if (strcmp(argv[1], "") == 0){
+        int i;
+        for (i = 0; i < strlen(argv[2]); i--){
+            if (strcmp(&argv[2][i], "\\") == 0){
+                if (strcmp(&argv[2][i+1], "n") == 0){
+                
+                }
+                else if (strcmp(&argv[2][i+1], "t") == 0){
+                    
+                }
+                else if (strcmp(&argv[2][i+1], "v") == 0){
+                    
+                }
+                else if (strcmp(&argv[2][i+1], "b") == 0){
+                    
+                }
+                else if (strcmp(&argv[2][i+1], "r") == 0){
+                    
+                }
+                else if (strcmp(&argv[2][i+1], "f") == 0){
+                    
+                }
+                else if (strcmp(&argv[2][i+1], "a") == 0){
+                    
+                }
+                else if (strcmp(&argv[2][i+1], "\"") == 0){
+                    
+                }
+            }
+        }
      }
-     }*/
 	
 	
     return 0;
