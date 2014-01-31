@@ -22,6 +22,14 @@ struct TokenizerT_ {
     char* ts;
 };
 
+typedef struct _Token {
+	
+	char* token;
+	struct _Token* next;	
+
+
+} Token;
+
 typedef struct TokenizerT_ TokenizerT;
 
 /*
@@ -44,7 +52,7 @@ TokenizerT *TKCreate(char *separators, char *ts) {
     token->deliminator = separators;
     token->ts = ts;
     
-    return token;
+    return *token;
 }
 
 /*
@@ -55,6 +63,10 @@ TokenizerT *TKCreate(char *separators, char *ts) {
  */
 
 void TKDestroy(TokenizerT *tk) {
+
+	free(tk);
+	return;
+
 }
 
 /*
@@ -89,7 +101,8 @@ int main(int argc, char **argv) {
 		return -1;
 	}
     
-    *TKCreate(argv[1], argv[2]);
+	TokenizerT* token;
+	token = TKCreate(argv[1], argv[2]);
     
     if (strcmp(argv[1], "") == 0){
         int i;
@@ -123,7 +136,7 @@ int main(int argc, char **argv) {
         }
      }
 	
-	
+		
     return 0;
 }
 
