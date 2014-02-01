@@ -63,7 +63,7 @@
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "&quot;abcdef&quot;"
+            argument = "&quot;ab\\\\cde\f&quot;"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>

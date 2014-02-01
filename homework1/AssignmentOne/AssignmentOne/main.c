@@ -106,34 +106,38 @@ int main(int argc, char **argv) {
     
     if (strcmp(argv[1], "") == 0){
         int i;
-        for (i = 0; i < strlen(argv[2]); i--){
-            if (strcmp(&argv[2][i], "\\") == 0){
-                if (strcmp(&argv[2][i+1], "n") == 0){
-                
+        for (i = 0; i < strlen(argv[2]); i++){
+            if (argv[2][i] == '\\'){
+                i++;
+                if (argv[2][i] == 'n'){
+                    printf("[0x0a]");
                 }
-                else if (strcmp(&argv[2][i+1], "t") == 0){
-                    
+                else if (argv[2][i] == 't'){
+                    printf("[0x09]");
                 }
-                else if (strcmp(&argv[2][i+1], "v") == 0){
-                    
+                else if (argv[2][i] == 'v'){
+                    printf("[0x0b]");
                 }
-                else if (strcmp(&argv[2][i+1], "b") == 0){
-                    
+                else if (argv[2][i] == 'b'){
+                    printf("[0x08]");
                 }
-                else if (strcmp(&argv[2][i+1], "r") == 0){
-                    
+                else if (argv[2][i] == 'r'){
+                    printf("[0x0d]");
                 }
-                else if (strcmp(&argv[2][i+1], "f") == 0){
-                    
+                else if (argv[2][i] == 'f'){
+                    printf("[0x0c]");
                 }
-                else if (strcmp(&argv[2][i+1], "a") == 0){
-                    
+                else if (argv[2][i] == 'a'){
+                    printf("[0x07]");
                 }
-                else if (strcmp(&argv[2][i+1], "\"") == 0){
-                    
+                else if (argv[2][i] == '\\'){
+                    printf("[0x5c]");
+                }
+                else if (argv[2][i] == '\"'){
+                    printf("[0x22]");
                 }
             }
-            else (printf("%s", &argv[2][i]));
+            else (printf("%c", argv[2][i]));
         }
      }
 	
