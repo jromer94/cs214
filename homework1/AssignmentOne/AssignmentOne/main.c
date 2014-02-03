@@ -203,42 +203,43 @@ int main(int argc, char **argv) {
 
 	}
     
-    if (strcmp(argv[1], "") == 0){
+   if (strcmp(token->deliminator, "") == 0){
         int i;
-        for (i = 0; i < strlen(argv[2]); i++){
-            if (argv[2][i] == '\\'){
+        for (i = 0; i < strlen(token->ts); i++){
+            if (token->ts[i] == '\\'){
                 i++;
-                if (argv[2][i] == 'n'){
+                if (token->ts[i] == 'n'){
                     printf("[0x0a]");
                 }
-                else if (argv[2][i] == 't'){
+                else if (token->ts[i] == 't'){
                     printf("[0x09]");
                 }
-                else if (argv[2][i] == 'v'){
+                else if (token->ts[i] == 'v'){
                     printf("[0x0b]");
                 }
-                else if (argv[2][i] == 'b'){
+                else if (token->ts[i] == 'b'){
                     printf("[0x08]");
                 }
-                else if (argv[2][i] == 'r'){
+                else if (token->ts[i] == 'r'){
                     printf("[0x0d]");
                 }
-                else if (argv[2][i] == 'f'){
+                else if (token->ts[i] == 'f'){
                     printf("[0x0c]");
                 }
-                else if (argv[2][i] == 'a'){
+                else if (token->ts[i] == 'a'){
                     printf("[0x07]");
                 }
-                else if (argv[2][i] == '\\'){
+                else if (token->ts[i] == '\\'){
                     printf("[0x5c]");
                 }
-                else if (argv[2][i] == '\"'){
+                else if (token->ts[i] == '\"'){
                     printf("[0x22]");
                 }
             }
-            else (printf("%c", argv[2][i]));
+            else (printf("%c", token->ts[i]));
         }
      }
+
 	
 		
     return 0;
