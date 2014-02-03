@@ -151,7 +151,7 @@ char *TKGetNextToken(TokenizerT *tk) {
 		strncpy(ret, tk->ts, i);
 		ret[i] = '\0';
 		char* temp;
-		tk->ts = &tk->ts[i - j];
+		tk->ts = &tk->ts[i +1];
 		return ret;
         
         
