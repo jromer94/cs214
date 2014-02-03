@@ -101,19 +101,19 @@ char *TKGetNextToken(TokenizerT *tk) {
 						break;
                         
 					}
-
+                    
 					j++;
-
-                		}
-            		}else if(tk->ts[i] == tk->deliminator[j]){
-
+                    
+                }
+            }else if(tk->ts[i] == tk->deliminator[j]){
+                
 				j = -1;
 				break;
                 
 			}
-
-		}	
-
+            
+		}
+        
 		if(tk->ts[i] == '\\'){
             
 			if (tk->ts[i + 1] == 'n' || tk->ts[i + 1] == 't' ||  tk-> ts[i + 1]== 'v' || tk-> ts[i + 1]== 'v' || tk-> ts[i + 1]== 'b' || tk-> ts[i + 1]== 'r' || tk-> ts[i + 1]== 'f' || tk-> ts[i + 1]== 'a' || tk-> ts[i + 1]== '\\' || tk->ts[i + 1] == '\"'){
@@ -159,6 +159,48 @@ char *TKGetNextToken(TokenizerT *tk) {
 	return 0;
 }
 
+char *EmptyDelims(char *ts){
+    
+    int i;
+    for (i = 0; i < strlen(ts); i++){
+        if (ts[i] == '\\'){
+            i++;
+            if (ts[i] == 'n'){
+                printf("[0x0a]");
+            }
+            else if (ts[i] == 't'){
+                printf("[0x09]");
+            }
+            else if (ts[i] == 'v'){
+                printf("[0x0b]");
+            }
+            else if (ts[i] == 'b'){
+                printf("[0x08]");
+            }
+            else if (ts[i] == 'r'){
+                printf("[0x0d]");
+            }
+            else if (ts[i] == 'f'){
+                printf("[0x0c]");
+            }
+            else if (ts[i] == 'a'){
+                printf("[0x07]");
+            }
+            else if (ts[i] == '\\'){
+                printf("[0x5c]");
+            }
+            else if (ts[i] == '\"'){
+                printf("[0x22]");
+            }
+        }
+        else (printf("%c", ts[i]));
+    }
+
+    
+    
+    return 0;
+}
+
 /*
  * main will have two string arguments (in argv[1] and argv[2]).
  * The first string contains the separator characters.
@@ -180,64 +222,30 @@ int main(int argc, char **argv) {
 	Token* head = malloc(sizeof(Token));
 	Token* current = head;
     
-    if (strcmp(token->deliminator, "") == 0){
-        int i;
-        for (i = 0; i < strlen(token->ts); i++){
-            if (token->ts[i] == '\\'){
-                i++;
-                if (token->ts[i] == 'n'){
-                    printf("[0x0a]");
-                }
-                else if (token->ts[i] == 't'){
-                    printf("[0x09]");
-                }
-                else if (token->ts[i] == 'v'){
-                    printf("[0x0b]");
-                }
-                else if (token->ts[i] == 'b'){
-                    printf("[0x08]");
-                }
-                else if (token->ts[i] == 'r'){
-                    printf("[0x0d]");
-                }
-                else if (token->ts[i] == 'f'){
-                    printf("[0x0c]");
-                }
-                else if (token->ts[i] == 'a'){
-                    printf("[0x07]");
-                }
-                else if (token->ts[i] == '\\'){
-                    printf("[0x5c]");
-                }
-                else if (token->ts[i] == '\"'){
-                    printf("[0x22]");
-                }
-            }
-            else (printf("%c", token->ts[i]));
-        }
-    }
-
+    if (strcmp(token->deliminator, "") == 0)
+        EmptyDelims(token->ts);
+    
     else{
         while(token->ts != 0){
-        
+            
             current->ts = TKGetNextToken(token);
             current->next = malloc(sizeof(token));
             current = current->next;
             current->ts = 0;
-        
+            
         }
-    
+        
         current = head;
         while(current->ts != 0){
-        
+            
             if(strcmp(current->ts,"") != 0){
-            
+                
                 printf("%s\n", current->ts);
-            
+                
             }
-        
+            
             current = current->next;
-        
+            
         }
     }
     
