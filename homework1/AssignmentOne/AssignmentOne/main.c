@@ -102,6 +102,7 @@ char *TKGetNextToken(TokenizerT *tk) {
 					
 					}
 
+					j++;
 
                 		}
             		}else if(tk->ts[i] == tk->deliminator[j]){
@@ -110,7 +111,6 @@ char *TKGetNextToken(TokenizerT *tk) {
 				break;
 
 			}
-			j++;
 
 		}	
 
