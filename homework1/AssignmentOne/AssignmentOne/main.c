@@ -23,11 +23,11 @@ struct TokenizerT_ {
 };
 
 typedef struct _Token {
-	
+    
 	char* ts;
-	struct _Token* next;	
-
-
+	struct _Token* next;
+    
+    
 } Token;
 
 typedef struct TokenizerT_ TokenizerT;
@@ -63,10 +63,10 @@ TokenizerT *TKCreate(char *separators, char *ts) {
  */
 
 void TKDestroy(TokenizerT *tk) {
-
+    
 	free(tk);
 	return;
-
+    
 }
 
 /*
@@ -82,24 +82,24 @@ void TKDestroy(TokenizerT *tk) {
  */
 
 char *TKGetNextToken(TokenizerT *tk) {
-
-	int i;	
+    
+	int i;
 	int j;
-	
+    
 	for(i = 0; i < strlen(tk->ts); i++){
-
-
+        
+        
 		for(j = 0; j < strlen(tk->deliminator); j++){
-			
-			
+            
+            
 			if (tk->deliminator[j] == '\\'){
-                		if (tk->deliminator[j + 1] == 'n' || tk->deliminator[j + 1] == 't' || tk->deliminator[j + 1] == 'v' || tk->deliminator[j + 1] == 'v' || tk->deliminator[j + 1] == 'b' || tk->deliminator[j + 1] == 'r' || tk->deliminator[j + 1] == 'f' || tk->deliminator[j + 1] == 'a' || tk->deliminator[j + 1] == '\\' || tk->deliminator[j + 1] == '\"'){
-
+                if (tk->deliminator[j + 1] == 'n' || tk->deliminator[j + 1] == 't' || tk->deliminator[j + 1] == 'v' || tk->deliminator[j + 1] == 'v' || tk->deliminator[j + 1] == 'b' || tk->deliminator[j + 1] == 'r' || tk->deliminator[j + 1] == 'f' || tk->deliminator[j + 1] == 'a' || tk->deliminator[j + 1] == '\\' || tk->deliminator[j + 1] == '\"'){
+                    
 					if(tk->deliminator[j] == tk->ts[i] && tk->deliminator[j + 1] == tk->ts[i + 1]){
-
-						j = -2; 
+                        
+						j = -2;
 						break;
-					
+                        
 					}
 
 					j++;
@@ -109,54 +109,53 @@ char *TKGetNextToken(TokenizerT *tk) {
 
 				j = -1;
 				break;
-
+                
 			}
 
 		}	
 
 		if(tk->ts[i] == '\\'){
-
+            
 			if (tk->ts[i + 1] == 'n' || tk->ts[i + 1] == 't' ||  tk-> ts[i + 1]== 'v' || tk-> ts[i + 1]== 'v' || tk-> ts[i + 1]== 'b' || tk-> ts[i + 1]== 'r' || tk-> ts[i + 1]== 'f' || tk-> ts[i + 1]== 'a' || tk-> ts[i + 1]== '\\' || tk->ts[i + 1] == '\"'){
-
-			i++;
-			
+                
+                i++;
+                
 			}
-
+            
 		}
-
+        
 		if(j == -1){
-
+            
 			break;
-		
+            
 		}
 		if(j == -2){
-
-			break;		
-
+            
+			break;
+            
 		}
-
+        
 	}
-
+    
 	if(i == strlen(tk->ts)){
-
+        
 		char* ret;
 		ret = tk->ts;
 		tk->ts = 0;
 		return ret;
-	
-	} else { 
-	
+        
+	} else {
+        
 		char* ret;
-		printf("%d\n", j);
 		ret = malloc( (i + 1) * sizeof(char));
 		strncpy(ret, tk->ts, i);
 		ret[i] = '\0';
 		char* temp;
 		tk->ts = &tk->ts[i - j];
 		return ret;
-
-
-	}    
+        
+        
+	}
 	return 0;
 }
 
@@ -177,70 +176,70 @@ int main(int argc, char **argv) {
     
 	TokenizerT* token;
 	token = TKCreate(argv[1], argv[2]);
-
+    
 	Token* head = malloc(sizeof(Token));
 	Token* current = head;
-
-	while(token->ts != 0){
-
-		current->ts = TKGetNextToken(token);
-		current->next = malloc(sizeof(token));
-		current = current->next;
-		current->ts = 0;
-	
-	} 
-
-	current = head;
-	while(current->ts != 0){
-
-		if(strcmp(current->ts,"") != 0){
-			
-			printf("%s\n", current->ts);
-		
-		}
-		
-		current = current->next;	
-
-	}
     
-    if (strcmp(argv[1], "") == 0){
+    if (strcmp(token->deliminator, "") == 0){
         int i;
-        for (i = 0; i < strlen(argv[2]); i++){
-            if (argv[2][i] == '\\'){
+        for (i = 0; i < strlen(token->ts); i++){
+            if (token->ts[i] == '\\'){
                 i++;
-                if (argv[2][i] == 'n'){
+                if (token->ts[i] == 'n'){
                     printf("[0x0a]");
                 }
-                else if (argv[2][i] == 't'){
+                else if (token->ts[i] == 't'){
                     printf("[0x09]");
                 }
-                else if (argv[2][i] == 'v'){
+                else if (token->ts[i] == 'v'){
                     printf("[0x0b]");
                 }
-                else if (argv[2][i] == 'b'){
+                else if (token->ts[i] == 'b'){
                     printf("[0x08]");
                 }
-                else if (argv[2][i] == 'r'){
+                else if (token->ts[i] == 'r'){
                     printf("[0x0d]");
                 }
-                else if (argv[2][i] == 'f'){
+                else if (token->ts[i] == 'f'){
                     printf("[0x0c]");
                 }
-                else if (argv[2][i] == 'a'){
+                else if (token->ts[i] == 'a'){
                     printf("[0x07]");
                 }
-                else if (argv[2][i] == '\\'){
+                else if (token->ts[i] == '\\'){
                     printf("[0x5c]");
                 }
-                else if (argv[2][i] == '\"'){
+                else if (token->ts[i] == '\"'){
                     printf("[0x22]");
                 }
             }
-            else (printf("%c", argv[2][i]));
+            else (printf("%c", token->ts[i]));
         }
-     }
-	
-		
+    }
+
+    else{
+        while(token->ts != 0){
+        
+            current->ts = TKGetNextToken(token);
+            current->next = malloc(sizeof(token));
+            current = current->next;
+            current->ts = 0;
+        
+        }
+    
+        current = head;
+        while(current->ts != 0){
+        
+            if(strcmp(current->ts,"") != 0){
+            
+                printf("%s\n", current->ts);
+            
+            }
+        
+            current = current->next;
+        
+        }
+    }
+    
     return 0;
 }
-
