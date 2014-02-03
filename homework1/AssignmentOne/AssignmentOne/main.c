@@ -23,11 +23,11 @@ struct TokenizerT_ {
 };
 
 typedef struct _Token {
-	
+    
 	char* ts;
-	struct _Token* next;	
-
-
+	struct _Token* next;
+    
+    
 } Token;
 
 typedef struct TokenizerT_ TokenizerT;
@@ -63,10 +63,10 @@ TokenizerT *TKCreate(char *separators, char *ts) {
  */
 
 void TKDestroy(TokenizerT *tk) {
-
+    
 	free(tk);
 	return;
-
+    
 }
 
 /*
@@ -82,70 +82,70 @@ void TKDestroy(TokenizerT *tk) {
  */
 
 char *TKGetNextToken(TokenizerT *tk) {
-
-	int i;	
+    
+	int i;
 	int j;
-	
+    
 	for(i = 0; i < strlen(tk->ts); i++){
-
-
+        
+        
 		for(j = 0; j < strlen(tk->deliminator); j++){
-			
-			
+            
+            
 			if (tk->deliminator[j] == '\\'){
-                		if (tk->deliminator[j + 1] == 'n' || tk->deliminator[j + 1] == 't' || tk->deliminator[j + 1] == 'v' || tk->deliminator[j + 1] == 'v' || tk->deliminator[j + 1] == 'b' || tk->deliminator[j + 1] == 'r' || tk->deliminator[j + 1] == 'f' || tk->deliminator[j + 1] == 'a' || tk->deliminator[j + 1] == '\\' || tk->deliminator[j + 1] == '\"'){
-
+                if (tk->deliminator[j + 1] == 'n' || tk->deliminator[j + 1] == 't' || tk->deliminator[j + 1] == 'v' || tk->deliminator[j + 1] == 'v' || tk->deliminator[j + 1] == 'b' || tk->deliminator[j + 1] == 'r' || tk->deliminator[j + 1] == 'f' || tk->deliminator[j + 1] == 'a' || tk->deliminator[j + 1] == '\\' || tk->deliminator[j + 1] == '\"'){
+                    
 					if(tk->deliminator[j] == tk->ts[i] && tk->deliminator[j + 1] == tk->ts[i + 1]){
-
-						j = -2; 
+                        
+						j = -2;
 						break;
-					
+                        
 					}
-
-
-                		}
-            		}else if(tk->ts[i] == tk->deliminator[j]){
-
+                    
+                    
+                }
+            }else if(tk->ts[i] == tk->deliminator[j]){
+                
 				j = -1;
 				break;
-
+                
 			}
 			j++;
-
-		}	
-
-		if(tk->ts[i] == '\\'){
-
-			if (tk->ts[i + 1] == 'n' || tk->ts[i + 1] == 't' ||  tk-> ts[i + 1]== 'v' || tk-> ts[i + 1]== 'v' || tk-> ts[i + 1]== 'b' || tk-> ts[i + 1]== 'r' || tk-> ts[i + 1]== 'f' || tk-> ts[i + 1]== 'a' || tk-> ts[i + 1]== '\\' || tk->ts[i + 1] == '\"'){
-
-			i++;
-			
-			}
-
+            
 		}
-
+        
+		if(tk->ts[i] == '\\'){
+            
+			if (tk->ts[i + 1] == 'n' || tk->ts[i + 1] == 't' ||  tk-> ts[i + 1]== 'v' || tk-> ts[i + 1]== 'v' || tk-> ts[i + 1]== 'b' || tk-> ts[i + 1]== 'r' || tk-> ts[i + 1]== 'f' || tk-> ts[i + 1]== 'a' || tk-> ts[i + 1]== '\\' || tk->ts[i + 1] == '\"'){
+                
+                i++;
+                
+			}
+            
+		}
+        
 		if(j == -1){
-
+            
 			break;
-		
+            
 		}
 		if(j == -2){
-
-			break;		
-
+            
+			break;
+            
 		}
-
+        
 	}
-
+    
 	if(i == strlen(tk->ts)){
-
+        
 		char* ret;
 		ret = tk->ts;
 		tk->ts = 0;
 		return ret;
-	
-	} else { 
-	
+        
+	} else {
+        
 		char* ret;
 		printf("%d\n", j);
 		ret = malloc( (i + 1) * sizeof(char));
@@ -154,9 +154,9 @@ char *TKGetNextToken(TokenizerT *tk) {
 		char* temp;
 		tk->ts = &tk->ts[i - j];
 		return ret;
-
-
-	}    
+        
+        
+	}
 	return 0;
 }
 
@@ -177,33 +177,11 @@ int main(int argc, char **argv) {
     
 	TokenizerT* token;
 	token = TKCreate(argv[1], argv[2]);
-
+    
 	Token* head = malloc(sizeof(Token));
 	Token* current = head;
-
-	while(token->ts != 0){
-
-		current->ts = TKGetNextToken(token);
-		current->next = malloc(sizeof(token));
-		current = current->next;
-		current->ts = 0;
-	
-	} 
-
-	current = head;
-	while(current->ts != 0){
-
-		if(strcmp(current->ts,"") != 0){
-			
-			printf("%s\n", current->ts);
-		
-		}
-		
-		current = current->next;	
-
-	}
     
-   if (strcmp(token->deliminator, "") == 0){
+    if (strcmp(token->deliminator, "") == 0){
         int i;
         for (i = 0; i < strlen(token->ts); i++){
             if (token->ts[i] == '\\'){
@@ -238,10 +216,31 @@ int main(int argc, char **argv) {
             }
             else (printf("%c", token->ts[i]));
         }
-     }
+    }
 
-	
-		
+    else{
+        while(token->ts != 0){
+        
+            current->ts = TKGetNextToken(token);
+            current->next = malloc(sizeof(token));
+            current = current->next;
+            current->ts = 0;
+        
+        }
+    
+        current = head;
+        while(current->ts != 0){
+        
+            if(strcmp(current->ts,"") != 0){
+            
+                printf("%s\n", current->ts);
+            
+            }
+        
+            current = current->next;
+        
+        }
+    }
+    
     return 0;
 }
-
