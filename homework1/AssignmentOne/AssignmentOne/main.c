@@ -222,9 +222,10 @@ int main(int argc, char **argv) {
 	Token* head = malloc(sizeof(Token));
 	Token* current = head;
     
-    if (strcmp(token->deliminator, "") == 0)
+    if (strcmp(token->deliminator, "") == 0){
         EmptyDelims(token->ts);
-    
+	printf("\n");
+    }
     else{
         while(token->ts != 0){
             
@@ -240,7 +241,8 @@ int main(int argc, char **argv) {
             
             if(strcmp(current->ts,"") != 0){
                 
-                printf("%s\n", current->ts);
+                EmptyDelims(current->ts);
+		printf("\n");
                 
             }
             
