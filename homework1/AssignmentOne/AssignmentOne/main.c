@@ -192,10 +192,11 @@ char *EmptyDelims(char *ts){
             else if (ts[i] == '\"'){
                 printf("[0x22]");
             }
+            else printf("%c", ts[i-1]);
         }
         else (printf("%c", ts[i]));
     }
-
+    
     
     
     return 0;
@@ -224,7 +225,7 @@ int main(int argc, char **argv) {
     
     if (strcmp(token->deliminator, "") == 0){
         EmptyDelims(token->ts);
-	printf("\n");
+        printf("\n");
     }
     else{
         while(token->ts != 0){
@@ -242,7 +243,7 @@ int main(int argc, char **argv) {
             if(strcmp(current->ts,"") != 0){
                 
                 EmptyDelims(current->ts);
-		printf("\n");
+                printf("\n");
                 
             }
             
