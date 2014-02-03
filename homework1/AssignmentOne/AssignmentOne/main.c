@@ -192,7 +192,7 @@ char *EmptyDelims(char *ts){
             else if (ts[i] == '\"'){
                 printf("[0x22]");
             }
-            else printf("%c", ts[i-1]);
+            else printf("%c", ts[i]);
         }
         else (printf("%c", ts[i]));
     }
