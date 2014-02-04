@@ -2,8 +2,8 @@
 //  tokenizer.c
 //  CS214
 //
-//  Created by Alex McCullough on 1/30/14.
-//  Copyright (c) 2014 Alex McCullough. All rights reserved.
+//  Created by Alex McCullough and Josh Romer.
+//  Copyright (c) 2014 Alex McCullough and Josh Romer. All rights reserved.
 //
 
 /*
@@ -159,7 +159,7 @@ char *TKGetNextToken(TokenizerT *tk) {
 	return 0;
 }
 
-char *EmptyDelims(char *ts){
+char *PrintToken(char *ts){
     
     int i;
     for (i = 0; i < strlen(ts); i++){
@@ -224,7 +224,7 @@ int main(int argc, char **argv) {
 	Token* current = head;
     
     if (strcmp(token->deliminator, "") == 0){
-        EmptyDelims(token->ts);
+        PrintToken(token->ts);
         printf("\n");
     }
     else{
@@ -242,7 +242,7 @@ int main(int argc, char **argv) {
             
             if(strcmp(current->ts,"") != 0){
                 
-                EmptyDelims(current->ts);
+                PrintToken(current->ts);
                 printf("\n");
                 
             }
