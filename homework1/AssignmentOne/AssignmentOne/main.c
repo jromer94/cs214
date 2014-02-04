@@ -11,6 +11,7 @@
  */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 /*
@@ -150,7 +151,6 @@ char *TKGetNextToken(TokenizerT *tk) {
 		ret = malloc( (i + 1) * sizeof(char));
 		strncpy(ret, tk->ts, i);
 		ret[i] = '\0';
-		char* temp;
 		tk->ts = &tk->ts[i +1];
 		return ret;
         
