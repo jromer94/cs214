@@ -23,6 +23,7 @@ struct TokenizerT_ {
     char* ts;
 };
 
+//linked list struct that holds token string
 typedef struct _Token {
     
 	char* ts;
@@ -92,9 +93,10 @@ char *TKGetNextToken(TokenizerT *tk) {
         
 		for(j = 0; j < strlen(tk->deliminator); j++){
             
-            
+			
+            	//these if statments check for escape chars in the delim
 			if (tk->deliminator[j] == '\\'){
-                if (tk->deliminator[j + 1] == 'n' || tk->deliminator[j + 1] == 't' || tk->deliminator[j + 1] == 'v' || tk->deliminator[j + 1] == 'v' || tk->deliminator[j + 1] == 'b' || tk->deliminator[j + 1] == 'r' || tk->deliminator[j + 1] == 'f' || tk->deliminator[j + 1] == 'a' || tk->deliminator[j + 1] == '\\' || tk->deliminator[j + 1] == '\"'){
+                		if (tk->deliminator[j + 1] == 'n' || tk->deliminator[j + 1] == 't' || tk->deliminator[j + 1] == 'v' || tk->deliminator[j + 1] == 'v' || tk->deliminator[j + 1] == 'b' || tk->deliminator[j + 1] == 'r' || tk->deliminator[j + 1] == 'f' || tk->deliminator[j + 1] == 'a' || tk->deliminator[j + 1] == '\\' || tk->deliminator[j + 1] == '\"'){
                     
 					if(tk->deliminator[j] == tk->ts[i] && tk->deliminator[j + 1] == tk->ts[i + 1]){
                         
@@ -159,6 +161,7 @@ char *TKGetNextToken(TokenizerT *tk) {
 	return 0;
 }
 
+//prints a token in the proper format by ignoring stray \ and replacing escape chars with the hex codes
 char *PrintToken(char *ts){
     
     int i;
@@ -212,31 +215,38 @@ char *PrintToken(char *ts){
 
 int main(int argc, char **argv) {
     
+	//checks for correct number of args
 	if (argc != 3){
 		printf("Error: Command line should have 2 arguments. ./tokenizer <separator(s)> <token(s)>.");
 		return -1;
 	}
     
+
+	//intialized tokenizer struct and token linked list
 	TokenizerT* token;
 	token = TKCreate(argv[1], argv[2]);
     
 	Token* head = malloc(sizeof(Token));
 	Token* current = head;
     
-    if (strcmp(token->deliminator, "") == 0){
-        PrintToken(token->ts);
-        printf("\n");
-    }
-    else{
-        while(token->ts != 0){
+
+	//checks if delim is "" and prints string if it is    
+    	if (strcmp(token->deliminator, "") == 0){
+        	PrintToken(token->ts);
+        	printf("\n");
+    	}
+	//gets each token from the tokenizer struct and stores it in a linked list
+    	else{
+        	while(token->ts != 0){
             
-            current->ts = TKGetNextToken(token);
-            current->next = malloc(sizeof(token));
-            current = current->next;
-            current->ts = 0;
+            	current->ts = TKGetNextToken(token);
+            	current->next = malloc(sizeof(token));
+            	current = current->next;
+            	current->ts = 0;
             
-        }
+        	}
         
+	//prints out token strings from linked list
         current = head;
         while(current->ts != 0){
             
@@ -247,7 +257,7 @@ int main(int argc, char **argv) {
                 
             }
             
-            current = current->next;
+            	current = current->next;
             
         }
     }
