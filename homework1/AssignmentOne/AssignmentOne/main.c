@@ -2,8 +2,8 @@
 //  tokenizer.c
 //  CS214
 //
-//  Created by Alex McCullough on 1/30/14.
-//  Copyright (c) 2014 Alex McCullough. All rights reserved.
+//  Created by Alex McCullough and Josh Romer.
+//  Copyright (c) 2014 Alex McCullough and Josh Romer. All rights reserved.
 //
 
 /*
@@ -11,6 +11,7 @@
  */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 /*
@@ -22,12 +23,13 @@ struct TokenizerT_ {
     char* ts;
 };
 
+//linked list struct that holds token string
 typedef struct _Token {
-	
-	char* token;
-	struct _Token* next;	
-
-
+    
+	char* ts;
+	struct _Token* next;
+    
+    
 } Token;
 
 typedef struct TokenizerT_ TokenizerT;
@@ -63,10 +65,10 @@ TokenizerT *TKCreate(char *separators, char *ts) {
  */
 
 void TKDestroy(TokenizerT *tk) {
-
+    
 	free(tk);
 	return;
-
+    
 }
 
 /*
@@ -83,7 +85,124 @@ void TKDestroy(TokenizerT *tk) {
 
 char *TKGetNextToken(TokenizerT *tk) {
     
-    return NULL;
+	int i;
+	int j;
+    
+	for(i = 0; i < strlen(tk->ts); i++){
+        
+        
+		for(j = 0; j < strlen(tk->deliminator); j++){
+            
+            
+            //these if statments check for escape chars in the delim
+			if (tk->deliminator[j] == '\\'){
+                if (tk->deliminator[j + 1] == 'n' || tk->deliminator[j + 1] == 't' || tk->deliminator[j + 1] == 'v' || tk->deliminator[j + 1] == 'v' || tk->deliminator[j + 1] == 'b' || tk->deliminator[j + 1] == 'r' || tk->deliminator[j + 1] == 'f' || tk->deliminator[j + 1] == 'a' || tk->deliminator[j + 1] == '\\' || tk->deliminator[j + 1] == '\"'){
+                    
+					if(tk->deliminator[j] == tk->ts[i] && tk->deliminator[j + 1] == tk->ts[i + 1]){
+                        
+						j = -2;
+						break;
+                        
+					}
+                    
+					j++;
+                    
+                }
+            }else if(tk->ts[i] == tk->deliminator[j]){
+                
+				j = -1;
+				break;
+                
+			}
+            
+		}
+        
+		if(tk->ts[i] == '\\'){
+            
+			if (tk->ts[i + 1] == 'n' || tk->ts[i + 1] == 't' ||  tk-> ts[i + 1]== 'v' || tk-> ts[i + 1]== 'v' || tk-> ts[i + 1]== 'b' || tk-> ts[i + 1]== 'r' || tk-> ts[i + 1]== 'f' || tk-> ts[i + 1]== 'a' || tk-> ts[i + 1]== '\\' || tk->ts[i + 1] == '\"'){
+                
+                i++;
+                
+			}
+            
+		}
+        
+		if(j == -1){
+            
+			break;
+            
+		}
+		if(j == -2){
+            
+			break;
+            
+		}
+        
+	}
+    
+	if(i == strlen(tk->ts)){
+        
+		char* ret;
+		ret = tk->ts;
+		tk->ts = 0;
+		return ret;
+        
+	} else {
+        
+		char* ret;
+		ret = malloc( (i + 1) * sizeof(char));
+		strncpy(ret, tk->ts, i);
+		ret[i] = '\0';
+		tk->ts = &tk->ts[i +1];
+		return ret;
+        
+        
+	}
+	return 0;
+}
+
+//prints a token in the proper format by ignoring stray \ and replacing escape chars with the hex codes
+char *PrintToken(char *ts){
+    
+    int i;
+    for (i = 0; i < strlen(ts); i++){
+        if (ts[i] == '\\'){
+            i++;
+            if (ts[i] == 'n'){
+                printf("[0x0a]");
+            }
+            else if (ts[i] == 't'){
+                printf("[0x09]");
+            }
+            else if (ts[i] == 'v'){
+                printf("[0x0b]");
+            }
+            else if (ts[i] == 'b'){
+                printf("[0x08]");
+            }
+            else if (ts[i] == 'r'){
+                printf("[0x0d]");
+            }
+            else if (ts[i] == 'f'){
+                printf("[0x0c]");
+            }
+            else if (ts[i] == 'a'){
+                printf("[0x07]");
+            }
+            else if (ts[i] == '\\'){
+                printf("[0x5c]");
+            }
+            else if (ts[i] == '\"'){
+                printf("[0x22]");
+            }
+            else printf("%c", ts[i]);
+        }
+        else (printf("%c", ts[i]));
+    }
+    
+    
+    
+    return 0;
 }
 
 /*
@@ -96,52 +215,52 @@ char *TKGetNextToken(TokenizerT *tk) {
 
 int main(int argc, char **argv) {
     
+	//checks for correct number of args
 	if (argc != 3){
 		printf("Error: Command line should have 2 arguments. ./tokenizer <separator(s)> <token(s)>.");
 		return -1;
 	}
     
+    
+	//intialized tokenizer struct and token linked list
 	TokenizerT* token;
 	token = TKCreate(argv[1], argv[2]);
     
-    if (strcmp(argv[1], "") == 0){
-        int i;
-        for (i = 0; i < strlen(argv[2]); i++){
-            if (argv[2][i] == '\\'){
-                i++;
-                if (argv[2][i] == 'n'){
-                    printf("[0x0a]");
-                }
-                else if (argv[2][i] == 't'){
-                    printf("[0x09]");
-                }
-                else if (argv[2][i] == 'v'){
-                    printf("[0x0b]");
-                }
-                else if (argv[2][i] == 'b'){
-                    printf("[0x08]");
-                }
-                else if (argv[2][i] == 'r'){
-                    printf("[0x0d]");
-                }
-                else if (argv[2][i] == 'f'){
-                    printf("[0x0c]");
-                }
-                else if (argv[2][i] == 'a'){
-                    printf("[0x07]");
-                }
-                else if (argv[2][i] == '\\'){
-                    printf("[0x5c]");
-                }
-                else if (argv[2][i] == '\"'){
-                    printf("[0x22]");
-                }
-            }
-            else (printf("%c", argv[2][i]));
+	Token* head = malloc(sizeof(Token));
+	Token* current = head;
+    
+    
+	//checks if delim is "" and prints string if it is
+    if (strcmp(token->deliminator, "") == 0){
+        PrintToken(token->ts);
+        printf("\n");
+    }
+	//gets each token from the tokenizer struct and stores it in a linked list
+    else{
+        while(token->ts != 0){
+            
+            current->ts = TKGetNextToken(token);
+            current->next = malloc(sizeof(token));
+            current = current->next;
+            current->ts = 0;
+            
         }
-     }
-	
-		
+        
+        //prints out token strings from linked list
+        current = head;
+        while(current->ts != 0){
+            
+            if(strcmp(current->ts,"") != 0){
+                
+                PrintToken(current->ts);
+                printf("\n");
+                
+            }
+            
+            current = current->next;
+            
+        }
+    }
+    
     return 0;
 }
-

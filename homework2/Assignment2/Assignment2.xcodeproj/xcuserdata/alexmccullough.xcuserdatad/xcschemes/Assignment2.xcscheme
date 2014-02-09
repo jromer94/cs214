@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "28DD88F8189C506B00DE8A9A"
-               BuildableName = "AssignmentOne"
-               BlueprintName = "AssignmentOne"
-               ReferencedContainer = "container:AssignmentOne.xcodeproj">
+               BlueprintIdentifier = "2889716518A826C20050D735"
+               BuildableName = "Assignment2"
+               BlueprintName = "Assignment2"
+               ReferencedContainer = "container:Assignment2.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -32,10 +32,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "28DD88F8189C506B00DE8A9A"
-            BuildableName = "AssignmentOne"
-            BlueprintName = "AssignmentOne"
-            ReferencedContainer = "container:AssignmentOne.xcodeproj">
+            BlueprintIdentifier = "2889716518A826C20050D735"
+            BuildableName = "Assignment2"
+            BlueprintName = "Assignment2"
+            ReferencedContainer = "container:Assignment2.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -51,22 +51,12 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "28DD88F8189C506B00DE8A9A"
-            BuildableName = "AssignmentOne"
-            BlueprintName = "AssignmentOne"
-            ReferencedContainer = "container:AssignmentOne.xcodeproj">
+            BlueprintIdentifier = "2889716518A826C20050D735"
+            BuildableName = "Assignment2"
+            BlueprintName = "Assignment2"
+            ReferencedContainer = "container:Assignment2.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
-      <CommandLineArguments>
-         <CommandLineArgument
-            argument = "&quot;&quot;"
-            isEnabled = "YES">
-         </CommandLineArgument>
-         <CommandLineArgument
-            argument = "&quot;aa\a\\adas&quot;"
-            isEnabled = "YES">
-         </CommandLineArgument>
-      </CommandLineArguments>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -79,10 +69,10 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "28DD88F8189C506B00DE8A9A"
-            BuildableName = "AssignmentOne"
-            BlueprintName = "AssignmentOne"
-            ReferencedContainer = "container:AssignmentOne.xcodeproj">
+            BlueprintIdentifier = "2889716518A826C20050D735"
+            BuildableName = "Assignment2"
+            BlueprintName = "Assignment2"
+            ReferencedContainer = "container:Assignment2.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
