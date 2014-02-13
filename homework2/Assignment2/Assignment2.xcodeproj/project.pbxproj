@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2889716A18A826C20050D735 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 2889716918A826C20050D735 /* main.c */; };
+		2889716A18A826C20050D735 /* sorted-list.c in Sources */ = {isa = PBXBuildFile; fileRef = 2889716918A826C20050D735 /* sorted-list.c */; };
 		2889716C18A826C20050D735 /* Assignment2.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2889716B18A826C20050D735 /* Assignment2.1 */; };
+		2889717518AAF7E40050D735 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 2889717418AAF7E40050D735 /* main.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -26,8 +27,11 @@
 
 /* Begin PBXFileReference section */
 		2889716618A826C20050D735 /* Assignment2 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Assignment2; sourceTree = BUILT_PRODUCTS_DIR; };
-		2889716918A826C20050D735 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		2889716918A826C20050D735 /* sorted-list.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "sorted-list.c"; sourceTree = "<group>"; };
 		2889716B18A826C20050D735 /* Assignment2.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = Assignment2.1; sourceTree = "<group>"; };
+		2889717218A826E40050D735 /* sorted-list.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "sorted-list.h"; sourceTree = "<group>"; };
+		2889717318A95C1C0050D735 /* MakeFile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MakeFile; sourceTree = "<group>"; };
+		2889717418AAF7E40050D735 /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,7 +64,10 @@
 		2889716818A826C20050D735 /* Assignment2 */ = {
 			isa = PBXGroup;
 			children = (
-				2889716918A826C20050D735 /* main.c */,
+				2889716918A826C20050D735 /* sorted-list.c */,
+				2889717218A826E40050D735 /* sorted-list.h */,
+				2889717318A95C1C0050D735 /* MakeFile */,
+				2889717418AAF7E40050D735 /* main.c */,
 				2889716B18A826C20050D735 /* Assignment2.1 */,
 			);
 			path = Assignment2;
@@ -117,7 +124,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2889716A18A826C20050D735 /* main.c in Sources */,
+				2889717518AAF7E40050D735 /* main.c in Sources */,
+				2889716A18A826C20050D735 /* sorted-list.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
