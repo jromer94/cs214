@@ -11,9 +11,7 @@
  */
 struct SortedList
 {
-    int reference;
-    void* data;
-    struct SortedList* next;
+    
 };
 typedef struct SortedList* SortedListPtr;
 
