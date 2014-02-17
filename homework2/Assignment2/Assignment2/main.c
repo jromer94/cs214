@@ -1,35 +1,48 @@
-//
-//  main.c
-//  Assignment2
-//
-//  Created by Alex McCullough on 2/11/14.
-//  Copyright (c) 2014 Alex McCullough. All rights reserved.
-//
+/*
+ * sorted-list.c
+ */
 
-#include <stdio.h>
+#include	<string.h>
+#include	"sorted-list.h"
+
+int compareInts(void *p1, void *p2)
+{
+	int i1 = *(int*)p1;
+	int i2 = *(int*)p2;
+
+	return i1 - i2;
+}
+
+int compareDoubles(void *p1, void *p2)
+{
+	double d1 = *(double*)p1;
+	double d2 = *(double*)p2;
+
+	return (d1 < d2) ? -1 : ((d1 > d2) ? 1 : 0);
+}
+
+int compareStrings(void *p1, void *p2)
+{
+	char *s1 = p1;
+	char *s2 = p2;
+
+	return strcmp(s1, s2);
+}
+
+//Destructor functions
+void destroyBasicTypeAlloc(void *p){
+	//For pointers to basic data types (int*,char*,double*,...)
+	//Use for allocated memory (malloc,calloc,etc.)
+	free(p);
+}
+
+void destroyBasicTypeNoAlloc(void *p) {
+	//For pointers to basic data types (int*,char*,double*,...)
+	//Use for memory that has not been allocated (e.g., "int x = 5;SLInsert(mylist,&x);SLRemove(mylist,&x);")
+	return;
+}
 
 
-//full credit for linear top operation
-
-//c++ iterator
-//for (iterator container.begin(), iter != container.end(), iter++){
-//  cont << iter->data;
-//}
-
-//accessing data through iterator is independent of advancing through iterator
-
-//java iterator
-//while (iter hasnext()){
-//  object data = iternext();
-//  System.out.println(data);
-//}
-
-
-//every node should contain a reference count of number of pointers pointing to the node at any given time (always atleast 1 when in the list)
-//if reference count is 0, delete item, free()
-
-//head of list, pointer to comparator function, pointer to destroyer function
-
-
-
-//library. use AR command and -l. libsl.a
+int main()
+{
+}
