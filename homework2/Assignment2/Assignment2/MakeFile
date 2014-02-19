@@ -1,27 +1,11 @@
-sorted-list: sorted-list.c sorted-list.h
-	gcc -Wall -g -o sorted-list
+sorted-list: main.o sorted-list.o
+    gcc -o main.o sorted-list.o
+
+main.o: main.c sorted-list.h
+    gcc -c main.c
+
+sorted-list.o: sorted-list.c sorted-list.h
+    gcc -c sorted_list.c
 
 clean: 
-	rm -f sorted-list
-    
-    
-    
-    
-Example:
-src     header
-a.c     a.h
-b.c     b.h
-main.c  a.h, b.h
-
-out: a.o b.o main.o
-    gcc main.o a.o b.o -(flags) out
-
-main.o: main.c a.h b.h
-    gcc -o main.o main.c
-    
-a.o: a.c a.h
-    gcc -c a.c
-
-b.o: b.c b.h
-    gcc -c b.c
-
+	rm -rf sorted-list main.o sorted-list.o
