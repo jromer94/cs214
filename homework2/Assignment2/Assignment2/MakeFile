@@ -5,7 +5,7 @@ main.o: main.c sorted-list.h
     gcc -c main.c
 
 sorted-list.o: sorted-list.c sorted-list.h
-    gcc -c sorted_list.c
+    gcc -c sorted-list.c
 
 clean: 
 	rm -rf sorted-list main.o sorted-list.o
