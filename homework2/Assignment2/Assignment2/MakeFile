@@ -1,5 +1,5 @@
 sorted-list: main.o sorted-list.o
-    gcc -o main.o sorted-list.o
+    gcc -o sorted-list main.o sorted-list.o
 
 main.o: main.c sorted-list.h
     gcc -c main.c
