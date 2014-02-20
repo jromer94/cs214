@@ -11,6 +11,11 @@
  */
 struct SortedList
 {
+    int reference;
+    void* data;
+    struct SortedList* next;
+    int (*CompareFuncT)( void *, void * );
+    void (*DestructFuncT)( void * );
 };
 typedef struct SortedList* SortedListPtr;
 
@@ -21,6 +26,7 @@ typedef struct SortedList* SortedListPtr;
  */
 struct SortedListIterator
 {
+    SortedListPtr head;
 };
 typedef struct SortedListIterator* SortedListIteratorPtr;
 
@@ -47,7 +53,7 @@ typedef void (*DestructFuncT)( void * );
  * a comparator function that can be used to order objects that will be
  * kept in the list, and a destruct function that gets rid of the objects
  * once they are no longer in the list or referred to in an iterator.
- * 
+ *
  * If the function succeeds, it returns a (non-NULL) SortedListT object,
  * otherwise, it returns NULL.
  *
