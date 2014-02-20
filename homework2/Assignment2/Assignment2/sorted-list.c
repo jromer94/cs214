@@ -3,43 +3,8 @@
  */
 
 #include <stdlib.h>
+#include <stddef.h>
 #include "sorted-list.h"
-
-/*
- * Sorted list type.  You need to fill in the type as part of your implementation.
- */
-struct SortedList
-{
-};
-typedef struct SortedList* SortedListPtr;
-
-
-/*
- * Iterator type for user to "walk" through the list item by item, from
- * beginning to end.  You need to fill in the type as part of your implementation.
- */
-struct SortedListIterator
-{
-};
-typedef struct SortedListIterator* SortedListIteratorPtr;
-
-
-/*
- * When your sorted list is used to store objects of some type, since the
- * type is opaque to you, you will need a comparator function to order
- * the objects in your sorted list.
- *
- * You can expect a comparator function to return -1 if the 1st object is
- * smaller, 0 if the two objects are equal, and 1 if the 2nd object is
- * smaller.
- *
- * Note that you are not expected to implement any comparator or destruct
- * functions.  You will be given a comparator function and a destruct
- * function when a new sorted list is created.
- */
-
-typedef int (*CompareFuncT)( void *, void * );
-typedef void (*DestructFuncT)( void * );
 
 /*
  * SLCreate creates a new, empty sorted list.  The caller must provide
@@ -53,14 +18,30 @@ typedef void (*DestructFuncT)( void * );
  * You need to fill in this function as part of your implementation.
  */
 
-SortedListPtr SLCreate(CompareFuncT cf, DestructFuncT df);
+SortedListPtr SLCreate(CompareFuncT cf, DestructFuncT df){
+    if ((cf == NULL) || (df == NULL)) {
+        return NULL;
+    }
+    else{
+    SortedListPtr head;
+    head = malloc(sizeof(struct SortedList));
+    head->reference = 1;
+    head->CompareFuncT = cf;
+    head->DestructFuncT = df;
+    
+    return head;
+    }
+}
 
 /*
  * SLDestroy destroys a list, freeing all dynamically allocated memory.
  *
  * You need to fill in this function as part of your implementation.
  */
-void SLDestroy(SortedListPtr list);
+void SLDestroy(SortedListPtr list){
+    list->DestructFuncT(list);
+    //////// figure this out later
+}
 
 
 /*
@@ -74,7 +55,54 @@ void SLDestroy(SortedListPtr list);
  * You need to fill in this function as part of your implementation.
  */
 
-int SLInsert(SortedListPtr list, void *newObj);
+int SLInsert(SortedListPtr list, void *newObj){
+    if ((list == NULL) || (newObj == NULL))
+        return 0;
+    
+    if (list->data == NULL){
+        list->data = newObj;
+        }
+    
+    else{
+        int i = list->CompareFuncT(list->data, newObj);
+        if (i < 0) {
+            SortedListPtr new = SLCreate(list->CompareFuncT, list->DestructFuncT);
+            new->reference = 1;
+            new->data = newObj;
+            new->next = list;
+            list = new;
+        }
+        
+        else if(i == 0){
+            SortedListPtr new = SLCreate(list->CompareFuncT, list->DestructFuncT);
+            new->reference = 1;
+            new->data = newObj;
+            new->next = list->next;
+            list->next = new;
+        }
+        
+        else{
+            if (list->next == NULL){
+                SortedListPtr new = SLCreate(list->CompareFuncT, list->DestructFuncT);
+                new->reference = 1;
+                new->data = newObj;
+                new->next = list->next;
+                list->next = new;
+            }
+            int j = list->CompareFuncT(list->next->data, newObj);
+            if (j <= 0){
+                SortedListPtr new = SLCreate(list->CompareFuncT, list->DestructFuncT);
+                new->reference = 1;
+                new->data = newObj;
+                new->next = list->next;
+                list->next = new;
+            }
+            
+            return SLInsert(list->next, newObj);
+        }
+    }
+    return 1;
+}
 
 
 /*
@@ -89,7 +117,40 @@ int SLInsert(SortedListPtr list, void *newObj);
  * You need to fill in this function as part of your implementation.
  */
 
-int SLRemove(SortedListPtr list, void *newObj);
+int SLRemove(SortedListPtr list, void *newObj){
+    if ((list == NULL) || (newObj == NULL))
+        return 0;
+    
+    int i = list->CompareFuncT(list->data, newObj);
+    if (i == 0) {
+        list->reference--;
+        if (list->reference == 0){
+            list->DestructFuncT(list->data);
+            }
+        list = list->next;
+        return 1;
+    }
+    
+    else if ( list->next == NULL)
+        return 0;
+    
+    else{
+        int j = list->CompareFuncT(list->next->data, newObj);
+        if (j == 0){
+            list->next->reference --;
+            if (list->next->reference == 0){
+                list->DestructFuncT(list->next->data);
+                }
+            list->next = list->next->next;
+            return 1;
+        }
+
+        return SLRemove(list->next, newObj);
+    }
+    
+    
+    return 1;
+}
 
 
 /*
