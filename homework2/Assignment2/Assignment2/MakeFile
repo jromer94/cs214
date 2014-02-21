@@ -6,7 +6,7 @@ sl : main.c libsl.a
 libsl.a : sorted-list.o
     gcc -ar -o libsl.a sorted-list.o
 
-sorted-list.o :
+sorted-list.o : sorted-list.c
     gcc sorted-list.c
     
 clean :
