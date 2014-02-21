@@ -16,6 +16,7 @@ struct SortedList
     struct SortedList* next;
     int (*CompareFuncT)( void *, void * );
     void (*DestructFuncT)( void * );
+    int inList;
 };
 typedef struct SortedList* SortedListPtr;
 
