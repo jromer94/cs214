@@ -45,4 +45,29 @@ void destroyBasicTypeNoAlloc(void *p) {
 
 int main()
 {
+
+    
+    SortedListPtr list = SLCreate(
+
+
+
+
+
 }
+
+
+void printIntList(SortedListPtr list){
+
+    SortedListPtr curr = list;
+
+    while(curr != null){
+
+	int* temp = (int*)(curr->data);
+	printf("%d\n", *temp);
+	curr = curr->next;
+
+    }
+
+}
+
+
