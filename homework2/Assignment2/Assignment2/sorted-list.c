@@ -23,14 +23,14 @@ SortedListPtr SLCreate(CompareFuncT cf, DestructFuncT df){
         return NULL;
     }
     else{
-    SortedListPtr head;
-    head = malloc(sizeof(struct SortedList));
-    head->reference = 1;
-    head->CompareFuncT = cf;
-    head->DestructFuncT = df;
-    head->inList = 1;
+        SortedListPtr head;
+        head = (SortedListPtr) malloc(sizeof(struct SortedList));
+        head->CompareFuncT = cf;
+        head->DestructFuncT = df;
+        head->reference = 0;
+        head->inList = 1;
     
-    return head;
+        return head;
     }
 }
 
@@ -40,8 +40,17 @@ SortedListPtr SLCreate(CompareFuncT cf, DestructFuncT df){
  * You need to fill in this function as part of your implementation.
  */
 void SLDestroy(SortedListPtr list){
-    list->DestructFuncT(list);
-    //////// figure this out later
+    SortedListPtr temp = list;
+    if (list->next != NULL){
+        temp = list->next;
+        list->DestructFuncT(list->data);
+        free(list);
+        SLDestroy(temp);
+    }
+    else {
+        list->DestructFuncT(list->data);
+        free(list);
+    }
 }
 
 
@@ -60,47 +69,43 @@ int SLInsert(SortedListPtr list, void *newObj){
     if ((list == NULL) || (newObj == NULL))
         return 0;
     
-    if (list->data == NULL){
+    if (list->data == NULL)
         list->data = newObj;
-        }
+    
     
     else{
         int i = list->CompareFuncT(list->data, newObj);
         if (i < 0) {
             SortedListPtr new = SLCreate(list->CompareFuncT, list->DestructFuncT);
-            new->reference = 1;
-            new->data = newObj;
-            new->next = list;
+            new->data = list->data;
+            new->next = list->next;
             new->inList = 1;
-            list = new;
+            list->data = newObj;
+            list->next = new;
+            return 1;
         }
         
         else if(i == 0){
-            SortedListPtr new = SLCreate(list->CompareFuncT, list->DestructFuncT);
-            new->reference = 1;
-            new->data = newObj;
-            new->next = list->next;
-            new->inList = 1;
-            list->next = new;
+            return 0;
         }
         
         else{
             if (list->next == NULL){
                 SortedListPtr new = SLCreate(list->CompareFuncT, list->DestructFuncT);
-                new->reference = 1;
                 new->data = newObj;
                 new->next = list->next;
                 new->inList = 1;
                 list->next = new;
+                return 1;
             }
             int j = list->CompareFuncT(list->next->data, newObj);
             if (j <= 0){
                 SortedListPtr new = SLCreate(list->CompareFuncT, list->DestructFuncT);
-                new->reference = 1;
                 new->data = newObj;
                 new->next = list->next;
                 new->inList = 1;
                 list->next = new;
+                return 1;
             }
             
             return SLInsert(list->next, newObj);
@@ -128,12 +133,14 @@ int SLRemove(SortedListPtr list, void *newObj){
     
     int i = list->CompareFuncT(list->data, newObj);
     if (i == 0) {
-        list->reference--;
-        list->inList = 0;
-        if (list->reference == 0){
-            list->DestructFuncT(list->data);
+        SortedListPtr temp = list->next;
+        list->data = list->next->data;
+        list->next = list->next->next;
+        list->next->inList = 0;
+        if (temp->reference == 0){
+            temp->next = NULL;
+            SLDestroy(temp);
             }
-        list = list->next;
         return 1;
     }
     
@@ -143,12 +150,13 @@ int SLRemove(SortedListPtr list, void *newObj){
     else{
         int j = list->CompareFuncT(list->next->data, newObj);
         if (j == 0){
-            list->next->reference --;
-            list->inList = 0;
-            if (list->next->reference == 0){
-                list->DestructFuncT(list->next->data);
-                }
+            SortedListPtr temp = list->next;
+            list->next->inList = 0;
             list->next = list->next->next;
+            if (temp->reference == 0){
+                temp->next= NULL;
+                SLDestroy(temp);
+                }
             return 1;
         }
 
@@ -173,7 +181,14 @@ int SLRemove(SortedListPtr list, void *newObj){
  * You need to fill in this function as part of your implementation.
  */
 
-SortedListIteratorPtr SLCreateIterator(SortedListPtr list);
+SortedListIteratorPtr SLCreateIterator(SortedListPtr list){
+   
+    SortedListIteratorPtr iterator;
+    iterator = (SortedListIteratorPtr) malloc(sizeof(struct SortedListIterator));
+    iterator->head = list;
+    iterator->head->reference++;
+    return iterator;
+}
 
 
 /*
@@ -185,7 +200,16 @@ SortedListIteratorPtr SLCreateIterator(SortedListPtr list);
  * You need to fill in this function as part of your implementation.
  */
 
-void SLDestroyIterator(SortedListIteratorPtr iter);
+void SLDestroyIterator(SortedListIteratorPtr iter){
+    
+    if(iter->head != NULL){
+        
+        iter->head->reference--;
+        
+    }
+    free(iter);
+    
+}
 
 
 /*
@@ -203,4 +227,36 @@ void SLDestroyIterator(SortedListIteratorPtr iter);
  * You need to fill in this function as part of your implementation.
  */
 
-void *SLNextItem(SortedListIteratorPtr iter);
+void *SLNextItem(SortedListIteratorPtr iter){
+    
+    SortedListPtr curr;
+    
+    while(iter->head != NULL && iter->head->inList != 1 ){
+        
+        curr = iter->head;
+        iter->head = iter->head->next;
+        if(iter->head != NULL)
+            iter->head->reference++;
+        
+        if(curr != NULL){
+            
+            curr->reference--;
+            if(curr->reference == 0){
+                curr->next = NULL;
+                SLDestroy(curr);
+            }
+        }
+    }
+    
+    curr = iter->head;
+    
+    
+    if(iter->head != NULL){
+        iter->head->reference--;
+        iter->head = iter->head->next;
+    }
+    if(iter->head != NULL)
+        iter->head->reference++;
+    
+    return curr;
+}

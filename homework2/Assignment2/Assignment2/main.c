@@ -3,6 +3,7 @@
  */
 
 #include	<string.h>
+#include    <stdio.h>
 #include	"sorted-list.h"
 
 int compareInts(void *p1, void *p2)
@@ -42,7 +43,91 @@ void destroyBasicTypeNoAlloc(void *p) {
 	return;
 }
 
+void printIntList(SortedListPtr list){
+    
+    SortedListPtr curr = list;
+    
+    while(curr != NULL){
+        
+        int* temp = (int*)(curr->data);
+        printf("%d\n", *temp);
+        curr = curr->next;
+        
+    }
+    printf("\n");
+}
 
 int main()
 {
+    SortedListPtr list = SLCreate(&compareInts, &destroyBasicTypeNoAlloc);
+    int i = 2;
+    SLInsert(list, (void*) &i);
+    printIntList(list);
+    
+    int j = 1;
+    SLInsert(list, (void*) &j);
+    printIntList(list);
+
+    int k = 5;
+    SLInsert(list, (void*) &k);
+    printIntList(list);
+
+    int b = 3;
+    SLInsert(list, (void*) &b);
+    printIntList(list);
+
+    
+    SLRemove(list, (void*) &i);
+    printIntList(list);
+
+    SLRemove(list, (void*) &j);
+    printIntList(list);
+
+    
+    int m = 0;
+    SLRemove(list, (void*) &m);
+    printIntList(list);
+
+    
+    SLInsert(list, (void*) &i);
+    SLInsert(list, (void*) &j);
+    printIntList(list);
+
+    SLRemove(list, (void*) &k);
+    printIntList(list);
+    SLInsert(list, (void*) &k);
+
+
+
+    SortedListIteratorPtr iter = SLCreateIterator(list);
+
+    SortedListPtr iterP = SLNextItem(iter);
+    printIntList(iterP);
+
+    iterP = SLNextItem(iter);
+    printIntList(iterP);
+
+    SLRemove(list, (void*) &i);
+
+    iterP = SLNextItem(iter);
+    printIntList(iterP);
+    
+    
+    
+    SLInsert(list, (void*) &i);
+    printIntList(list);
+    
+    SortedListIteratorPtr iter2 = SLCreateIterator(list);
+   
+    iterP = SLNextItem(iter2);
+    SLRemove(list, (void*) &i);
+    SLRemove(list, (void*) &b);
+    iterP = SLNextItem(iter2);
+
+    printIntList(iterP);
+
+
+
+    
+    return 0;
 }
