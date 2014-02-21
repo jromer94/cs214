@@ -28,6 +28,7 @@ SortedListPtr SLCreate(CompareFuncT cf, DestructFuncT df){
     head->reference = 1;
     head->CompareFuncT = cf;
     head->DestructFuncT = df;
+    head->inList = 1;
     
     return head;
     }
@@ -70,6 +71,7 @@ int SLInsert(SortedListPtr list, void *newObj){
             new->reference = 1;
             new->data = newObj;
             new->next = list;
+            new->inList = 1;
             list = new;
         }
         
@@ -78,6 +80,7 @@ int SLInsert(SortedListPtr list, void *newObj){
             new->reference = 1;
             new->data = newObj;
             new->next = list->next;
+            new->inList = 1;
             list->next = new;
         }
         
@@ -87,6 +90,7 @@ int SLInsert(SortedListPtr list, void *newObj){
                 new->reference = 1;
                 new->data = newObj;
                 new->next = list->next;
+                new->inList = 1;
                 list->next = new;
             }
             int j = list->CompareFuncT(list->next->data, newObj);
@@ -95,6 +99,7 @@ int SLInsert(SortedListPtr list, void *newObj){
                 new->reference = 1;
                 new->data = newObj;
                 new->next = list->next;
+                new->inList = 1;
                 list->next = new;
             }
             
@@ -124,6 +129,7 @@ int SLRemove(SortedListPtr list, void *newObj){
     int i = list->CompareFuncT(list->data, newObj);
     if (i == 0) {
         list->reference--;
+        list->inList = 0;
         if (list->reference == 0){
             list->DestructFuncT(list->data);
             }
@@ -138,6 +144,7 @@ int SLRemove(SortedListPtr list, void *newObj){
         int j = list->CompareFuncT(list->next->data, newObj);
         if (j == 0){
             list->next->reference --;
+            list->inList = 0;
             if (list->next->reference == 0){
                 list->DestructFuncT(list->next->data);
                 }
