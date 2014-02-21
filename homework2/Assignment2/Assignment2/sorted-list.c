@@ -40,8 +40,17 @@ SortedListPtr SLCreate(CompareFuncT cf, DestructFuncT df){
  * You need to fill in this function as part of your implementation.
  */
 void SLDestroy(SortedListPtr list){
-    list->DestructFuncT(list);
-    //////// figure this out later
+    SortedListPtr temp = list;
+    if (temp->next != NULL){
+        temp = list->next;
+        temp->DestructFuncT(list->data);
+        free(list);
+        SLDestroy(temp);
+    }
+    else {
+        temp->DestructFuncT(list->data);
+        free(list);
+    }
 }
 
 
