@@ -1,11 +1,14 @@
-sorted-list: main.o sorted-list.o
-    gcc -o sorted-list main.o sorted-list.o
+sl: main.o sorted-list.o
+    gcc -o sl main.o sorted-list.o
+
+libsl.a: sorted-list.o
+    ar -cv libsl.a sorted-list.o
 
 main.o: main.c sorted-list.h
     gcc -c main.c
 
 sorted-list.o: sorted-list.c sorted-list.h
-    gcc -c sorted-list.c
+    gcc -c sorted_list.c
 
 clean: 
-	rm -rf sorted-list main.o sorted-list.o
+	rm -rf sl main.o sorted-list.o libsl.a
