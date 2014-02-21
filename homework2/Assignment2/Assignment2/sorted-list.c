@@ -173,8 +173,14 @@ int SLRemove(SortedListPtr list, void *newObj){
  * You need to fill in this function as part of your implementation.
  */
 
-SortedListIteratorPtr SLCreateIterator(SortedListPtr list);
+SortedListIteratorPtr SLCreateIterator(SortedListPtr list){
 
+    SortedListIteratorPtr iterator;
+    iterator = (SortedListIteratorPtr) malloc(sizeof(struct SortedListIterator));
+    iterator->head = list;
+    iterator->head->reference++;
+    return iterator;
+}
 
 /*
  * SLDestroyIterator destroys an iterator object that was created using
@@ -185,7 +191,16 @@ SortedListIteratorPtr SLCreateIterator(SortedListPtr list);
  * You need to fill in this function as part of your implementation.
  */
 
-void SLDestroyIterator(SortedListIteratorPtr iter);
+void SLDestroyIterator(SortedListIteratorPtr iter){
+
+    if(iter->head != NULL){
+
+        iter->head->reference--;
+
+    }
+    free(iter);
+
+}
 
 
 /*
@@ -203,4 +218,38 @@ void SLDestroyIterator(SortedListIteratorPtr iter);
  * You need to fill in this function as part of your implementation.
  */
 
-void *SLNextItem(SortedListIteratorPtr iter);
+void *SLNextItem(SortedListIteratorPtr iter){
+
+    SortedListPtr curr;
+
+    while(inter->head != NULL && iter->head->inList != 1 ){
+
+	curr = iter->head;
+        iter->head = iter->head->next;
+        probably not needed
+        if(iter->head != NULL)
+	    iter->head->reference++;
+
+        if(curr != NULL){
+
+            curr->reference--;
+            if(curr->reference == 0){
+
+                //code for free goes here
+
+            }
+
+        }
+    }
+
+    curr = iter->head;
+
+
+    if(iter->head != NULL)
+        iter->head->reference--;
+        iter->head = iter->head->next; 
+    if(iter->head != NULL)
+        iter->head-reference++;
+
+    return curr;
+    }
