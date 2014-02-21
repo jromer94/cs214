@@ -44,11 +44,13 @@ void SLDestroy(SortedListPtr list){
     if (list->next != NULL){
         temp = list->next;
         list->DestructFuncT(list->data);
+
         free(list);
         SLDestroy(temp);
     }
     else {
         list->DestructFuncT(list->data);
+
         free(list);
     }
 }
@@ -79,6 +81,7 @@ int SLInsert(SortedListPtr list, void *newObj){
             SortedListPtr new = SLCreate(list->CompareFuncT, list->DestructFuncT);
             new->data = list->data;
             new->next = list->next;
+
             new->inList = 1;
             list->data = newObj;
             list->next = new;
@@ -87,6 +90,7 @@ int SLInsert(SortedListPtr list, void *newObj){
         
         else if(i == 0){
             return 0;
+
         }
         
         else{
@@ -140,6 +144,7 @@ int SLRemove(SortedListPtr list, void *newObj){
         if (temp->reference == 0){
             temp->next = NULL;
             SLDestroy(temp);
+
             }
         return 1;
     }
@@ -152,6 +157,7 @@ int SLRemove(SortedListPtr list, void *newObj){
         if (j == 0){
             SortedListPtr temp = list->next;
             list->next->inList = 0;
+
             list->next = list->next->next;
             if (temp->reference == 0){
                 temp->next= NULL;
@@ -251,10 +257,12 @@ void *SLNextItem(SortedListIteratorPtr iter){
     curr = iter->head;
     
     
+
     if(iter->head != NULL){
         iter->head->reference--;
         iter->head = iter->head->next;
     }
+
     if(iter->head != NULL)
         iter->head->reference++;
     
