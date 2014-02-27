@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		285715B118BFC4650037B1F5 /* tokenizer.c in Sources */ = {isa = PBXBuildFile; fileRef = 285715B018BFC4650037B1F5 /* tokenizer.c */; };
 		285715B318BFC4650037B1F5 /* Assignment3.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 285715B218BFC4650037B1F5 /* Assignment3.1 */; };
+		28DC5A1A18BFC5310065443B /* makefile in Sources */ = {isa = PBXBuildFile; fileRef = 28DC5A1918BFC5310065443B /* makefile */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -28,6 +29,7 @@
 		285715AD18BFC4650037B1F5 /* Assignment3 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Assignment3; sourceTree = BUILT_PRODUCTS_DIR; };
 		285715B018BFC4650037B1F5 /* tokenizer.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = tokenizer.c; sourceTree = "<group>"; };
 		285715B218BFC4650037B1F5 /* Assignment3.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = Assignment3.1; sourceTree = "<group>"; };
+		28DC5A1918BFC5310065443B /* makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = makefile; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +64,7 @@
 			children = (
 				285715B018BFC4650037B1F5 /* tokenizer.c */,
 				285715B218BFC4650037B1F5 /* Assignment3.1 */,
+				28DC5A1918BFC5310065443B /* makefile */,
 			);
 			path = Assignment3;
 			sourceTree = "<group>";
@@ -117,6 +120,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				28DC5A1A18BFC5310065443B /* makefile in Sources */,
 				285715B118BFC4650037B1F5 /* tokenizer.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -225,6 +229,7 @@
 				285715B818BFC4650037B1F5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
