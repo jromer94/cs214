@@ -18,8 +18,9 @@
 void hashFile(FILE *fp, char* file){
 	
 	char* string;
-	
-	while(1){
+	string = malloc(sizeof(3));
+	while(1)
+	{
 	
 		fpos_t* pos = (fpos_t*) malloc(sizeof(fpos_t));
 		
@@ -27,13 +28,16 @@ void hashFile(FILE *fp, char* file){
 		
 		int temp = fgetc(fp);
 		
-		if(isalnum(temp)){
-			
+		if(isalnum(temp))
+		{
 			fsetpos(fp, pos);
 			
 			fscanf(fp, "%m[a-zA-Z0-9]", &string);
-	
+			printf("here hash\n");
+
 			add_token(string, file);
+			printf("here hash2\n");
+
 		}
 		
 		if(feof(fp))
@@ -63,7 +67,15 @@ int main(int argc, char **argv) {
 			return -1;
 		}
 		else if ((ifp = fopen(argv[2], "r")) != NULL){
+			printf("here one\n");
 			hashFile(ifp, argv[2]);
+			printf("here two\n");
+			sorter();
+			printf("here three\n");
+			print_token();
+			printf("here four\n");
+
+			
 			return 1;
 		}
         printf("Error in opening input directory\n");
