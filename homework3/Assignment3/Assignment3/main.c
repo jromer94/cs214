@@ -61,3 +61,39 @@ int main(int argc, char **argv) {
     
     fclose(ofp);
 }
+
+
+void hashFile(FILE fp, char* file){
+
+	char* string;
+
+        while(1){
+
+                fpos_t* pos = (fpos_t*) malloc(sizeof(fpos_t));
+
+                fgetpos(fp, pos);
+
+                int temp = fgetc(fp);
+
+                if(isalnum(temp)){
+
+                        fsetpos(fp, pos);
+
+                        fscanf(fp, "%m[a-zA-Z0-9]", &string);
+
+			addToken(string, file);
+                        //printf("%s\n", string);
+
+
+
+                }
+
+
+                if(feof(fp))
+
+                        break;
+
+                }
+	
+
+}
