@@ -21,7 +21,7 @@ struct node{
 
 struct node *list = NULL;
 
-void add_token(char *token, char *file) {
+void add_token(char *token, char *file){
     struct node *s;
     
     HASH_FIND_STR(list, token, s);  /* id already in the hash? */
@@ -31,13 +31,24 @@ void add_token(char *token, char *file) {
         strcpy(s->file, file);
         HASH_ADD_KEYPTR(hh, list, s->token, strlen(s->token), s);
     }
-    else{
+    else {
         if (strcmp(file, s->file) == 0){
             s->freq++;
         }
-        else{
-            //add next node since token is in multiple files
+        else while (s->next != NULL){
+			if (strcmp(file, s->next->file) == 0)
+			{
+				s->next->freq++;
+				break;
+			}
+			else s = s->next;
         }
+		struct node *new;
+		new = malloc(sizeof(struct node));
+		strcpy(new->token, token);
+		strcpy(new->file, file);
+		s->next = new;
+		HASH_ADD_KEYPTR(hh, s, new->token, strlen(s->token), new);
     }
 }
 
