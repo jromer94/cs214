@@ -15,7 +15,31 @@
 #include "indexer.h"
 #include <dirent.h>
 
-
+void hashFile(FILE *fp, char* file){
+	
+	char* string;
+	
+	while(1){
+	
+		fpos_t* pos = (fpos_t*) malloc(sizeof(fpos_t));
+		
+		fgetpos(fp, pos);
+		
+		int temp = fgetc(fp);
+		
+		if(isalnum(temp)){
+			
+			fsetpos(fp, pos);
+			
+			fscanf(fp, "%m[a-zA-Z0-9]", &string);
+	
+			add_token(string, file);
+		}
+		
+		if(feof(fp))
+			break;
+	}
+}
 
 int main(int argc, char **argv) {
 	
@@ -39,7 +63,7 @@ int main(int argc, char **argv) {
 			return -1;
 		}
 		else if ((ifp = fopen(argv[2], "r")) != NULL){
-			//do everything we need for the file we are in
+			hashFile(ifp, argv[2]);
 			return 1;
 		}
         printf("Error in opening input directory\n");
@@ -60,40 +84,4 @@ int main(int argc, char **argv) {
     
     
     fclose(ofp);
-}
-
-
-void hashFile(FILE fp, char* file){
-
-	char* string;
-
-        while(1){
-
-                fpos_t* pos = (fpos_t*) malloc(sizeof(fpos_t));
-
-                fgetpos(fp, pos);
-
-                int temp = fgetc(fp);
-
-                if(isalnum(temp)){
-
-                        fsetpos(fp, pos);
-
-                        fscanf(fp, "%m[a-zA-Z0-9]", &string);
-
-			addToken(string, file);
-                        //printf("%s\n", string);
-
-
-
-                }
-
-
-                if(feof(fp))
-
-                        break;
-
-                }
-	
-
 }
