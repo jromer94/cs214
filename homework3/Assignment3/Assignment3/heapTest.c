@@ -7,9 +7,28 @@
 //
 
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <ctype.h>
-#include "uthash.h"
 #include "indexer.h"
 
+
+int main(int argc, char **argv){
+	
+	
+	add_token("x", "file1");
+	add_token("b", "file1");
+	add_token("a", "file1");
+	add_token("a", "file1");
+	add_token("a", "file2");
+	add_token("x", "file1");
+	add_token("a", "file2");
+	add_token("a", "file2");
+
+
+	
+	sorter();
+
+	
+	print_token();
+	
+	
+	
+}

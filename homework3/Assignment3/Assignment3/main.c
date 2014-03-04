@@ -10,7 +10,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-#include "uthash.h"
+#include "uthash.h"		// found at uthash FILL THIS IN123801204729318749327143218473219874982314
+
 #include "indexer.h"
 #include <dirent.h>
 
@@ -32,6 +33,15 @@ int main(int argc, char **argv) {
 	directory = opendir(argv[2]);
 	if (directory == NULL)
 	{
+		if ((ifp = fopen(argv[2], "r")) == NULL)
+		{
+			printf("Error in opening input file\n");
+			return -1;
+		}
+		else if ((ifp = fopen(argv[2], "r")) != NULL){
+			//do everything we need for the file we are in
+			return 1;
+		}
         printf("Error in opening input directory\n");
         return -1;
     }

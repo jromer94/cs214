@@ -7,22 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		285715B318BFC4650037B1F5 /* Assignment3.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 285715B218BFC4650037B1F5 /* Assignment3.1 */; };
-		28DC5A1A18BFC5310065443B /* makefile in Sources */ = {isa = PBXBuildFile; fileRef = 28DC5A1918BFC5310065443B /* makefile */; };
+		285715B318BFC4650037B1F5 /* Assignment3.1 in Copy Files */ = {isa = PBXBuildFile; fileRef = 285715B218BFC4650037B1F5 /* Assignment3.1 */; };
 		28DC5A1C18C55ECC0065443B /* indexer.c in Sources */ = {isa = PBXBuildFile; fileRef = 28DC5A1B18C55ECC0065443B /* indexer.c */; };
-		28DC5A1E18C56DCB0065443B /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 28DC5A1D18C56DCB0065443B /* main.c */; };
 		28DC5A2218C66C750065443B /* heapTest.c in Sources */ = {isa = PBXBuildFile; fileRef = 28DC5A2118C66C750065443B /* heapTest.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		285715AB18BFC4650037B1F5 /* CopyFiles */ = {
+		285715AB18BFC4650037B1F5 /* Copy Files */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = /usr/share/man/man1/;
 			dstSubfolderSpec = 0;
 			files = (
-				285715B318BFC4650037B1F5 /* Assignment3.1 in CopyFiles */,
+				285715B318BFC4650037B1F5 /* Assignment3.1 in Copy Files */,
 			);
+			name = "Copy Files";
 			runOnlyForDeploymentPostprocessing = 1;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -70,11 +69,11 @@
 			children = (
 				28DC5A1D18C56DCB0065443B /* main.c */,
 				28DC5A1B18C55ECC0065443B /* indexer.c */,
-				28DC5A1F18C571EA0065443B /* uthash.h */,
 				28DC5A2018C57F720065443B /* indexer.h */,
+				28DC5A1F18C571EA0065443B /* uthash.h */,
+				28DC5A2118C66C750065443B /* heapTest.c */,
 				28DC5A1918BFC5310065443B /* makefile */,
 				285715B218BFC4650037B1F5 /* Assignment3.1 */,
-				28DC5A2118C66C750065443B /* heapTest.c */,
 			);
 			path = Assignment3;
 			sourceTree = "<group>";
@@ -88,7 +87,7 @@
 			buildPhases = (
 				285715A918BFC4650037B1F5 /* Sources */,
 				285715AA18BFC4650037B1F5 /* Frameworks */,
-				285715AB18BFC4650037B1F5 /* CopyFiles */,
+				285715AB18BFC4650037B1F5 /* Copy Files */,
 			);
 			buildRules = (
 			);
@@ -130,9 +129,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				28DC5A1E18C56DCB0065443B /* main.c in Sources */,
 				28DC5A2218C66C750065443B /* heapTest.c in Sources */,
-				28DC5A1A18BFC5310065443B /* makefile in Sources */,
 				28DC5A1C18C55ECC0065443B /* indexer.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
