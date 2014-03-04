@@ -302,11 +302,43 @@ char *TKGetNextToken(TokenizerT *tk) {
 
 int main(int argc, char **argv) {
 	
+    FILE *ifp, *ofp;
+    
+    ofp = fopen(argv[1], "w");
+    if(ofp == NULL)
+    {
+        perror("Error in opening output file");
+        return(-1);
+    }
+    ifp = fopen(argv[2], "r");
+    if(ifp == NULL)
+    {
+        perror("Error in opening input file");
+        return(-1);
+    }
+    fpos_t* start = NULL;
+    fpos_t* end = NULL;
+    char* token = NULL;
+    while (fgetc(ifp) != EOF){
+        int c;
+        c = fgetc(ifp);
+        if (isalnum(c)){
+            fgetpos(ifp, start);
+            }
+        if (!isascii(c)){
+            fgetpos(ifp, end);
+        }
+    }
+    
+    fclose(ifp);
+    fclose(ofp);
+    
 	if(argc != 3){
 		printf("Error: invalid number of arguments\n");
 		return -1;
 	}
-	
+    
+	/*
 	TokenizerT* tokenizer = TKCreate(argv[1], argv[2]);
 	
 	if(tokenizer == NULL) {
@@ -322,5 +354,5 @@ int main(int argc, char **argv) {
 	
 	TKDestroy(tokenizer);
     
-	return 0;
+	return 0;*/
 }
