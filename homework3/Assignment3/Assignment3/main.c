@@ -33,10 +33,9 @@ void hashFile(FILE *fp, char* file){
 			fsetpos(fp, pos);
 			
 			fscanf(fp, "%m[a-zA-Z0-9]", &string);
-			printf("here hash\n");
+			printf("%s yes", string);
 
 			add_token(string, file);
-			printf("here hash2\n");
 
 		}
 		
@@ -67,14 +66,9 @@ int main(int argc, char **argv) {
 			return -1;
 		}
 		else if ((ifp = fopen(argv[2], "r")) != NULL){
-			printf("here one\n");
 			hashFile(ifp, argv[2]);
-			printf("here two\n");
 			sorter();
-			printf("here three\n");
 			print_token();
-			printf("here four\n");
-
 			
 			return 1;
 		}
@@ -82,18 +76,19 @@ int main(int argc, char **argv) {
         return -1;
     }
 	
-	while ((directfile = readdir(directory))) {
+	while ((directfile = readdir(directory)) != NULL) {
 		ifp = fopen(directfile->d_name, "r");
 		if (ifp == NULL)
         {
             printf("Error in opening input file\n");
 			return -1;
         }
-		
-		//do everything we need for the file at we are currently in
-		fclose(ifp);
+		printf("here one\n");
+		hashFile(ifp, directfile->d_name);
+		sorter();
+		print_token();
 	}
-    
+    closedir(directory);
     
     fclose(ofp);
 }
