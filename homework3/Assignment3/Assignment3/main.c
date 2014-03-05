@@ -16,61 +16,89 @@
 #include <dirent.h>
 
 void hashFile(FILE *fp, char* file){
-	
+
 	char* string;
 	int i;
 	string = malloc(sizeof(3));
 	while(1)
 	{
-	
+
 		fpos_t* pos = (fpos_t*) malloc(sizeof(fpos_t));
-		
+
 		fgetpos(fp, pos);
-		
+
 		int temp = fgetc(fp);
-		
+
 		if(isalnum(temp))
 		{
 			fsetpos(fp, pos);
-			
+
 			fscanf(fp, "%m[a-zA-Z0-9]", &string);
 			for(i = 0; string[i]; i++){
 				string[i] = tolower(string[i]);
 			}
 
 			add_token(string, file);
+			free(string);
 
 		}
-		
+
 		if(feof(fp))
 			break;
 	}
+	fclose(fp);
 }
 
-void openDirent(DIR *directory, struct dirent* directfile){
+void openDirent(DIR *directory, struct dirent* directfile, char* currdir, FILE* ifp){
+	
+	
 	
 	while ((directfile = readdir(directory)) != NULL) {
 		
+		char* combined = malloc(strlen(currdir) + strlen(directfile->d_name) + 2);
+		strcpy(combined, currdir);
+		strcat(combined, "/");
+		strcat(combined, directfile->d_name);
+		printf("combined: %s\n", combined, directfile->d_name);
+		if(directfile->d_name[0] == '.'){
+					
+			continue;	
+		}
+
+		DIR* direct;
 		
-		
-		
-	}
+		direct = opendir(combined);
+		if (direct == NULL)
+        {
+
+		ifp = fopen(combined, "r");
+		hashFile(ifp, combined);
+        } else {
+
+		openDirent(direct, directfile, combined, ifp);
 	
+	}
+		
+		free(combined);	
+		
+
+	}
+
 }
 
 int main(int argc, char **argv) {
-	
+
     FILE *ofp, *ifp;
 	DIR *directory;
 	struct dirent* directfile;
-	
+
     ofp = fopen(argv[1], "w");
     if(ofp == NULL)
     {
         printf("Error in opening output file\n");
         return -1;
     }
-	
+
 	directory = opendir(argv[2]);
 	if (directory == NULL)
 	{
@@ -83,14 +111,16 @@ int main(int argc, char **argv) {
 			hashFile(ifp, argv[2]);
 			sorter();
 			print_token();
-			
+
 			return 1;
 		}
         printf("Error in opening input directory\n");
         return -1;
     }
-	
-	while ((directfile = readdir(directory)) != NULL) {
+
+	openDirent(directory, directfile, argv[2], ifp);
+	print_token();
+	/*while ((directfile = readdir(directory)) != NULL) {
 		printf("%s", directfile->d_name);
 		ifp = fopen(directfile->d_name, "r");
 		if (ifp == NULL)
@@ -102,7 +132,7 @@ int main(int argc, char **argv) {
 		hashFile(ifp, directfile->d_name);
 		sorter();
 		print_token();
-	}
+	}*/
     closedir(directory);
     
     fclose(ofp);
