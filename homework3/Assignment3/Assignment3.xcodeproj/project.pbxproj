@@ -69,8 +69,8 @@
 			children = (
 				28DC5A1D18C56DCB0065443B /* main.c */,
 				28DC5A1B18C55ECC0065443B /* indexer.c */,
-				28DC5A2018C57F720065443B /* indexer.h */,
 				28DC5A1F18C571EA0065443B /* uthash.h */,
+				28DC5A2018C57F720065443B /* indexer.h */,
 				28DC5A2118C66C750065443B /* heapTest.c */,
 				28DC5A1918BFC5310065443B /* makefile */,
 				285715B218BFC4650037B1F5 /* Assignment3.1 */,

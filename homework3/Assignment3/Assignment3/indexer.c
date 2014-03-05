@@ -75,7 +75,7 @@ void print_token(){
 				printf("%s %d ", temp->file, temp->freq);
 				counter++;
 				if (counter == 5)
-					break;
+					printf("\n");
 			}
 			printf("\n</list> \n");
 		}
