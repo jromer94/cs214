@@ -71,11 +71,7 @@ void print_token(){
 			printf("<list> %s \n", s->token);
 			for (temp = s; temp != NULL; temp = temp->next){
 				sortList(temp);
-				sortList(temp);
-				sortList(temp);
-				sortList(temp);
-				sortList(temp);
-				//printf("token %s: file %s: frequency %d\n", temp->token, temp->file, temp->freq);
+				
 				printf("%s %d ", temp->file, temp->freq);
 				counter++;
 				if (counter == 5)
@@ -96,40 +92,31 @@ void sorter(){
 
 void sortList(struct node *head){
 	
+	struct node *current;
+	current = head;
 	struct node *largest;
-	largest = malloc(sizeof(struct node));
-	largest->token = malloc(sizeof(head->token));
-	largest->file = malloc(sizeof(head->file));
-	strcpy(largest->token, head->token);
-	strcpy(largest->file, head->file);
-	largest->next = head->next;
-	largest->freq = head->freq;
+	largest = head;
 
 	if (head->next != NULL)
 	{
-		if (head->freq >= head->next->freq){
-			//printf("first if %s \n", head->file);
-
-			free(largest->token);
-			free(largest->file);
-			free(largest);
-			sortList(head->next);
-		}
-		else
+		while (current != NULL)
 		{
-			strcpy(head->file, head->next->file);
-			strcpy(head->next->file, largest->file);
-			head->freq = head->next->freq;
-			head->next->freq = largest->freq;
-			
-			//printf("else %s \n", head->file);
-			free(largest->token);
-			free(largest->file);
-			free(largest);
-			sortList(largest->next);
-
+			if (current->freq > largest->freq)
+			{
+				largest = current;
+				largest->freq = current->freq;
+				largest->file = current->file;
+			}
+			current = current->next;
 		}
+		current = head;
+		head->file = largest->file;
+		head->freq = largest->freq;
+		largest->file = current->file;
+		largest->freq = current->freq;
+		
+		sortList((head->next));
 	}
-	
 }
+
 

@@ -12,17 +12,20 @@
 
 int main(int argc, char **argv){
 	
+	
+	add_token("a", "file1");
+	add_token("a", "file1");
+	
+	
 	add_token("a", "file3");
 	add_token("a", "file3");
 	add_token("a", "file3");
 	
-		
 	add_token("x", "file1");
 	add_token("x", "file1");
 	add_token("x", "file1");
-
 	
-	add_token("x", "file3");
+	/*add_token("x", "file3");
 	add_token("x", "file3");
 	add_token("x", "file3");
 	add_token("x", "file3");
@@ -41,18 +44,28 @@ int main(int argc, char **argv){
 	add_token("a", "file5");
 
 	
-	add_token("a", "file7");
-	add_token("a", "file7");
-	add_token("a", "file7");
-	add_token("a", "file7");
-	add_token("a", "file7");
-	add_token("a", "file7");
-	add_token("a", "file7");
+	
 
 	add_token("a", "file9");
 	add_token("a", "file10");
 	add_token("a", "file10");
+	
+	add_token("a", "file55");
+	add_token("a", "file55");
+	add_token("a", "file55");
+	add_token("a", "file55");
+	add_token("a", "file55");
+	add_token("a", "file55");
 
+	
+	add_token("a", "file7");
+	add_token("a", "file7");
+	add_token("a", "file7");
+	add_token("a", "file7");
+	add_token("a", "file7");
+	add_token("a", "file7");
+	add_token("a", "file7");
+*/
 	
 	sorter();
 
