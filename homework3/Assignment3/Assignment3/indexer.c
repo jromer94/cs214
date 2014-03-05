@@ -22,11 +22,12 @@ void add_token(char *token, char *file){
     HASH_FIND_STR(list, token, s);  /* id already in the hash? */
     if (s==NULL) {
         s = malloc(sizeof(struct node));
-		s->token = malloc(sizeof(token));
-		s->file = malloc(sizeof(file));
+		s->token = malloc(strlen(token) + 1);
+		s->file = malloc(strlen(file) + 1);
         strcpy(s->token, token);
         strcpy(s->file, file);
 		s->freq = 1;
+		s->next = NULL;
         HASH_ADD_KEYPTR(hh, list, s->token, strlen(s->token), s);
     }
     else
@@ -50,12 +51,13 @@ void add_token(char *token, char *file){
 		{
 			struct node *new;
 			new = malloc(sizeof(struct node));
-			new->token = malloc(sizeof(token));
-			new->file = malloc(sizeof(file));
+			new->token = malloc(strlen(token) + 1);
+			new->file = malloc(strlen(file) + 1);
 			strcpy(new->token, token);
 			strcpy(new->file, file);
 			s->next = new;
-			new->freq++;
+			new->freq = 1;
+			new->next = NULL;
 		}
     }
 }
