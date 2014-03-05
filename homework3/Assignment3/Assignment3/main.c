@@ -18,6 +18,7 @@
 void hashFile(FILE *fp, char* file){
 	
 	char* string;
+	int i;
 	string = malloc(sizeof(3));
 	while(1)
 	{
@@ -33,7 +34,9 @@ void hashFile(FILE *fp, char* file){
 			fsetpos(fp, pos);
 			
 			fscanf(fp, "%m[a-zA-Z0-9]", &string);
-			printf("%s yes", string);
+			for(i = 0; string[i]; i++){
+				string[i] = tolower(string[i]);
+			}
 
 			add_token(string, file);
 
