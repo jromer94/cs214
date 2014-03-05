@@ -47,6 +47,17 @@ void hashFile(FILE *fp, char* file){
 	}
 }
 
+void openDirent(DIR *directory, struct dirent* directfile){
+	
+	while ((directfile = readdir(directory)) != NULL) {
+		
+		
+		
+		
+	}
+	
+}
+
 int main(int argc, char **argv) {
 	
     FILE *ofp, *ifp;
@@ -80,6 +91,7 @@ int main(int argc, char **argv) {
     }
 	
 	while ((directfile = readdir(directory)) != NULL) {
+		printf("%s", directfile->d_name);
 		ifp = fopen(directfile->d_name, "r");
 		if (ifp == NULL)
         {
