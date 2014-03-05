@@ -55,7 +55,6 @@ void add_token(char *token, char *file){
 			strcpy(new->token, token);
 			strcpy(new->file, file);
 			s->next = new;
-			new->prev = s;
 			new->freq++;
 		}
     }
@@ -64,11 +63,23 @@ void add_token(char *token, char *file){
 void print_token(){
 	struct node *s;
 	struct node *temp;
+	int counter = 0;
 		
 		for(s=list; s != NULL; s=s->hh.next) {
+			printf("<list> %s \n", s->token);
 			for (temp = s; temp != NULL; temp = temp->next){
-				printf("token %s: file %s: frequency %d\n", temp->token, temp->file, temp->freq);
+				sortList(temp);
+				sortList(temp);
+				sortList(temp);
+				sortList(temp);
+				sortList(temp);
+				//printf("token %s: file %s: frequency %d\n", temp->token, temp->file, temp->freq);
+				printf("%s %d ", temp->file, temp->freq);
+				counter++;
+				if (counter == 5)
+					break;
 			}
+			printf("\n</list> \n");
 		}
 }
 
@@ -81,4 +92,42 @@ void sorter(){
     HASH_SORT(list, token_compare);
 }
 
+void sortList(struct node *head){
+	
+	struct node *largest;
+	largest = malloc(sizeof(struct node));
+	largest->token = malloc(sizeof(head->token));
+	largest->file = malloc(sizeof(head->file));
+	strcpy(largest->token, head->token);
+	strcpy(largest->file, head->file);
+	largest->next = head->next;
+	largest->freq = head->freq;
+
+	if (head->next != NULL)
+	{
+		if (head->freq >= head->next->freq){
+			//printf("first if %s \n", head->file);
+
+			free(largest->token);
+			free(largest->file);
+			free(largest);
+			sortList(head->next);
+		}
+		else
+		{
+			strcpy(head->file, head->next->file);
+			strcpy(head->next->file, largest->file);
+			head->freq = head->next->freq;
+			head->next->freq = largest->freq;
+			
+			//printf("else %s \n", head->file);
+			free(largest->token);
+			free(largest->file);
+			free(largest);
+			sortList(largest->next);
+
+		}
+	}
+	
+}
 

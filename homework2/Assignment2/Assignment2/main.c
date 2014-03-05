@@ -60,7 +60,8 @@ void printIntList(SortedListPtr list){
 int main()
 {
     SortedListPtr list = SLCreate(&compareInts, &destroyBasicTypeNoAlloc);
-    int i = 2;
+    /*
+	int i = 2;
     SLInsert(list, (void*) &i);
     printIntList(list);
     
@@ -126,6 +127,27 @@ int main()
 
     printIntList(iterP);
 
+
+	*/
+	
+	
+	int i = 7;
+    SLInsert(list, (void*) &i);
+	
+	int j = 5;
+    SLInsert(list, (void*) &j);
+	int k = 155;
+    SLInsert(list, (void*) &k);
+	int l = 42;
+    SLInsert(list, (void*) &l);
+	int m = -1;
+    SLInsert(list, (void*) &m);
+	int n = 6;
+    SLInsert(list, (void*) &n);
+	
+    SortedListIteratorPtr iter = SLCreateIterator(list);
+    SortedListPtr iterP = SLNextItem(iter);
+	printIntList(iterP);
 
 
     

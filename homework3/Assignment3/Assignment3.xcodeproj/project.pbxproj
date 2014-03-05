@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		285715B318BFC4650037B1F5 /* Assignment3.1 in Copy Files */ = {isa = PBXBuildFile; fileRef = 285715B218BFC4650037B1F5 /* Assignment3.1 */; };
-		28B9FF4018C68E4C00E06F46 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 28DC5A1D18C56DCB0065443B /* main.c */; };
+		28C76BA018C6B67A0058F7C7 /* heapTest.c in Sources */ = {isa = PBXBuildFile; fileRef = 28DC5A2118C66C750065443B /* heapTest.c */; };
 		28DC5A1C18C55ECC0065443B /* indexer.c in Sources */ = {isa = PBXBuildFile; fileRef = 28DC5A1B18C55ECC0065443B /* indexer.c */; };
 /* End PBXBuildFile section */
 
@@ -129,7 +129,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				28B9FF4018C68E4C00E06F46 /* main.c in Sources */,
+				28C76BA018C6B67A0058F7C7 /* heapTest.c in Sources */,
 				28DC5A1C18C55ECC0065443B /* indexer.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

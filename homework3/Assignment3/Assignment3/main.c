@@ -15,6 +15,9 @@
 #include "indexer.h"
 #include <dirent.h>
 
+
+// the hashFile function takes in a file pointer and string of file name in order to tokenize the
+// contents of the file.  it also calls add_token to add the tokens into our hashmap and sorted list
 void hashFile(FILE *fp, char* file){
 	
 	char* string;
@@ -47,6 +50,8 @@ void hashFile(FILE *fp, char* file){
 	}
 }
 
+
+// openDirent is a recursive function which opens the directories and all files/directories within it
 void openDirent(DIR *directory, struct dirent* directfile){
 	
 	while ((directfile = readdir(directory)) != NULL) {
@@ -70,6 +75,7 @@ int main(int argc, char **argv) {
         printf("Error in opening output file\n");
         return -1;
     }
+	
 	
 	directory = opendir(argv[2]);
 	if (directory == NULL)
