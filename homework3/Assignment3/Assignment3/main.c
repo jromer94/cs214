@@ -98,7 +98,6 @@ int main(int argc, char **argv) {
             printf("Error in opening input file\n");
 			return -1;
         }
-		printf("here one\n");
 		hashFile(ifp, directfile->d_name);
 		sorter();
 		print_token();
