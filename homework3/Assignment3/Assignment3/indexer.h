@@ -36,6 +36,7 @@ int token_compare(struct node *a, struct node *b);
 // sorts the hashtable nodes in alphabetic order
 void sorter();
 
+// sorts the each linked list contained within each bucket of the hashtable by frequency
 void sortList(struct node *head);
 
 #endif

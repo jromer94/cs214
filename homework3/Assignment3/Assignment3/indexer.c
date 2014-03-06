@@ -10,7 +10,7 @@
 #include "uthash.h"
 #include "indexer.h"
 
-
+// ALL COMMENTS ON FUNCTIONS IN INDEXER.H
 
 
 struct node *list = NULL;
@@ -66,7 +66,8 @@ void print_token(){
 	struct node *s;
 	struct node *temp;
 	int counter = 0;
-		
+	sorter();
+	
 		for(s=list; s != NULL; s=s->hh.next) {
 			printf("<list> %s \n", s->token);
 			for (temp = s; temp != NULL; temp = temp->next){

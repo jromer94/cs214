@@ -13,8 +13,7 @@
 int main(int argc, char **argv){
 	
 	
-	add_token("a", "file1");
-	add_token("a", "file1");
+
 	
 	
 	add_token("a", "file3");
@@ -34,14 +33,16 @@ int main(int argc, char **argv){
 	
 	add_token("a", "file1");
 	add_token("a", "file1");
+	add_token("a", "file1");
+	add_token("a", "file1");
 	
 	
 	add_token("a", "file5");
-	add_token("a", "file5");
-	add_token("a", "file5");
-	add_token("a", "file5");
-	add_token("a", "file5");
-	add_token("a", "file5");
+	add_token("a", "file4");
+	add_token("a", "file6");
+	add_token("a", "file7");
+	add_token("a", "file8");
+	add_token("a", "file9");
 
 	
 	/*
