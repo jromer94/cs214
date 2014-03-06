@@ -12,6 +12,7 @@
 
 
 
+// ALL COMMENTS ON FUNCTIONS IN INDEXER.H
 
 struct node *list = NULL;
 
@@ -62,22 +63,23 @@ void add_token(char *token, char *file){
     }
 }
 
-void print_token(){
+void print_token(FILE *fp){
 	struct node *s;
 	struct node *temp;
 	int counter = 0;
-		
+	sorter();
+	
 		for(s=list; s != NULL; s=s->hh.next) {
-			printf("<list> %s \n", s->token);
+			fprintf(fp, "<list> %s \n", s->token);
 			for (temp = s; temp != NULL; temp = temp->next){
 				sortList(temp);
 				
-				printf("%s %d ", temp->file, temp->freq);
+				fprintf(fp, "%s %d ", temp->file, temp->freq);
 				counter++;
 				if (counter == 5)
-					printf("\n");
+					fprintf(fp, "\n");
 			}
-			printf("\n</list> \n");
+			fprintf(fp, "\n</list> \n");
 		}
 }
 

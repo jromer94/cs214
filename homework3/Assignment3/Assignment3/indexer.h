@@ -28,7 +28,7 @@ struct node *list;
 void add_token(char *token, char *file);
 
 // print_token function prints all the nodes in the hashtable sorted in alphabetic order
-void print_token();
+void print_token(FILE *fp);
 
 // compare function for the tokens in order to sort the hashtable nodes in alphabetic order
 int token_compare(struct node *a, struct node *b);
@@ -36,6 +36,7 @@ int token_compare(struct node *a, struct node *b);
 // sorts the hashtable nodes in alphabetic order
 void sorter();
 
+// sorts the each linked list contained within each bucket of the hashtable by frequency
 void sortList(struct node *head);
 
 #endif
