@@ -97,26 +97,28 @@ void sortList(struct node *head){
 	struct node *largest;
 	largest = head;
 
-	if (head->next != NULL)
-	{
 		while (current != NULL)
 		{
 			if (current->freq > largest->freq)
 			{
 				largest = current;
-				largest->freq = current->freq;
-				largest->file = current->file;
 			}
 			current = current->next;
 		}
-		current = head;
+
+		char* temp;
+		int freq;
+
+		freq = head->freq;
+		temp = head->file;
+	
 		head->file = largest->file;
 		head->freq = largest->freq;
-		largest->file = current->file;
-		largest->freq = current->freq;
 		
-		sortList((head->next));
-	}
+		largest->file = temp;
+		largest->freq = freq;
+		if(head->next != NULL)	
+			sortList((head->next));
 }
 
 
