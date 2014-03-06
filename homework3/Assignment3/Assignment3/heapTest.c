@@ -13,9 +13,13 @@
 int main(int argc, char **argv){
 	
 	
-
+	add_token("aaa", "file1");
 	
+	add_token("aaAaa", "file3");
+	add_token("aaAaa", "file3");
+	add_token("aaAaa", "file3");
 	
+/*
 	add_token("a", "file3");
 	add_token("a", "file3");
 	add_token("a", "file3");
@@ -45,7 +49,7 @@ int main(int argc, char **argv){
 	add_token("a", "file9");
 
 	
-	/*
+
 
 	add_token("a", "file9");
 	add_token("a", "file10");
@@ -71,8 +75,24 @@ int main(int argc, char **argv){
 	sorter();
 
 	
-	print_token();
+	struct node *s;
+	struct node *temp;
+	int counter = 0;
+	sorter();
 	
-	
-	
+	for(s=list; s != NULL; s=s->hh.next) {
+		printf("<list> %s \n", s->token);
+		for (temp = s; temp != NULL; temp = temp->next){
+			sortList(temp);
+			
+			printf("%s %d ", temp->file, temp->freq);
+			counter++;
+			if (counter == 5)
+				printf("\n");
+		}
+		printf("\n</list> \n");
+	}
 }
+
+
+

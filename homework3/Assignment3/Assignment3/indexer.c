@@ -94,6 +94,8 @@ void sorter(){
 
 void sortList(struct node *head){
 	
+	struct node *headptr;
+	headptr = head;
 	struct node *current;
 	current = head;
 	struct node *largest;
@@ -111,13 +113,13 @@ void sortList(struct node *head){
 			}
 			current = current->next;
 		}
-		current = head;
+		
 		head->file = largest->file;
 		head->freq = largest->freq;
-		largest->file = current->file;
-		largest->freq = current->freq;
+		largest->file = headptr->file;
+		largest->freq = headptr->freq;
 		
-		sortList((head->next));
+		sortList((headptr->next));
 	}
 }
 
