@@ -71,6 +71,7 @@ void print_token(FILE *fp){
 	
 		for(s=list; s != NULL; s=s->hh.next) {
 			fprintf(fp, "<list> %s \n", s->token);
+			counter = 0;
 			for (temp = s; temp != NULL; temp = temp->next){
 				sortList(temp);
 				

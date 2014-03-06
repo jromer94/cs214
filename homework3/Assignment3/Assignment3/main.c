@@ -102,7 +102,6 @@ int main(int argc, char **argv) {
         printf("Error in opening output file\n");
         return -1;
     }
-	else print_token();
 	
 	directory = opendir(argv[2]);
 	if (directory == NULL)
@@ -115,7 +114,7 @@ int main(int argc, char **argv) {
 		else if ((ifp = fopen(argv[2], "r")) != NULL){
 			hashFile(ifp, argv[2]);
 			sorter();
-			print_token();
+			print_token(ofp);
 
 			return 1;
 		}
@@ -124,7 +123,7 @@ int main(int argc, char **argv) {
     }
 
 	openDirent(directory, directfile, argv[2], ifp);
-	print_token();
+	print_token(ofp);
 	/*while ((directfile = readdir(directory)) != NULL) {
 		printf("%s", directfile->d_name);
 		ifp = fopen(directfile->d_name, "r");
