@@ -95,14 +95,23 @@ int main(int argc, char **argv) {
     FILE *ofp, *ifp;
 	DIR *directory;
 	struct dirent* directfile;
+	int check = 0;
 
+	ofp = fopen(argv[1], "r");
+	if (ofp != NULL){
+		printf("File %s already exists, do you wish to quit or overwite? 1.quit 2.overwrite");
+		scanf("%d", &check);
+		if (check == 1)
+			return 0;
+		else fclose(ofp);
+	}
+	
     ofp = fopen(argv[1], "w");
     if(ofp == NULL)
     {
         printf("Error in opening output file\n");
         return -1;
     }
-	else print_token();
 	
 	directory = opendir(argv[2]);
 	if (directory == NULL)
@@ -115,7 +124,7 @@ int main(int argc, char **argv) {
 		else if ((ifp = fopen(argv[2], "r")) != NULL){
 			hashFile(ifp, argv[2]);
 			sorter();
-			print_token();
+			print_token(ofp);
 
 			return 1;
 		}
@@ -124,19 +133,8 @@ int main(int argc, char **argv) {
     }
 
 	openDirent(directory, directfile, argv[2], ifp);
-	print_token();
-	/*while ((directfile = readdir(directory)) != NULL) {
-		printf("%s", directfile->d_name);
-		ifp = fopen(directfile->d_name, "r");
-		if (ifp == NULL)
-        {
-            printf("Error in opening input file\n");
-			return -1;
-        }
-		hashFile(ifp, directfile->d_name);
-		sorter();
-		print_token();
-	}*/
+	print_token(ofp);
+
     closedir(directory);
     
     fclose(ofp);

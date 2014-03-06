@@ -71,6 +71,7 @@ void print_token(FILE *fp){
 	
 		for(s=list; s != NULL; s=s->hh.next) {
 			fprintf(fp, "<list> %s \n", s->token);
+			counter = 0;
 			for (temp = s; temp != NULL; temp = temp->next){
 				sortList(temp);
 				
@@ -101,26 +102,29 @@ void sortList(struct node *head){
 	struct node *largest;
 	largest = head;
 
-	if (head->next != NULL)
-	{
 		while (current != NULL)
 		{
 			if (current->freq > largest->freq)
 			{
 				largest = current;
-				largest->freq = current->freq;
-				largest->file = current->file;
 			}
 			current = current->next;
 		}
-		
+
+
+		char* temp;
+		int freq;
+
+		freq = head->freq;
+		temp = head->file;
+	
 		head->file = largest->file;
 		head->freq = largest->freq;
-		largest->file = headptr->file;
-		largest->freq = headptr->freq;
 		
-		sortList((headptr->next));
-	}
+		largest->file = temp;
+		largest->freq = freq;
+		if(head->next != NULL)	
+			sortList((head->next));
 }
 
 
