@@ -102,7 +102,7 @@ int main(int argc, char **argv) {
         printf("Error in opening output file\n");
         return -1;
     }
-	else fprintf(ofp, "%s", print_token());
+	else print_token();
 	
 	directory = opendir(argv[2]);
 	if (directory == NULL)
