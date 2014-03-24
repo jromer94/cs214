@@ -95,8 +95,6 @@ void sorter(){
 
 void sortList(struct node *head){
 	
-	struct node *headptr;
-	headptr = head;
 	struct node *current;
 	current = head;
 	struct node *largest;

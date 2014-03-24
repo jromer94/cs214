@@ -60,7 +60,7 @@ void printIntList(SortedListPtr list){
 int main()
 {
     SortedListPtr list = SLCreate(&compareInts, &destroyBasicTypeNoAlloc);
-    /*
+  /*
 	int i = 2;
     SLInsert(list, (void*) &i);
     printIntList(list);

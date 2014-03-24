@@ -70,6 +70,15 @@ int main(int argc, char **argv){
 	add_token("a", "file7");
 	add_token("a", "file7");
 	add_token("a", "file7");
+	
+	
+	add_token("d", "file7");
+	add_token("d", "file7");
+	add_token("d", "file2");
+	add_token("d", "file7");
+	add_token("d", "file7");
+	add_token("d", "file7");
+	add_token("d", "file7");
 
 	
 	sorter();
