@@ -63,7 +63,6 @@ void openDirent(DIR *directory, struct dirent* directfile, char* currdir, FILE* 
 		strcpy(combined, currdir);
 		strcat(combined, "/");
 		strcat(combined, directfile->d_name);
-		printf("combined: %s\n", combined, directfile->d_name);
 		if(directfile->d_name[0] == '.'){
 					
 			continue;	
@@ -99,7 +98,7 @@ int main(int argc, char **argv) {
 
 	ofp = fopen(argv[1], "r");
 	if (ofp != NULL){
-		printf("File %s already exists, do you wish to quit or overwite? 1.quit 2.overwrite");
+		printf("File %s already exists, do you wish to quit or overwite? 1.quit 2.overwrite", argv[1]);
 		scanf("%d", &check);
 		if (check == 1)
 			return 0;
