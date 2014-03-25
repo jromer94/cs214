@@ -7,35 +7,73 @@
 //
 
 #include <stdio.h>
+#include <string.h>
+
+#define BUFFER	75
+
+char *read_input (char *s, int n)
+{
+	char *p;
+	p = fgets (s, n, stdin);
+	
+	if (p != NULL)
+	{
+		size_t last = strlen (s) - 1;
+		
+		if (s[last] == '\n')
+		{
+			s[last] = '\0';
+		}
+	}
+	return p;
+}
+
 
 int main(int argc, const char * argv[])
 {
 
-	if (argc !=2){
+	if (argc !=2)
+	{
 		printf("Error, incorrect number of arguements");
 		return -1;
 	}
 		
 	
-	FILE *ifp;
+	/*FILE *ifp;
 	
-	if ((ifp = fopen(argv[1], "r")) == NULL){
+	if ((ifp = fopen(argv[1], "r")) == NULL)
+	{
 		printf("Error opening input file");
 		return -1;
 	}
+	*/
 	
 	int q = 1;
+	char line[BUFFER];
+	char *input;
 	
-	while (q !=0) {
+	while (q !=0)
+	{
+		printf("Enter search inquiry or q to quit:\n");
+		fflush (stdout);
+		input = read_input(line, BUFFER);
 		
-	
+		if ()
+		{
+			
+		}
 		
-		
-	
-		
-		
+		else if ()
+		{
+			
+		}
+					
+		else if (*line == 'q')
+		{
+			q = 0;
+		}
 	}
 	
-	fclose(ifp);
+	//fclose(ifp);
 }
 
