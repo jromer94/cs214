@@ -59,7 +59,7 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "test.txt"
+            argument = "/Users/alexmccullough/cs214/homework4/Assignment4/Assignment4/test.txt"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>

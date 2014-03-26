@@ -71,6 +71,7 @@ void sorter(){
 void print_token(FILE *fp){
 	struct node *s;
 	struct node *temp;
+	sorter();
 	
 		for(s=list; s != NULL; s=s->hh.next) {
 			fprintf(fp, "%s\n", s->token);
