@@ -59,6 +59,7 @@ int main(int argc, const char * argv[])
 		getline(&key, &len, ifp);
 		key = strtok(key, "\n");
 		getline(&file, &len2, ifp);
+		file = strtok(file, "\n");
 		char *temptok;
 		temptok = file;
 		temptok= strtok(file, " ");
