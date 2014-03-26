@@ -74,13 +74,14 @@ void print_token(FILE *fp){
 	sorter();
 	
 		for(s=list; s != NULL; s=s->hh.next) {
+			fprintf(fp, "<list>\n");
 			fprintf(fp, "%s\n", s->token);
 			for (temp = s; temp != NULL; temp = temp->next){
 				
 				fprintf(fp, "%s ", temp->file);
 				
 			}
-			fprintf(fp, "\n");
+			fprintf(fp, "\n</list> \n");
 		}
 }
 

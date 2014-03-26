@@ -1,6 +1,12 @@
-death
+<list>
+mouse
 file4 file1
+</list>
+<list>
 hello
 file1 file2 file3
+</list>
+<list>
 dog
 file5 file6
+</list>

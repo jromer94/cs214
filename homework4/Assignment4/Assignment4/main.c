@@ -49,6 +49,8 @@ int main(int argc, const char * argv[])
 		return -1;
 	}
 	
+	char *start = NULL;
+	char *end = NULL;
 	char *key = NULL;
 	char *file = NULL;
 	size_t len = 0;
@@ -56,6 +58,7 @@ int main(int argc, const char * argv[])
 	
 	while (!feof(ifp))
 	{
+		getline(&start, &len, ifp);
 		getline(&key, &len, ifp);
 		key = strtok(key, "\n");
 		getline(&file, &len2, ifp);
@@ -72,6 +75,7 @@ int main(int argc, const char * argv[])
 			temptok = strtok(NULL, " ");
 
 		}
+		getline(&end, &len, ifp);
 	}
 		
 	//start of test print (not needed for final thing)
