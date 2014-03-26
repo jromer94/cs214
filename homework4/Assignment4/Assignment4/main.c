@@ -9,7 +9,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#define BUFFER	75
+#define BUFFER	100
 
 char *read_input (char *s, int n)
 {
@@ -48,6 +48,8 @@ int main(int argc, const char * argv[])
 	}
 	*/
 	
+	//read into memory
+	
 	int q = 1;
 	char line[BUFFER];
 	char *input;
@@ -58,17 +60,36 @@ int main(int argc, const char * argv[])
 		fflush (stdout);
 		input = read_input(line, BUFFER);
 		
-		if ()
+		char* temp;
+		temp = input;
+		temp = strtok(input, " ");
+		
+		if (strcmp(temp, "sa") == 0)
 		{
-			
+			while (temp != NULL)
+			{
+				temp = strtok(NULL, " ");
+				if (temp != NULL){
+					//search for temp in hash
+				}
+			}
+			q = 0;
 		}
 		
-		else if ()
+		else if (strcmp(temp, "so") == 0)
 		{
-			
+			while (temp != NULL)
+			{
+				temp = strtok(NULL, " ");
+				if (temp != NULL){
+					//search for temp in hash
+				}
+			}
+			q = 0;
 		}
+	
 					
-		else if (*line == 'q')
+		else if (strcmp(input, "q\0") == 0)
 		{
 			q = 0;
 		}

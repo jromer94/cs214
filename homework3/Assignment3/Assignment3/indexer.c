@@ -27,7 +27,6 @@ void add_token(char *token, char *file){
 		s->file = malloc(strlen(file) + 1);
         strcpy(s->token, token);
         strcpy(s->file, file);
-		s->freq = 1;
 		s->next = NULL;
         HASH_ADD_KEYPTR(hh, list, s->token, strlen(s->token), s);
     }
@@ -35,13 +34,11 @@ void add_token(char *token, char *file){
 	{
         if (strcmp(file, s->file) == 0)
 		{
-            s->freq++;
 			check++;
         }
         else while (s->next != NULL){
 			if (strcmp(file, s->next->file) == 0)
 			{
-				s->next->freq++;
 				check++;
 				break;
 			}
@@ -57,31 +54,9 @@ void add_token(char *token, char *file){
 			strcpy(new->token, token);
 			strcpy(new->file, file);
 			s->next = new;
-			new->freq = 1;
 			new->next = NULL;
 		}
     }
-}
-
-void print_token(FILE *fp){
-	struct node *s;
-	struct node *temp;
-	int counter = 0;
-	sorter();
-	
-		for(s=list; s != NULL; s=s->hh.next) {
-			fprintf(fp, "<list> %s \n", s->token);
-			counter = 0;
-			for (temp = s; temp != NULL; temp = temp->next){
-				sortList(temp);
-				
-				fprintf(fp, "%s %d ", temp->file, temp->freq);
-				counter++;
-				if (counter == 5)
-					fprintf(fp, "\n");
-			}
-			fprintf(fp, "\n</list> \n");
-		}
 }
 
 int token_compare(struct node *a, struct node *b){
@@ -93,36 +68,20 @@ void sorter(){
     HASH_SORT(list, token_compare);
 }
 
-void sortList(struct node *head){
+void print_token(FILE *fp){
+	struct node *s;
+	struct node *temp;
 	
-	struct node *current;
-	current = head;
-	struct node *largest;
-	largest = head;
-
-		while (current != NULL)
-		{
-			if (current->freq > largest->freq)
-			{
-				largest = current;
+		for(s=list; s != NULL; s=s->hh.next) {
+			fprintf(fp, "%s\n", s->token);
+			for (temp = s; temp != NULL; temp = temp->next){
+				
+				fprintf(fp, "%s ", temp->file);
+				
 			}
-			current = current->next;
+			fprintf(fp, "\n");
 		}
-
-
-		char* temp;
-		int freq;
-
-		freq = head->freq;
-		temp = head->file;
-	
-		head->file = largest->file;
-		head->freq = largest->freq;
-		
-		largest->file = temp;
-		largest->freq = freq;
-		if(head->next != NULL)	
-			sortList((head->next));
 }
+
 
 

@@ -82,26 +82,20 @@ int main(int argc, char **argv){
 
 	
 	sorter();
-
 	
 	struct node *s;
 	struct node *temp;
-	int counter = 0;
-	sorter();
+
 	
 	for(s=list; s != NULL; s=s->hh.next) {
-		printf("<list> %s \n", s->token);
+		printf("%s\n", s->token);
 		for (temp = s; temp != NULL; temp = temp->next){
-			sortList(temp);
 			
-			printf("%s %d ", temp->file, temp->freq);
-			counter++;
-			if (counter == 5)
-				printf("\n");
+			printf("%s ", temp->file);
+			
 		}
-		printf("\n</list> \n");
+		printf("\n");
 	}
 }
-
 
 
