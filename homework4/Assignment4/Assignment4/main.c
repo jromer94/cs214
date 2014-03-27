@@ -112,27 +112,50 @@ int main(int argc, const char * argv[])
 		temp = input;
 		temp = strtok(input, " ");
 		
-		if (strcmp(temp, "sa") == 0)
+		if (strcmp(temp, "so") == 0)
 		{
 			while (temp != NULL)
 			{
 				temp = strtok(NULL, " ");
 				if (temp != NULL)
 				{
-					//search for temp in hash
+					HASH_FIND_STR(list, temp, s);
+					if (s==NULL)
+					{
+						continue;
+					}
+					else {
+						struct node *tempPrint;
+						for (tempPrint = s; tempPrint != NULL; tempPrint = tempPrint->next){
+							
+							printf("%s ", tempPrint->file);
+							
+						}
+					}
 				}
 			}
 			q = 0;
 		}
 		
-		else if (strcmp(temp, "so") == 0)
+		else if (strcmp(temp, "sa") == 0)
 		{
 			while (temp != NULL)
 			{
 				temp = strtok(NULL, " ");
 				if (temp != NULL)
 				{
-					//search for temp in hash
+					HASH_FIND_STR(list, temp, s);
+					if (s==NULL)
+					{
+						continue;
+					}
+					else{
+						
+						
+						//
+						
+						
+					}
 				}
 			}
 			q = 0;
