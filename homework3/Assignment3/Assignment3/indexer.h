@@ -13,6 +13,7 @@
 struct node{
     char* token;
     char* file;
+	int freq;
     struct node *next;
     UT_hash_handle hh;         /* makes this structure hashable */
 };

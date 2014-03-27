@@ -68,12 +68,9 @@ int main(int argc, const char * argv[])
 		temptok= strtok(file, " ");
 		while (temptok != NULL)
 		{
-			if (temptok != NULL)
-			{
-				add_token(key, temptok);
-			}
+			add_token(key, temptok);
 			temptok = strtok(NULL, " ");
-
+			temptok = strtok(NULL, " ");
 		}
 		getline(&end, &len, ifp);
 	}

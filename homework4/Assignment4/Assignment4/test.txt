@@ -1,12 +1,12 @@
 <list>
 mouse
-file4 file1
+file4 1 file1 3
 </list>
 <list>
 hello
-file1 file2 file3
+file1 5 file2 4 file3 2
 </list>
 <list>
 dog
-file5 file6
+file5 1 file6 712
 </list>

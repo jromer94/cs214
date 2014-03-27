@@ -27,6 +27,7 @@ void add_token(char *token, char *file){
 		s->file = malloc(strlen(file) + 1);
         strcpy(s->token, token);
         strcpy(s->file, file);
+		s->freq = 1;
 		s->next = NULL;
         HASH_ADD_KEYPTR(hh, list, s->token, strlen(s->token), s);
     }
@@ -34,11 +35,13 @@ void add_token(char *token, char *file){
 	{
         if (strcmp(file, s->file) == 0)
 		{
+            s->freq++;
 			check++;
         }
         else while (s->next != NULL){
 			if (strcmp(file, s->next->file) == 0)
 			{
+				s->next->freq++;
 				check++;
 				break;
 			}
@@ -54,10 +57,12 @@ void add_token(char *token, char *file){
 			strcpy(new->token, token);
 			strcpy(new->file, file);
 			s->next = new;
+			new->freq = 1;
 			new->next = NULL;
 		}
     }
 }
+
 
 int token_compare(struct node *a, struct node *b){
 	return strcmp(a->token,b->token);
@@ -78,7 +83,7 @@ void print_token(FILE *fp){
 			fprintf(fp, "%s\n", s->token);
 			for (temp = s; temp != NULL; temp = temp->next){
 				
-				fprintf(fp, "%s ", temp->file);
+				fprintf(fp, "%s %d ", temp->file, temp->freq);
 				
 			}
 			fprintf(fp, "\n</list>\n");
