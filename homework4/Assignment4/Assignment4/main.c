@@ -111,7 +111,12 @@ int main(int argc, const char * argv[])
 		char* temp;
 		temp = input;
 		temp = strtok(input, " ");
-		
+		struct node *finalPrint;
+		finalPrint = malloc(sizeof(finalPrint->file) + 1);
+		struct node *outprint;
+		outprint = finalPrint;
+		int current = 0;
+
 		if (strcmp(temp, "so") == 0)
 		{
 			while (temp != NULL)
@@ -124,16 +129,55 @@ int main(int argc, const char * argv[])
 					{
 						continue;
 					}
-					else {
+					else
+					{
 						struct node *tempPrint;
-						for (tempPrint = s; tempPrint != NULL; tempPrint = tempPrint->next){
-							
-							printf("%s ", tempPrint->file);
-							
+						for (tempPrint = s; tempPrint != NULL; tempPrint = tempPrint->next)
+						{
+							if (finalPrint->file == NULL) {
+								finalPrint->file = tempPrint->file;
+								current++;
+							}
+							else
+							{
+								struct node *tempCheck;
+								int equal = 0;
+								for (tempCheck = outprint; tempCheck != NULL; tempCheck = tempCheck->next)
+								{
+									if (strcmp(tempPrint->file, tempCheck->file) == 0) {
+										equal++;
+										break;
+									}
+
+								}
+								if (equal == 0){
+									if (current == 1)
+									{
+										finalPrint->next = tempPrint;
+										current++;
+									}
+									else
+									{
+										
+										for (int i = current; i > 1; i--) {
+											finalPrint = finalPrint->next;
+									}
+										finalPrint->next = tempPrint;
+										current++;
+									}
+								}
+								
+							}
+														
 						}
 					}
 				}
 			}
+			struct node *output;
+			
+			for (output = outprint; output != NULL; output = output->next)
+				printf("%s ", output->file);
+			
 			q = 0;
 		}
 		
