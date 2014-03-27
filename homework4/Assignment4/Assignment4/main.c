@@ -85,13 +85,14 @@ int main(int argc, const char * argv[])
 	struct node *temp;
 	
 	for(s=list; s != NULL; s=s->hh.next) {
+		printf("<list>\n");
 		printf("%s\n", s->token);
 		for (temp = s; temp != NULL; temp = temp->next){
 			
 			printf("%s ", temp->file);
 			
 		}
-		printf("\n");
+		printf("\n</list>\n");
 	}
 	
 	//end of test print (not needed for final thing)

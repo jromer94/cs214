@@ -81,7 +81,7 @@ void print_token(FILE *fp){
 				fprintf(fp, "%s ", temp->file);
 				
 			}
-			fprintf(fp, "\n</list> \n");
+			fprintf(fp, "\n</list>\n");
 		}
 }
 
