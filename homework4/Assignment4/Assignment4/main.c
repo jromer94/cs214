@@ -30,25 +30,8 @@ char *read_input (char *s, int n)
 	return p;
 }
 
-
-int main(int argc, const char * argv[])
+void read_file(FILE *ifp)
 {
-
-	if (argc !=2)
-	{
-		printf("Error, incorrect number of arguements");
-		return -1;
-	}
-		
-	
-	FILE *ifp;
-	
-	if ((ifp = fopen(argv[1], "r")) == NULL)
-	{
-		printf("Error opening input file");
-		return -1;
-	}
-	
 	char *start = NULL;
 	char *end = NULL;
 	char *key = NULL;
@@ -74,9 +57,30 @@ int main(int argc, const char * argv[])
 		}
 		getline(&end, &len, ifp);
 	}
+}
+
+
+int main(int argc, const char * argv[])
+{
+
+	if (argc !=2)
+	{
+		printf("Error, incorrect number of arguements");
+		return -1;
+	}
 		
-	//start of test print (not needed for final thing)
+	
+	FILE *ifp;
+	
+	if ((ifp = fopen(argv[1], "r")) == NULL)
+	{
+		printf("Error opening input file");
+		return -1;
+	}
+	read_file(ifp);
 	sorter();
+	
+	//start of test print (not needed for final thing)
 	
 	struct node *s;
 	struct node *temp;
