@@ -8,8 +8,8 @@
 
 #include <stdio.h>
 #include <string.h>
-#include "indexer.h"
 #include "uthash.h"
+#include "indexer.h"
 
 #define BUFFER	100
 
@@ -62,13 +62,13 @@ void read_file(FILE *ifp)
 
 int main(int argc, const char * argv[])
 {
-
+	
 	if (argc !=2)
 	{
 		printf("Error, incorrect number of arguements");
 		return -1;
 	}
-		
+	
 	
 	FILE *ifp;
 	
@@ -80,24 +80,8 @@ int main(int argc, const char * argv[])
 	read_file(ifp);
 	sorter();
 	
-	//start of test print (not needed for final thing)
 	
 	struct node *s;
-	struct node *temp;
-	
-	for(s=list; s != NULL; s=s->hh.next) {
-		printf("<list>\n");
-		printf("%s\n", s->token);
-		for (temp = s; temp != NULL; temp = temp->next){
-			
-			printf("%s ", temp->file);
-			
-		}
-		printf("\n</list>\n");
-	}
-	
-	//end of test print (not needed for final thing)
-	
 	int q = 1;
 	char input_line[BUFFER];
 	char *input;
@@ -115,8 +99,7 @@ int main(int argc, const char * argv[])
 		finalPrint = malloc(sizeof(finalPrint->file) + 1);
 		struct node *outprint;
 		outprint = finalPrint;
-		int current = 0;
-
+		
 		if (strcmp(temp, "so") == 0)
 		{
 			while (temp != NULL)
@@ -124,7 +107,7 @@ int main(int argc, const char * argv[])
 				temp = strtok(NULL, " ");
 				if (temp != NULL)
 				{
-
+					
 					HASH_FIND_STR(list, temp, s);
 					if (s==NULL)
 					{
@@ -132,18 +115,18 @@ int main(int argc, const char * argv[])
 					}
 					else
 					{
-					    for(s = s; s != NULL; s = s->next){
-
+					    for(s = s; s != NULL; s = s->next)
+						{
+							
  					        add_output_file(s->file);
-
+							
 					    }
-
-														
+						
+						
 					}
 				}
 			}
 			print_output_file(0 , 0);
-
 			q = 0;
 		}
 		
@@ -160,15 +143,15 @@ int main(int argc, const char * argv[])
 					HASH_FIND_STR(list, temp, s);
 					if (s==NULL)
 					{
-						continue;
+						return 0;
 					}
 					else{
 						
-				              		
+						
 					    for(s = s; s != NULL; s = s->next){
-
+							
  					        add_output_file(s->file);
-
+							
 					    }
 						
 						
@@ -178,8 +161,8 @@ int main(int argc, const char * argv[])
 			print_output_file(1 , count);
 			q = 0;
 		}
-	
-					
+		
+		
 		else if (strcmp(input, "q\0") == 0)
 		{
 			q = 0;
@@ -189,4 +172,3 @@ int main(int argc, const char * argv[])
 	
 	fclose(ifp);
 }
-
