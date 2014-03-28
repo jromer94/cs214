@@ -82,13 +82,13 @@ int main(int argc, const char * argv[])
 	
 	//start of test print (not needed for final thing)
 	
-	struct node *s;
+	struct node *t;
 	struct node *temp;
 	
-	for(s=list; s != NULL; s=s->hh.next) {
+	for(t=list; t != NULL; t=t->hh.next) {
 		printf("<list>\n");
-		printf("%s\n", s->token);
-		for (temp = s; temp != NULL; temp = temp->next){
+		printf("%s\n", t->token);
+		for (temp = t; temp != NULL; temp = temp->next){
 			
 			printf("%s ", temp->file);
 			
@@ -112,11 +112,13 @@ int main(int argc, const char * argv[])
 		temp = input;
 		temp = strtok(input, " ");
 		struct node *finalPrint;
-		finalPrint = malloc(sizeof(finalPrint->file) + 1);
+		finalPrint = malloc(sizeof(finalPrint));
 		struct node *outprint;
 		outprint = finalPrint;
 		int current = 0;
-
+		struct node *s;
+		s = malloc(sizeof(s));
+		
 		if (strcmp(temp, "so") == 0)
 		{
 			while (temp != NULL)
@@ -127,30 +129,36 @@ int main(int argc, const char * argv[])
 					HASH_FIND_STR(list, temp, s);
 					if (s==NULL)
 					{
-						continue;
+						break;
 					}
 					else
 					{
 						struct node *tempPrint;
+						tempPrint = malloc(sizeof(tempPrint));
+						
 						for (tempPrint = s; tempPrint != NULL; tempPrint = tempPrint->next)
 						{
-							if (finalPrint->file == NULL) {
+							if (finalPrint->file == NULL)
+							{
 								finalPrint->file = tempPrint->file;
 								current++;
 							}
 							else
 							{
 								struct node *tempCheck;
+								tempCheck = malloc(sizeof(tempCheck));
 								int equal = 0;
 								for (tempCheck = outprint; tempCheck != NULL; tempCheck = tempCheck->next)
 								{
-									if (strcmp(tempPrint->file, tempCheck->file) == 0) {
+									if (strcmp(tempPrint->file, tempCheck->file) == 0)
+									{
 										equal++;
 										break;
 									}
 
 								}
-								if (equal == 0){
+								if (equal == 0)
+								{
 									if (current == 1)
 									{
 										finalPrint->next = tempPrint;
@@ -159,9 +167,10 @@ int main(int argc, const char * argv[])
 									else
 									{
 										
-										for (int i = current; i > 1; i--) {
+										for (int i = current; i > 1; i--)
+										{
 											finalPrint = finalPrint->next;
-									}
+										}
 										finalPrint->next = tempPrint;
 										current++;
 									}
@@ -176,8 +185,9 @@ int main(int argc, const char * argv[])
 			struct node *output;
 			
 			for (output = outprint; output != NULL; output = output->next)
+			{
 				printf("%s ", output->file);
-			
+			}
 			q = 0;
 		}
 		
