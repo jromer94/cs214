@@ -21,23 +21,20 @@ struct node{
 struct outputNode{
 	
     char* file;
-    int freq;
+    int freq;	
     UT_hash_handle hh;
-	
+
 };
 
 struct node *list;
 
 struct outputNode *outputList;
 
-//adds a token to hash
 void add_token(char *token, char *file);
 
-//adds to linked list of file names
 void add_output_file(char *file);
 
-//print linked list of file names
-void print_output_file(int type, int count);
+void print_output_files(int type);
 
 // print_token function prints all the nodes in the hashtable sorted in alphabetic order
 void print_token(FILE *fp);

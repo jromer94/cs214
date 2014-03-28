@@ -66,48 +66,45 @@ void add_token(char *token, char *file){
 }
 
 void add_output_file(char* file){
-	
+
     struct outputNode* temp;
-    HASH_FIND_STR(outputList, file, temp);
-	
+    HASH_FIND_STR(outputList, file, temp);  
+
     if(temp == NULL){
-		
+
         temp = malloc(sizeof(struct outputNode));
         temp->file = file;
         temp->freq = 1;
         HASH_ADD_KEYPTR(hh, outputList, temp->file, strlen(temp->file), temp);
-		
+
     } else {
-		
-        temp->freq++;
-		
+
+        temp->freq++; 
+
     }
-	
+
 }
 
 void print_output_file(int type, int count){
 
     struct outputNode *temp;
     for(temp = outputList; temp != NULL; temp = temp->hh.next){
-		
-		if(type == 0)
-		{
-			
+
+	if(type == 0){
+
         	printf("%s ", temp->file);
-			
-		} else
-		{
-			
-			if(temp->freq == count)
-			{
-				
-				printf("%s ", temp->file);
-				
-			}
-			
+
+	} else {
+
+		if(temp->freq == count){
+
+			printf("%s ", temp->file);
+
 		}
+
+	}
     }
-	
+
 }
 
 int token_compare(struct node *a, struct node *b){
@@ -124,14 +121,17 @@ void print_token(FILE *fp){
 	struct node *temp;
 	sorter();
 	
-	for(s=list; s != NULL; s=s->hh.next) {
-		fprintf(fp, "<list>\n");
-		fprintf(fp, "%s\n", s->token);
-		for (temp = s; temp != NULL; temp = temp->next){
-			
-			fprintf(fp, "%s %d ", temp->file, temp->freq);
-			
+		for(s=list; s != NULL; s=s->hh.next) {
+			fprintf(fp, "<list>\n");
+			fprintf(fp, "%s\n", s->token);
+			for (temp = s; temp != NULL; temp = temp->next){
+				
+				fprintf(fp, "%s %d ", temp->file, temp->freq);
+				
+			}
+			fprintf(fp, "\n</list>\n");
 		}
-		fprintf(fp, "\n</list>\n");
-	}
 }
+
+
+
