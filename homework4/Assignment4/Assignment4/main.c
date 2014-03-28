@@ -119,14 +119,11 @@ int main(int argc, const char * argv[])
 
 		if (strcmp(temp, "so") == 0)
 		{
-			int count = 0;
 			while (temp != NULL)
 			{
 				temp = strtok(NULL, " ");
 				if (temp != NULL)
 				{
-					count++;
-
 
 					HASH_FIND_STR(list, temp, s);
 					if (s==NULL)
@@ -135,53 +132,18 @@ int main(int argc, const char * argv[])
 					}
 					else
 					{
-						struct node *tempPrint;
-						for (tempPrint = s; tempPrint != NULL; tempPrint = tempPrint->next)
-						{
-							if (finalPrint->file == NULL) {
-								finalPrint->file = tempPrint->file;
-								current++;
-							}
-							else
-							{
-								struct node *tempCheck;
-								int equal = 0;
-								for (tempCheck = outprint; tempCheck != NULL; tempCheck = tempCheck->next)
-								{
-									if (strcmp(tempPrint->file, tempCheck->file) == 0) {
-										equal++;
-										break;
-									}
+					    for(s = s; s != NULL; s = s->next){
 
-								}
-								if (equal == 0){
-									if (current == 1)
-									{
-										finalPrint->next = tempPrint;
-										current++;
-									}
-									else
-									{
-										int i;
-										for (i = current; i > 1; i--) {
-											finalPrint = finalPrint->next;
-									}
-										finalPrint->next = tempPrint;
-										current++;
-									}
-								}
-								
-							}
+ 					        add_output_file(s->file);
+
+					    }
+
 														
-						}
 					}
 				}
 			}
-			struct node *output;
-			
-			for (output = outprint; output != NULL; output = output->next)
-				printf("%s ", output->file);
-			
+			print_output_file(0 , 0);
+
 			q = 0;
 		}
 		
