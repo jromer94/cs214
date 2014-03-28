@@ -34,7 +34,7 @@ void add_token(char *token, char *file);
 
 void add_output_file(char *file);
 
-void print_output_file(int type);
+void print_output_file(int type, int count);
 
 // print_token function prints all the nodes in the hashtable sorted in alphabetic order
 void print_token(FILE *fp);
