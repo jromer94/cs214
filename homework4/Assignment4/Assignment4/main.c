@@ -119,11 +119,15 @@ int main(int argc, const char * argv[])
 
 		if (strcmp(temp, "so") == 0)
 		{
+			int count = 0;
 			while (temp != NULL)
 			{
 				temp = strtok(NULL, " ");
 				if (temp != NULL)
 				{
+					count++;
+
+
 					HASH_FIND_STR(list, temp, s);
 					if (s==NULL)
 					{
@@ -158,8 +162,8 @@ int main(int argc, const char * argv[])
 									}
 									else
 									{
-										
-										for (int i = current; i > 1; i--) {
+										int i;
+										for (i = current; i > 1; i--) {
 											finalPrint = finalPrint->next;
 									}
 										finalPrint->next = tempPrint;
@@ -183,11 +187,14 @@ int main(int argc, const char * argv[])
 		
 		else if (strcmp(temp, "sa") == 0)
 		{
+			int count = 0;
 			while (temp != NULL)
 			{
+				
 				temp = strtok(NULL, " ");
 				if (temp != NULL)
 				{
+					count++;
 					HASH_FIND_STR(list, temp, s);
 					if (s==NULL)
 					{
@@ -195,13 +202,18 @@ int main(int argc, const char * argv[])
 					}
 					else{
 						
-						
-						//
+				              		
+					    for(s = s; s != NULL; s = s->next){
+
+ 					        add_output_file(s->file);
+
+					    }
 						
 						
 					}
 				}
 			}
+			print_output_file(1 , count);
 			q = 0;
 		}
 	
