@@ -127,7 +127,7 @@ int main(int argc, const char * argv[])
 				}
 			}
 			print_output_file(0 , 0);
-			q = 0;
+			printf("\n");
 		}
 		
 		else if (strcmp(temp, "sa") == 0)
@@ -159,7 +159,7 @@ int main(int argc, const char * argv[])
 				}
 			}
 			print_output_file(1 , count);
-			q = 0;
+			printf("\n");
 		}
 		
 		
