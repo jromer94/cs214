@@ -49,7 +49,7 @@ void print_token(){
 		printf("%s ", s->address1);
 		printf("%s ", s->address2);
 		printf("%s ", s->address3);
-		printf("%s ", s->address3);
+		printf("\n");
 
 
 	}
