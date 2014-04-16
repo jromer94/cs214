@@ -22,8 +22,10 @@ void add_token(char *name, char *customer_id, char *balance, char *address1, cha
         s = malloc(sizeof(struct node));
 		s->name = malloc(strlen(name) + 1);
 		strcpy(s->name, name);
-		s->customer_id = customer_id;
-		s->balance = balance;
+		s->customer_id = malloc(strlen(customer_id) + 1);
+		strcpy(s->customer_id, customer_id);
+		s->balance = malloc(strlen(balance) + 1);
+		strcpy(s->balance, balance);
 		s->address1 = malloc(strlen(address1) + 1);
         strcpy(s->address1, address1);
 		s->address2 = malloc(strlen(address2) + 1);
@@ -47,7 +49,7 @@ void print_token(){
 		printf("%s ", s->address1);
 		printf("%s ", s->address2);
 		printf("%s ", s->address3);
-		printf("\n");
+		printf("%s ", s->address3);
 
 
 	}

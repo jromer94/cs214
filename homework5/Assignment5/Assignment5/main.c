@@ -47,7 +47,7 @@ void read_file(FILE *ifp)
 		
 		char *temp;
 		temp = full;
-		temp = strtok(full, "\n");
+		
 		name = strtok(temp, "|");
 		customer_id = strtok(NULL, "|");
 		balance = strtok(NULL, "|");
@@ -57,7 +57,6 @@ void read_file(FILE *ifp)
 
 		add_token(name, customer_id, balance, address1, address2, address3);
 		
-
 	}
 }
 
