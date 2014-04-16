@@ -8,6 +8,7 @@
 
 #include <stdio.h>
 #include <string.h>
+#include "index.h"
 #include "uthash.h"
 
 char *read_input (char *s, int n)
@@ -27,10 +28,37 @@ char *read_input (char *s, int n)
 	return p;
 }
 
-void read_data(FILE *ifp){
+void read_file(FILE *ifp)
+{
+	char *full = NULL;
+	char *name = NULL;
+	char *customer_id = NULL;
+	char *balance = NULL;
+	char *address1 = NULL;
+	char *address2 = NULL;
+	char *address3 = NULL;
+	size_t len = 0;
 	
 	
-	
+	while (!feof(ifp))
+	{
+		getline(&full, &len, ifp);
+		full = strtok(full, "\n");
+		
+		char *temp;
+		temp = full;
+		temp = strtok(full, "\n");
+		name = strtok(temp, "|");
+		customer_id = strtok(NULL, "|");
+		balance = strtok(NULL, "|");
+		address1 = strtok(NULL, "|");
+		address2 = strtok(NULL, "|");
+		address3 = strtok(NULL, "|");
+
+		add_token(name, customer_id, balance, address1, address2, address3);
+		
+
+	}
 }
 
 
@@ -43,15 +71,20 @@ int main(int argc, const char * argv[])
 	}
 	
 	FILE *database;
-	FILE *orders;
-	FILE *categories;
+//	FILE *orders;
+//	FILE *categories;
 	
 	if ((database = fopen(argv[1], "r")) == NULL)
 	{
 		printf("Error opening database file\n");
 		return -1;
 	}
+	
+	read_file(database);
 
+
+	print_token();
+	
 	
 	
 	

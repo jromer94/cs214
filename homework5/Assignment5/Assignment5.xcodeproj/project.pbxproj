@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2827B32B18FDE88100801A70 /* index.c in Sources */ = {isa = PBXBuildFile; fileRef = 2827B32A18FDE88100801A70 /* index.c */; };
 		289ED64A18FC54F9003B2E82 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 289ED64918FC54F9003B2E82 /* main.c */; };
 		289ED64C18FC54F9003B2E82 /* Assignment5.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 289ED64B18FC54F9003B2E82 /* Assignment5.1 */; };
 /* End PBXBuildFile section */
@@ -29,6 +30,8 @@
 		2827B32718FC618C00801A70 /* orders.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = orders.txt; sourceTree = "<group>"; };
 		2827B32818FC619D00801A70 /* categories.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = categories.txt; sourceTree = "<group>"; };
 		2827B32918FC625F00801A70 /* uthash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uthash.h; sourceTree = "<group>"; };
+		2827B32A18FDE88100801A70 /* index.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = index.c; sourceTree = "<group>"; };
+		2827B32C18FDE8A600801A70 /* index.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = index.h; sourceTree = "<group>"; };
 		289ED64618FC54F9003B2E82 /* Assignment5 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Assignment5; sourceTree = BUILT_PRODUCTS_DIR; };
 		289ED64918FC54F9003B2E82 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		289ED64B18FC54F9003B2E82 /* Assignment5.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = Assignment5.1; sourceTree = "<group>"; };
@@ -66,12 +69,14 @@
 			isa = PBXGroup;
 			children = (
 				289ED64918FC54F9003B2E82 /* main.c */,
+				2827B32A18FDE88100801A70 /* index.c */,
+				2827B32C18FDE8A600801A70 /* index.h */,
 				2827B32918FC625F00801A70 /* uthash.h */,
-				289ED65218FC5512003B2E82 /* makefile */,
-				289ED64B18FC54F9003B2E82 /* Assignment5.1 */,
 				2827B32618FC617600801A70 /* database.txt */,
 				2827B32718FC618C00801A70 /* orders.txt */,
 				2827B32818FC619D00801A70 /* categories.txt */,
+				289ED65218FC5512003B2E82 /* makefile */,
+				289ED64B18FC54F9003B2E82 /* Assignment5.1 */,
 			);
 			path = Assignment5;
 			sourceTree = "<group>";
@@ -127,6 +132,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2827B32B18FDE88100801A70 /* index.c in Sources */,
 				289ED64A18FC54F9003B2E82 /* main.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
