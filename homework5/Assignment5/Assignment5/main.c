@@ -62,7 +62,7 @@ void read_customers(FILE *ifp)
 	}
 }
 
-struct order_info read_order(FILE *ifp){
+struct order_info *read_order(FILE *ifp){
 	
 	char *full = NULL;
 	char *title = NULL;
@@ -70,6 +70,8 @@ struct order_info read_order(FILE *ifp){
 	char *customer = NULL;
 	char *category = NULL;
 	size_t len = 0;
+	struct order_info *s;
+
 	
 	if (!feof(ifp))
 	{
@@ -84,9 +86,10 @@ struct order_info read_order(FILE *ifp){
 		customer = strtok(NULL, "|");
 		category = strtok(NULL, "|");
 		
-		add_order(title, price, customer, category);
+		//add_order(title, price, customer, category);
 	}
-	struct order_info *s;
+	else return NULL;
+		
 	
 	s = malloc(sizeof(struct customer_info));
 	
@@ -96,7 +99,9 @@ struct order_info read_order(FILE *ifp){
 	s->customer = atoi(customer);
 	s->category = malloc(strlen(category) + 1);
 	strcpy(s->category, category);
-	return *s;
+	s->next = NULL;
+	return s;
+
 }
 
 void read_cat(FILE *ifp){
@@ -162,7 +167,7 @@ int main(int argc, const char * argv[])
 
 	pthread_t order_thread;
 
-	int order_thread_id = pthread_create(&order_thread, NULL, order_thread_function, NULL);
+	int order_thread_id = pthread_create(&order_thread, NULL, order_thread_function, (void*)orders);
 
 
 	
@@ -172,8 +177,12 @@ int main(int argc, const char * argv[])
 
 void *order_thread_function(void *arg) {
 
-	struct order_info current = &(read_order());
+	FILE* orders = (FILE*) arg;
+
+	struct order_info temp = read_order(orders);
         pthread_mutex_lock(&a_mutex);
+	
+	
 
 	
 	

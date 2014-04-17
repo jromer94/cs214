@@ -58,12 +58,44 @@ void add_cat(char *category){
 	s = malloc(sizeof(struct order_queue));
 	
 	s->total = 0;
-	s->next = NULL;
+	s->head = NULL;
 	s->category = malloc(strlen(category) + 1);
 	strcpy(s->category, category);
 	HASH_ADD_KEYPTR(hh, buffer, s->category, strlen(s->category), s);
 	
 }
+
+struct order_queue *get_queue(char *category){
+	struct order_queue *s = NULL;
+
+	HASH_FIND_STR(buffer, category, s);
+	
+	if (s == NULL){
+		return NULL;
+	}
+	else return s;
+}
+
+void add_to_queue(struct order_queue *new_order, struct order_info *order){
+	
+	if (new_order->head == NULL) {
+		new_order->head = order;
+	}
+	
+	else{
+		struct order_info *temp;
+		temp = new_order->head;
+		
+		while (temp->next != NULL)
+		{
+			temp= temp->next;
+		}
+	
+		temp->next = order;
+	}
+	new_order->total++;
+}
+
 
 void print_customer_info(){
 	
@@ -77,7 +109,6 @@ void print_customer_info(){
 		printf("%s ", s->address2);
 		printf("%s ", s->address3);
 		printf("\n");
-
 
 	}
 }

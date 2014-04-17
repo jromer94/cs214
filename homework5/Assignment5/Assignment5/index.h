@@ -41,13 +41,14 @@ struct order_info{
 	double price;
 	int customer;
 	char *category;
+	struct order_info *next;
 	UT_hash_handle hh;
 };
 
 struct order_queue{
 	char *category;
 	int total;
-	struct order_info *next;
+	struct order_info *head;
 	UT_hash_handle hh;  
 };
 
@@ -56,6 +57,9 @@ void add_customer(char *name, char *customer_id, char *balance, char *address1, 
 void add_order(char *title, char *price, char *customer, char *category);
 
 void add_cat(char *category);
+
+struct order_queue *get_queue(char *category);
+
 
 void print_customer_info();
 
