@@ -10,6 +10,7 @@
 #include <string.h>
 #include "index.h"
 #include "uthash.h"
+#include <pthread.h>
 
 char *read_input (char *s, int n)
 {
@@ -127,3 +128,9 @@ int main(int argc, const char * argv[])
     return 0;
 }
 
+
+void *order_thread_function(void *arg) {
+
+	
+	return 0;
+}

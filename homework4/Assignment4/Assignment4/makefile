@@ -1,10 +1,7 @@
-all: search
+all: index
 
-search: search.o
-	gcc -o search search.c search.h
+index: indexer.c indexer.h main.c 
+	gcc main.c indexer.c -o search
 
-search.o: search.c search.h
-	gcc -c search search.h
-	
-clearn:
-	rm -f search.o search
+clean :
+	rm -rf search 
