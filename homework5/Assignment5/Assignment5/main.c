@@ -12,6 +12,7 @@
 #include "uthash.h"
 #include <pthread.h>
 pthread_mutex_t a_mutex = PTHREAD_MUTEX_INITIALIZER;	
+int time_to_exit = 0;
 
 char *read_input (char *s, int n)
 {
@@ -118,6 +119,46 @@ void read_cat(FILE *ifp){
 }
 
 
+void *order_thread_function(void *arg) {
+	
+	FILE* orders = (FILE*) arg;
+	
+	while(1){
+		struct order_info* current = read_order(orders);
+		if(current == NULL){
+			
+			time_to_exit = 1;
+			pthread_exit("exited order thread");
+			
+		}
+		
+		struct order_queue* cat_queue = get_queue(current->category);
+		
+		while(1){
+			
+			pthread_mutex_lock(&a_mutex);
+			if(cat_queue->total < 10){
+				
+				add_to_queue(cat_queue, current);
+				pthread_mutex_unlock(&a_mutex);
+				break;
+				
+			}
+			pthread_mutex_unlock(&a_mutex);
+			
+		}
+		
+	}
+	
+	return 0;
+}
+
+void *category_thread_function() {
+	
+	
+	return 0;
+}
+
 int main(int argc, const char * argv[])
 {
 
@@ -175,23 +216,5 @@ int main(int argc, const char * argv[])
 }
 
 
-void *order_thread_function(void *arg) {
 
-	FILE* orders = (FILE*) arg;
-
-	struct order_info temp = read_order(orders);
-        pthread_mutex_lock(&a_mutex);
-	
-	
-
-	
-	
-	return 0;
-}
-
-void *category_thread_function() {
-
-
-
-}
 
