@@ -87,6 +87,19 @@ void read_order(FILE *ifp){
 	}
 }
 
+void read_cat(FILE *ifp){
+	char *category = NULL;
+	size_t len = 0;
+	
+	while (!feof(ifp))
+	{
+		getline(&category, &len, ifp);
+		category = strtok(category, "\n");
+		
+		add_cat(category);
+	}
+}
+
 
 int main(int argc, const char * argv[])
 {
@@ -98,7 +111,7 @@ int main(int argc, const char * argv[])
 	
 	FILE *database;
 	FILE *orders;
-//	FILE *categories;
+	FILE *categories;
 	
 	if ((database = fopen(argv[1], "r")) == NULL)
 	{
@@ -124,6 +137,20 @@ int main(int argc, const char * argv[])
 
 	print_orders();
 	
+	fclose(orders);
+	
+	if ((categories = fopen(argv[3], "r")) == NULL)
+	{
+		printf("Error opening database file\n");
+		return -1;
+	}
+	
+	
+	read_cat(categories);
+	
+	print_cat();
+	
+	fclose(categories);
 	
     return 0;
 }

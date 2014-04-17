@@ -13,6 +13,7 @@
 
 struct customer_info *list = NULL;
 struct order_info *orders = NULL;
+struct order_queue *buffer = NULL;
 
 void add_customer(char *name, char *customer_id, char *balance, char *address1, char *address2, char *address3){
     struct customer_info *s;
@@ -55,6 +56,18 @@ void add_order(char *title, char *price, char *customer, char *category){
 	
 }
 
+void add_cat(char *category){
+	struct order_queue *s;
+	
+	s = malloc(sizeof(struct order_queue));
+	
+	s->total = 0;
+	s->next = NULL;
+	s->category = malloc(strlen(category) + 1);
+	strcpy(s->category, category);
+	HASH_ADD_KEYPTR(hh, buffer, s->category, strlen(s->category), s);
+	
+}
 
 void print_customer_info(){
 	
@@ -86,6 +99,18 @@ void print_orders(){
 		printf("\n");
 	}
 }
+
+void print_cat(){
+	
+	struct order_queue *s;
+	
+	for(s=buffer; s != NULL; s=s->hh.next) {
+		
+		printf("%s ", s->category);
+		printf("\n");
+	}
+}
+
 
 
 void print_report(FILE *ofp){
