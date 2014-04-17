@@ -141,10 +141,6 @@ int main(int argc, const char * argv[])
 		return -1;
 	}
 	
-	read_order(orders);
-	read_order(orders);
-	read_order(orders);
-	read_order(orders);
 
 	print_orders();
 	
