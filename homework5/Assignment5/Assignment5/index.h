@@ -52,6 +52,13 @@ struct order_queue{
 	UT_hash_handle hh;  
 };
 
+struct category_list{
+	char *category;
+	struct category_list *next;
+};
+
+void cat_list(char *category, struct category_list *current_list);
+
 void add_customer(char *name, char *customer_id, char *balance, char *address1, char *address2, char *address3);
 
 void add_order(char *title, char *price, char *customer, char *category);

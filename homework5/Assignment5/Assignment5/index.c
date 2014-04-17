@@ -14,6 +14,7 @@
 struct customer_info *list = NULL;
 struct order_info *orders = NULL;
 struct order_queue *buffer = NULL;
+struct category_list *category_list = NULL;
 
 void add_customer(char *name, char *customer_id, char *balance, char *address1, char *address2, char *address3){
     struct customer_info *s;
@@ -62,7 +63,6 @@ void add_cat(char *category){
 	s->category = malloc(strlen(category) + 1);
 	strcpy(s->category, category);
 	HASH_ADD_KEYPTR(hh, buffer, s->category, strlen(s->category), s);
-	
 }
 
 struct order_queue *get_queue(char *category){
@@ -94,6 +94,27 @@ void add_to_queue(struct order_queue *new_order, struct order_info *order){
 		temp->next = order;
 	}
 	new_order->total++;
+}
+
+void cat_list(char *category, struct category_list *current_list){
+	
+	struct category_list *temp = current_list;
+
+	if (current_list == NULL) {
+		current_list = malloc(sizeof(struct category_list));
+		current_list->category = malloc(strlen(category + 1));
+		strcpy(current_list->category, category);
+		current_list->next = NULL;
+		return;
+	}
+	else while (temp->next != NULL){
+		temp = temp->next;
+	}
+	
+	temp->next = malloc(sizeof(struct category_list));
+	temp->next->category = malloc(strlen(category + 1));
+	strcpy(temp->next->category, category);
+	temp->next->next = NULL;
 }
 
 

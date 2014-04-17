@@ -115,6 +115,7 @@ void read_cat(FILE *ifp){
 		category = strtok(category, "\n");
 		
 		add_cat(category);
+		cat_list(category);
 	}
 }
 
