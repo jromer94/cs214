@@ -96,7 +96,7 @@ void print_report(FILE *ofp){
 		fprintf(ofp, "### BALANCE ###\n");
 		fprintf(ofp, "Customer Name: %s\n", s->name);
 		fprintf(ofp, "Customer ID number: %s\n", s->customer_id);
-		fprintf(ofp, "Remaining credit balance after all purchases: %d\n", atoi(s->balance));
+		fprintf(ofp, "Remaining credit balance after all purchases: %s\n", s->balance);
 		fprintf(ofp, "### SUCCESSFUL ORDERS ###\n");
 		
 		//PUT IN ALL ORDERS

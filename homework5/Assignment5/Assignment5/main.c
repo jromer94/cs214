@@ -104,9 +104,9 @@ int main(int argc, const char * argv[])
 		printf("Error opening database file\n");
 		return -1;
 	}
-	//read_customers(database);
+	read_customers(database);
 
-	//print_customer_info();
+	print_customer_info();
 	
 	fclose(database);
 	
@@ -115,6 +115,7 @@ int main(int argc, const char * argv[])
 		printf("Error opening orders file\n");
 		return -1;
 	}
+	
 	read_order(orders);
 	read_order(orders);
 	read_order(orders);
