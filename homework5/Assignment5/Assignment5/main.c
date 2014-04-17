@@ -166,7 +166,7 @@ int main(int argc, const char * argv[])
 
 	pthread_t order_thread;
 
-	int order_thread_id = pthread_create(&order_thread, NULL, order_thread_function, NULL);
+	int order_thread_id = pthread_create(&order_thread, NULL, order_thread_function, (void*)orders);
 
 
 	
@@ -176,8 +176,12 @@ int main(int argc, const char * argv[])
 
 void *order_thread_function(void *arg) {
 
+	FILE* orders = (FILE*) arg;
+
 	struct order_info current = &(read_order());
         pthread_mutex_lock(&a_mutex);
+	
+	
 
 	
 	
