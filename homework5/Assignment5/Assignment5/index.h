@@ -13,18 +13,33 @@
 
 struct customer_info{
     char *name;
-    char *customer_id;
-    char *balance;
+    int customer_id;
+    double balance;
     char *address1;
 	char *address2;
 	char *address3;
+	struct final_orders *order_next;
+	struct final_rejected *rejected_next;
     UT_hash_handle hh;         /* makes this structure hashable */
+};
+
+struct final_orders{
+	char *title;
+	double price;
+	double balance;
+	struct final_orders *next;
+};
+
+struct final_rejected{
+	char *title;
+	double price;
+	struct final_rejected *next;
 };
 
 struct order_info{
 	char *title;
-	char *price;
-	char *customer;
+	double price;
+	int customer;
 	char *category;
 	UT_hash_handle hh;
 };

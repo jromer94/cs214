@@ -62,7 +62,7 @@ void read_customers(FILE *ifp)
 	}
 }
 
-void read_order(FILE *ifp){
+struct order_info read_order(FILE *ifp){
 	
 	char *full = NULL;
 	char *title = NULL;
@@ -86,6 +86,17 @@ void read_order(FILE *ifp){
 		
 		add_order(title, price, customer, category);
 	}
+	struct order_info *s;
+	
+	s = malloc(sizeof(struct customer_info));
+	
+	s->title = malloc(strlen(title) + 1);
+	strcpy(s->title, title);
+	s->price = atof(price);
+	s->customer = atoi(customer);
+	s->category = malloc(strlen(category) + 1);
+	strcpy(s->category, category);
+	return *s;
 }
 
 void read_cat(FILE *ifp){

@@ -24,10 +24,8 @@ void add_customer(char *name, char *customer_id, char *balance, char *address1, 
         s = malloc(sizeof(struct customer_info));
 		s->name = malloc(strlen(name) + 1);
 		strcpy(s->name, name);
-		s->customer_id = malloc(strlen(customer_id) + 1);
-		strcpy(s->customer_id, customer_id);
-		s->balance = malloc(strlen(balance) + 1);
-		strcpy(s->balance, balance);
+		s->customer_id = atoi(customer_id);
+		s->balance = atof(balance);
 		s->address1 = malloc(strlen(address1) + 1);
         strcpy(s->address1, address1);
 		s->address2 = malloc(strlen(address2) + 1);
@@ -46,10 +44,8 @@ void add_order(char *title, char *price, char *customer, char *category){
 
 	s->title = malloc(strlen(title) + 1);
 	strcpy(s->title, title);
-	s->price = malloc(strlen(price) + 1);
-	strcpy(s->price, price);
-	s->customer = malloc(strlen(customer) + 1);
-	strcpy(s->customer, customer);
+	s->price = atof(price);
+	s->customer = atoi(customer);
 	s->category = malloc(strlen(category) + 1);
 	strcpy(s->category, category);
 	HASH_ADD_KEYPTR(hh, orders, s->title, strlen(s->title), s);
@@ -75,8 +71,8 @@ void print_customer_info(){
 	
 	for(s=list; s != NULL; s=s->hh.next) {
 		printf("%s ", s->name);
-		printf("%s ", s->customer_id);
-		printf("%s ", s->balance);
+		printf("%d ", s->customer_id);
+		printf("%f ", s->balance);
 		printf("%s ", s->address1);
 		printf("%s ", s->address2);
 		printf("%s ", s->address3);
@@ -93,8 +89,8 @@ void print_orders(){
 	for(s=orders; s != NULL; s=s->hh.next) {
 
 		printf("%s ", s->title);
-		printf("%s ", s->price);
-		printf("%s ", s->customer);
+		printf("%f ", s->price);
+		printf("%d ", s->customer);
 		printf("%s ", s->category);
 		printf("\n");
 	}
@@ -120,12 +116,19 @@ void print_report(FILE *ofp){
 		fprintf(ofp, "=== BEGIN CUSTOMER INFO ===\n");
 		fprintf(ofp, "### BALANCE ###\n");
 		fprintf(ofp, "Customer Name: %s\n", s->name);
-		fprintf(ofp, "Customer ID number: %s\n", s->customer_id);
-		fprintf(ofp, "Remaining credit balance after all purchases: %s\n", s->balance);
+		fprintf(ofp, "Customer ID number: %d\n", s->customer_id);
+		fprintf(ofp, "Remaining credit balance after all purchases: %f\n", s->balance);
 		fprintf(ofp, "### SUCCESSFUL ORDERS ###\n");
 		
-		//PUT IN ALL ORDERS
+		while (s->order_next != NULL) {
+			//PRINT ACCEPTED ORDERS
+		}
 		
+		fprintf(ofp, "### REJECTED ORDERS ###\n");
+		while (s->rejected_next != NULL) {
+			//PRINT REJECTED ORDERS;
+		}
+
 		fprintf(ofp, "=== END CUSTOMER INFO ===\n");
 	}
 	
