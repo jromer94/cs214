@@ -153,8 +153,29 @@ void *order_thread_function(void *arg) {
 	return 0;
 }
 
-void *category_thread_function() {
+void *category_thread_function(void* args) {
 	
+	char* category = (char*) args;
+
+	struct order_queue* queue = get_queue(category);
+
+	while(1){
+	
+		pthread_mutex_lock(&a_mutex);
+		if(queue->total > 0){
+		
+			purchase_book(queue);
+
+		} else if(time_to_exit){
+			
+			pthread_exit("exiting thread");
+
+		}
+
+		pthread_mutex_unlock(&a_mutex);	
+
+	} 
+
 	
 	return 0;
 }
