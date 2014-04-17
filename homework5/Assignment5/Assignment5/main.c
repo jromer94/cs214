@@ -28,7 +28,7 @@ char *read_input (char *s, int n)
 	return p;
 }
 
-void read_file(FILE *ifp)
+void read_customers(FILE *ifp)
 {
 	char *full = NULL;
 	char *name = NULL;
@@ -55,8 +55,34 @@ void read_file(FILE *ifp)
 		address2 = strtok(NULL, "|");
 		address3 = strtok(NULL, "|");
 
-		add_token(name, customer_id, balance, address1, address2, address3);
+		add_customer(name, customer_id, balance, address1, address2, address3);
 		
+	}
+}
+
+void read_order(FILE *ifp){
+	
+	char *full = NULL;
+	char *title = NULL;
+	char *price = NULL;
+	char *customer = NULL;
+	char *category = NULL;
+	size_t len = 0;
+	
+	if (!feof(ifp))
+	{
+		getline(&full, &len, ifp);
+		full = strtok(full, "\n");
+		
+		char *temp;
+		temp = full;
+		
+		title = strtok(temp, "|");
+		price = strtok(NULL, "|");
+		customer = strtok(NULL, "|");
+		category = strtok(NULL, "|");
+		
+		add_order(title, price, customer, category);
 	}
 }
 
@@ -70,7 +96,7 @@ int main(int argc, const char * argv[])
 	}
 	
 	FILE *database;
-//	FILE *orders;
+	FILE *orders;
 //	FILE *categories;
 	
 	if ((database = fopen(argv[1], "r")) == NULL)
@@ -78,13 +104,23 @@ int main(int argc, const char * argv[])
 		printf("Error opening database file\n");
 		return -1;
 	}
-	
-	read_file(database);
+	//read_customers(database);
 
+	//print_customer_info();
+	
+	fclose(database);
+	
+	if ((orders = fopen(argv[2], "r")) == NULL)
+	{
+		printf("Error opening orders file\n");
+		return -1;
+	}
+	read_order(orders);
+	read_order(orders);
+	read_order(orders);
+	read_order(orders);
 
-	print_token();
-	
-	
+	print_orders();
 	
 	
     return 0;

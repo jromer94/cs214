@@ -11,7 +11,7 @@
 
 #include "uthash.h"
 
-struct node{
+struct customer_info{
     char *name;
     char *customer_id;
     char *balance;
@@ -21,8 +21,22 @@ struct node{
     UT_hash_handle hh;         /* makes this structure hashable */
 };
 
-void add_token(char *name, char *customer_id, char *balance, char *address1, char *address2, char *address3);
-void print_token();
+struct order_info{
+	char *title;
+	char *price;
+	char *customer;
+	char *category;
+	UT_hash_handle hh;
+};
 
+void add_customer(char *name, char *customer_id, char *balance, char *address1, char *address2, char *address3);
+
+void add_order(char *title, char *price, char *customer, char *category);
+
+void print_customer_info();
+
+void print_orders();
+
+void print_report(FILE *ofp);
 
 #endif
