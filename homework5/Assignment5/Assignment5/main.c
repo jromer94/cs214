@@ -177,9 +177,6 @@ int main(int argc, const char * argv[])
 		return -1;
 	}
 	read_customers(database);
-
-	print_customer_info();
-	
 	fclose(database);
 	
 	if ((orders = fopen(argv[2], "r")) == NULL)
@@ -187,31 +184,23 @@ int main(int argc, const char * argv[])
 		printf("Error opening orders file\n");
 		return -1;
 	}
-	
-
-	print_orders();
-	
-	fclose(orders);
+		
 	
 	if ((categories = fopen(argv[3], "r")) == NULL)
 	{
 		printf("Error opening database file\n");
 		return -1;
 	}
-	
-	
 	read_cat(categories);
 	
-	print_cat();
-	
-	fclose(categories);
-
 	pthread_t order_thread;
-
-	int order_thread_id = pthread_create(&order_thread, NULL, order_thread_function, (void*)orders);
-
-
+	void *thread_result;
 	
+	int order_thread_id = pthread_create(&order_thread, NULL, order_thread_function, (void*)orders);
+	pthread_join(order_thread, &thread_result);
+
+	fclose(orders);
+	fclose(categories);
     return 0;
 }
 
