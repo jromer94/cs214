@@ -11,6 +11,7 @@
 #include "index.h"
 #include "uthash.h"
 #include <pthread.h>
+pthread_mutex_t a_mutex = PTHREAD_MUTEX_INITIALIZER;	
 
 char *read_input (char *s, int n)
 {
@@ -158,6 +159,12 @@ int main(int argc, const char * argv[])
 	print_cat();
 	
 	fclose(categories);
+
+	pthread_t order_thread;
+
+	int order_thread_id = pthread_create(&order_thread, NULL, order_thread_function, NULL);
+
+
 	
     return 0;
 }
@@ -165,6 +172,17 @@ int main(int argc, const char * argv[])
 
 void *order_thread_function(void *arg) {
 
+	struct order_info current = &(read_order());
+        pthread_mutex_lock(&a_mutex);
+
+	
 	
 	return 0;
 }
+
+void *category_thread_function() {
+
+
+
+}
+
