@@ -124,8 +124,11 @@ void cat_list(char *category, struct category_list *current_list){
 	temp->next->next = NULL;
 }
 
-void add_accepted(struct final_orders *accept_list, struct order_info *order, struct customer_info *s){
+void add_accepted(struct customer_info *info, struct order_info *order, struct customer_info *s){
+
+	struct final_orders  *accept_list = info->order_next;
 	struct final_orders *temp = accept_list;
+
 
 	if (accept_list == NULL){
 		accept_list = malloc(sizeof(struct final_orders));
@@ -148,7 +151,9 @@ void add_accepted(struct final_orders *accept_list, struct order_info *order, st
 	temp->next->next = NULL;
 }
 
-void add_rejected(struct final_rejected *reject_list, struct order_info *order){
+void add_rejected(struct customer_info *s, struct order_info *order){
+
+	struct final_rejected *reject_list = s->rejected_next;
 	struct final_rejected *temp = reject_list;
 	
 	if (reject_list == NULL) {
@@ -181,10 +186,10 @@ void purchase_book(struct order_queue *order){
 
 	if (s->balance >= order->head->price) {
 		s->balance = s->balance - order->head->price;
-		add_accepted(s->order_next, order->head, s);
+		add_accepted(s, order->head, s);
 	}
 	else {
-		add_rejected(s->rejected_next, order->head);
+		add_rejected(s, order->head);
 	}
 	
 	order->head = order->head->next;

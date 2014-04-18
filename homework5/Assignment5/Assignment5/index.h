@@ -70,9 +70,9 @@ struct order_queue *get_queue(char *category);
 
 void add_to_queue(struct order_queue *new_order, struct order_info *order);
 
-void add_accepted(struct final_orders *accept_list, struct order_info *order, struct customer_info *s);
+void add_accepted(struct customer_info *info, struct order_info *order, struct customer_info *s);
 
-void add_rejected(struct final_rejected *reject_list, struct order_info *order);
+void add_rejected(struct customer_info *info, struct order_info *order);
 
 void purchase_book(struct order_queue *order);
 

@@ -135,6 +135,7 @@ void *order_thread_function(void *arg) {
 		struct order_info* current = read_order(orders);
 		if(current == NULL){
 			
+			printf("exiting orders thread");
 			time_to_exit = 1;
 			pthread_exit("exited order thread");
 			
@@ -146,6 +147,8 @@ void *order_thread_function(void *arg) {
 			
 			pthread_mutex_lock(&a_mutex);
 			if(cat_queue->total < 10){
+
+				//printf("adding %s for user %s\n", current->title, current->customer);
 				
 				add_to_queue(cat_queue, current);
 				pthread_mutex_unlock(&a_mutex);
@@ -165,19 +168,26 @@ void *category_thread_function(void* args) {
 	
 	char* category = (char*) args;
 
-	printf("category thread %s started \n", category);
+	//printf("category thread %s started \n", category);
 
 	struct order_queue* queue = get_queue(category);
 
 	while(1){
-	
+
+
+		//printf("%d = total for %s \n", queue->total, category);
+
 		pthread_mutex_lock(&a_mutex);
 		if(queue->total > 0){
+
+			//printf("purchasing %s for %s in %s\n", queue->head->title, queue->head->customer,category, queue->total);
 		
 			purchase_book(queue);
 
 		} else if(time_to_exit){
 			
+			printf("exiting the %s\n", category);
+			pthread_mutex_unlock(&a_mutex);
 			pthread_exit("exiting thread");
 
 		}
@@ -251,12 +261,13 @@ int main(int argc, const char * argv[])
 
 	pthread_join(order_thread, &thread_result);
 
-	printf("made it to here\n");
 	
 	int i;
 	
 	for(i = 0; i < cat; i++){
 
+		
+		printf("made it to here\n");
 		pthread_join(cat_threads[i], &thread_result);
 
 	} 
