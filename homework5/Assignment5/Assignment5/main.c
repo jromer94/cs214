@@ -223,6 +223,7 @@ int main(int argc, const char * argv[])
 	int order_thread_id = pthread_create(&order_thread, NULL, order_thread_function, (void*)orders);
 	pthread_join(order_thread, &thread_result);
 
+	
 	fclose(orders);
 	fclose(categories);
 	
