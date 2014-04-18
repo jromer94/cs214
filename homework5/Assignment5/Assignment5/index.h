@@ -64,6 +64,8 @@ void add_order(char *title, char *price, char *customer, char *category);
 
 void add_cat(char *category);
 
+struct order_queue *get_cat();
+
 struct order_queue *get_queue(char *category);
 
 void add_to_queue(struct order_queue *new_order, struct order_info *order);

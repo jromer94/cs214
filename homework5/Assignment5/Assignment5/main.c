@@ -119,7 +119,7 @@ void read_cat(FILE *ifp){
 		category = strtok(category, "\n");
 		
 		add_cat(category);
-		cat_list(category, current_list);
+
 		cat++;
 	}
 }
@@ -215,7 +215,6 @@ int main(int argc, const char * argv[])
 		printf("Error opening orders file\n");
 		return -1;
 	}
-		
 	
 	if ((categories = fopen(argv[3], "r")) == NULL)
 	{
