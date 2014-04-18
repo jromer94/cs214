@@ -14,6 +14,7 @@
 pthread_mutex_t a_mutex = PTHREAD_MUTEX_INITIALIZER;	
 int time_to_exit = 0;
 struct category_list *current_list = NULL;
+int cat = 0;
 
 char *read_input (char *s, int n)
 {
@@ -118,6 +119,7 @@ void read_cat(FILE *ifp){
 		
 		add_cat(category);
 		cat_list(category, current_list);
+		cat++;
 	}
 }
 
@@ -221,9 +223,33 @@ int main(int argc, const char * argv[])
 	void *thread_result;
 	
 	int order_thread_id = pthread_create(&order_thread, NULL, order_thread_function, (void*)orders);
-	pthread_join(order_thread, &thread_result);
 
+	pthread_t cat_threads[cat];
+	int loc = 0;
+
+	while(current_list != NULL){
+
+		pthread_t category_thread;
+		int category_thread_id = pthread_create(&category_thread, NULL, category_thread_function, (void*)current_list->category);
+
+		cat_threads[loc] = category_thread;
+		loc++;
+
+		current_list = current_list->next;
+
+
+	}
+
+	pthread_join(order_thread, &thread_result);
 	
+	int i;
+	
+	for(i = 0; i < cat; i++){
+
+		pthread_join(cat_threads[i], &thread_result);
+
+	} 
+
 	fclose(orders);
 	fclose(categories);
 	
