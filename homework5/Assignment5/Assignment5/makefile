@@ -1,6 +1,6 @@
 all: order
 
-index: index.c index.h main.c
+order: index.c index.h main.c
 	gcc main.c index.c -o order
 
 clean :

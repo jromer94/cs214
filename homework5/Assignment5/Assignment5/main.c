@@ -11,6 +11,7 @@
 #include "index.h"
 #include "uthash.h"
 #include <pthread.h>
+
 pthread_mutex_t a_mutex = PTHREAD_MUTEX_INITIALIZER;	
 int time_to_exit = 0;
 struct category_list *current_list = NULL;
@@ -127,7 +128,9 @@ void read_cat(FILE *ifp){
 void *order_thread_function(void *arg) {
 	
 	FILE* orders = (FILE*) arg;
-	
+
+	printf("order thread started\n");	
+
 	while(1){
 		struct order_info* current = read_order(orders);
 		if(current == NULL){
@@ -161,6 +164,8 @@ void *order_thread_function(void *arg) {
 void *category_thread_function(void* args) {
 	
 	char* category = (char*) args;
+
+	printf("category thread %s started \n", category);
 
 	struct order_queue* queue = get_queue(category);
 
@@ -224,23 +229,30 @@ int main(int argc, const char * argv[])
 	
 	int order_thread_id = pthread_create(&order_thread, NULL, order_thread_function, (void*)orders);
 
+	printf("im here\n");
+
 	pthread_t cat_threads[cat];
 	int loc = 0;
+	
+	struct order_queue* list = get_cat();
 
-	while(current_list != NULL){
+	while(list != NULL){
 
+		printf("creating thread %d\n", loc);
 		pthread_t category_thread;
-		int category_thread_id = pthread_create(&category_thread, NULL, category_thread_function, (void*)current_list->category);
+		int category_thread_id = pthread_create(&category_thread, NULL, category_thread_function, (void*)list->category);
 
 		cat_threads[loc] = category_thread;
 		loc++;
 
-		current_list = current_list->next;
+		list = list->hh.next;
 
 
 	}
 
 	pthread_join(order_thread, &thread_result);
+
+	printf("made it to here\n");
 	
 	int i;
 	
