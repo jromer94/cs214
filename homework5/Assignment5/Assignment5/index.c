@@ -67,6 +67,11 @@ void add_cat(char *category){
 	HASH_ADD_KEYPTR(hh, buffer, s->category, strlen(s->category), s);
 }
 
+struct order_queue *get_cat(){
+	
+	return buffer;
+}
+
 struct order_queue *get_queue(char *category){
 	struct order_queue *s = NULL;
 
