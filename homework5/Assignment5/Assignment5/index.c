@@ -25,7 +25,8 @@ void add_customer(char *name, char *customer_id, char *balance, char *address1, 
         s = malloc(sizeof(struct customer_info));
 		s->name = malloc(strlen(name) + 1);
 		strcpy(s->name, name);
-		s->customer_id = atoi(customer_id);
+		s->customer_id = malloc(strlen(customer_id) + 1);
+		strcpy(s->customer_id, customer_id);
 		s->balance = atof(balance);
 		s->address1 = malloc(strlen(address1) + 1);
         strcpy(s->address1, address1);
@@ -33,7 +34,7 @@ void add_customer(char *name, char *customer_id, char *balance, char *address1, 
         strcpy(s->address2, address2);
 		s->address3 = malloc(strlen(address3) + 1);
         strcpy(s->address3, address3);
-        HASH_ADD_KEYPTR(hh, list, s->name, strlen(s->name), s);
+        HASH_ADD_KEYPTR(hh, list, s->customer_id, strlen(s->customer_id), s);
     }
 }
 
@@ -46,7 +47,8 @@ void add_order(char *title, char *price, char *customer, char *category){
 	s->title = malloc(strlen(title) + 1);
 	strcpy(s->title, title);
 	s->price = atof(price);
-	s->customer = atoi(customer);
+	s->customer = malloc(strlen(customer) + 1);
+	strcpy(s->customer, customer);
 	s->category = malloc(strlen(category) + 1);
 	strcpy(s->category, category);
 	HASH_ADD_KEYPTR(hh, orders, s->title, strlen(s->title), s);
@@ -117,6 +119,73 @@ void cat_list(char *category, struct category_list *current_list){
 	temp->next->next = NULL;
 }
 
+void add_accepted(struct final_orders *accept_list, struct order_info *order, struct customer_info *s){
+	struct final_orders *temp = accept_list;
+
+	if (accept_list == NULL){
+		accept_list = malloc(sizeof(struct final_orders));
+		accept_list->title = malloc(strlen(order->title) + 1);
+		strcpy(accept_list->title, order->title);
+		accept_list->balance = s->balance;
+		accept_list->price = order->price;
+		accept_list->next = NULL;
+		return;
+	}
+	else while (temp->next != NULL){
+		temp = temp->next;
+	}
+	
+	temp->next = malloc(sizeof(struct final_orders));
+	temp->next->title = malloc(strlen(order->title) + 1);
+	strcpy(temp->next->title, order->title);
+	temp->next->balance = s->balance;
+	temp->next->price = order->price;
+	temp->next->next = NULL;
+}
+
+void add_rejected(struct final_rejected *reject_list, struct order_info *order){
+	struct final_rejected *temp = reject_list;
+	
+	if (reject_list == NULL) {
+		reject_list = malloc(sizeof(struct final_rejected));
+		reject_list->title = malloc(strlen(order->title));
+		strcpy(reject_list->title, order->title);
+		reject_list->price = order->price;
+		reject_list->next = NULL;
+		return;
+	}
+	
+	else while (temp->next != NULL){
+		temp = temp->next;
+	}
+	
+	temp->next = malloc(sizeof(struct final_rejected));
+	temp->next->title = malloc(strlen(order->title) + 1);
+	strcpy(temp->next->title, order->title);
+	temp->next->price = order->price;
+	temp->next->next = NULL;
+	
+}
+
+
+void purchase_book(struct order_queue *order){
+	
+	struct customer_info *s;
+	
+	HASH_FIND_STR(list, order->head->customer, s);
+
+	if (s->balance >= order->head->price) {
+		s->balance = s->balance - order->head->price;
+		add_accepted(s->order_next, order->head, s);
+	}
+	else {
+		add_rejected(s->rejected_next, order->head);
+	}
+	
+	order->head = order->head->next;
+	order->total--;
+}
+
 
 void print_customer_info(){
 	
@@ -124,7 +193,7 @@ void print_customer_info(){
 	
 	for(s=list; s != NULL; s=s->hh.next) {
 		printf("%s ", s->name);
-		printf("%d ", s->customer_id);
+		printf("%s ", s->customer_id);
 		printf("%f ", s->balance);
 		printf("%s ", s->address1);
 		printf("%s ", s->address2);
@@ -142,7 +211,7 @@ void print_orders(){
 
 		printf("%s ", s->title);
 		printf("%f ", s->price);
-		printf("%d ", s->customer);
+		printf("%s ", s->customer);
 		printf("%s ", s->category);
 		printf("\n");
 	}
@@ -163,27 +232,38 @@ void print_cat(){
 
 void print_report(FILE *ofp){
 	struct customer_info *s;
+	double revenue = 0.0;
 	
 	for (s=list; s != NULL; s=s->hh.next){
 		fprintf(ofp, "=== BEGIN CUSTOMER INFO ===\n");
 		fprintf(ofp, "### BALANCE ###\n");
 		fprintf(ofp, "Customer Name: %s\n", s->name);
-		fprintf(ofp, "Customer ID number: %d\n", s->customer_id);
+		fprintf(ofp, "Customer ID number: %s\n", s->customer_id);
 		fprintf(ofp, "Remaining credit balance after all purchases: %f\n", s->balance);
 		fprintf(ofp, "### SUCCESSFUL ORDERS ###\n");
 		
-		while (s->order_next != NULL) {
-			//PRINT ACCEPTED ORDERS
+		struct final_orders *accepted;
+		accepted = s->order_next;
+		
+		while (accepted != NULL) {
+			fprintf(ofp, "%s | %f | %f\n", accepted->title, accepted->price, accepted->balance);
+			accepted = accepted->next;
+			revenue += accepted->price;
 		}
 		
+		struct final_rejected *rejected;
+		rejected = s->rejected_next;
+		
 		fprintf(ofp, "### REJECTED ORDERS ###\n");
-		while (s->rejected_next != NULL) {
-			//PRINT REJECTED ORDERS;
+		while (rejected != NULL) {
+			fprintf(ofp, "%s | %f\n", rejected->title, rejected->price);
+			rejected = rejected->next;
 		}
 
-		fprintf(ofp, "=== END CUSTOMER INFO ===\n");
+		fprintf(ofp, "=== END CUSTOMER INFO ===\n\n");
 	}
 	
+	fprintf(ofp, "Total Revenue: %f", revenue);
 	
 }
 

@@ -13,6 +13,7 @@
 #include <pthread.h>
 pthread_mutex_t a_mutex = PTHREAD_MUTEX_INITIALIZER;	
 int time_to_exit = 0;
+struct category_list *current_list = NULL;
 
 char *read_input (char *s, int n)
 {
@@ -97,7 +98,8 @@ struct order_info *read_order(FILE *ifp){
 	s->title = malloc(strlen(title) + 1);
 	strcpy(s->title, title);
 	s->price = atof(price);
-	s->customer = atoi(customer);
+	s->customer = malloc(strlen(customer) + 1);
+	strcpy(s->customer, customer);
 	s->category = malloc(strlen(category) + 1);
 	strcpy(s->category, category);
 	s->next = NULL;
@@ -115,7 +117,7 @@ void read_cat(FILE *ifp){
 		category = strtok(category, "\n");
 		
 		add_cat(category);
-		cat_list(category);
+		cat_list(category, current_list);
 	}
 }
 
@@ -154,8 +156,29 @@ void *order_thread_function(void *arg) {
 	return 0;
 }
 
-void *category_thread_function() {
+void *category_thread_function(void* args) {
 	
+	char* category = (char*) args;
+
+	struct order_queue* queue = get_queue(category);
+
+	while(1){
+	
+		pthread_mutex_lock(&a_mutex);
+		if(queue->total > 0){
+		
+			purchase_book(queue);
+
+		} else if(time_to_exit){
+			
+			pthread_exit("exiting thread");
+
+		}
+
+		pthread_mutex_unlock(&a_mutex);	
+
+	} 
+
 	
 	return 0;
 }
@@ -163,7 +186,7 @@ void *category_thread_function() {
 int main(int argc, const char * argv[])
 {
 
-	if (argc != 4){
+	if (argc != 5){				/////// CHANGE BACK TO 4, IT IS 5 FOR OUR TEST
 		printf("Error: Incorrect number of arguements\n");
 		return -1;
 	}
@@ -202,7 +225,15 @@ int main(int argc, const char * argv[])
 
 	fclose(orders);
 	fclose(categories);
-    return 0;
+	
+	//////TEST
+	
+	FILE *test;
+	test = fopen(argv[4], "w");
+	print_report(test);
+	fclose(test);
+	return 0;
+
 }
 
 

@@ -1,0 +1,46 @@
+=== BEGIN CUSTOMER INFO ===
+### BALANCE ###
+Customer Name: "Brian Russell"
+Customer ID number: 1
+Remaining credit balance after all purchases: 500.000000
+### SUCCESSFUL ORDERS ###
+### REJECTED ORDERS ###
+=== END CUSTOMER INFO ===
+
+=== BEGIN CUSTOMER INFO ===
+### BALANCE ###
+Customer Name: "Ying Zhan"
+Customer ID number: 2
+Remaining credit balance after all purchases: 65.000000
+### SUCCESSFUL ORDERS ###
+### REJECTED ORDERS ###
+=== END CUSTOMER INFO ===
+
+=== BEGIN CUSTOMER INFO ===
+### BALANCE ###
+Customer Name: "Sejong Yoon"
+Customer ID number: 3
+Remaining credit balance after all purchases: 10.000000
+### SUCCESSFUL ORDERS ###
+### REJECTED ORDERS ###
+=== END CUSTOMER INFO ===
+
+=== BEGIN CUSTOMER INFO ===
+### BALANCE ###
+Customer Name: "Yuanzhen Gu"
+Customer ID number: 4
+Remaining credit balance after all purchases: 80.000000
+### SUCCESSFUL ORDERS ###
+### REJECTED ORDERS ###
+=== END CUSTOMER INFO ===
+
+=== BEGIN CUSTOMER INFO ===
+### BALANCE ###
+Customer Name: "Zi Yan"
+Customer ID number: 5
+Remaining credit balance after all purchases: 100.000000
+### SUCCESSFUL ORDERS ###
+### REJECTED ORDERS ###
+=== END CUSTOMER INFO ===
+
+Total Revenue: 0.000000
