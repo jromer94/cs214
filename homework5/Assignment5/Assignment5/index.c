@@ -137,6 +137,7 @@ void add_accepted(struct customer_info *info, struct order_info *order, struct c
 		accept_list->balance = s->balance;
 		accept_list->price = order->price;
 		accept_list->next = NULL;
+		info->order_next = accept_list;
 		return;
 	}
 	else while (temp->next != NULL){
@@ -257,8 +258,8 @@ void print_report(FILE *ofp){
 		
 		while (accepted != NULL) {
 			fprintf(ofp, "%s | %f | %f\n", accepted->title, accepted->price, accepted->balance);
-			accepted = accepted->next;
 			revenue += accepted->price;
+			accepted = accepted->next;
 		}
 		
 		struct final_rejected *rejected;

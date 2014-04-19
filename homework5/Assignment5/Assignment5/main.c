@@ -90,7 +90,7 @@ struct order_info *read_order(FILE *ifp){
 		customer = strtok(NULL, "|");
 		category = strtok(NULL, "|");
 		
-		//add_order(title, price, customer, category);
+		add_order(title, price, customer, category);
 	}
 	else return NULL;
 		
