@@ -159,10 +159,11 @@ void add_rejected(struct customer_info *s, struct order_info *order){
 	
 	if (reject_list == NULL) {
 		reject_list = malloc(sizeof(struct final_rejected));
-		reject_list->title = malloc(strlen(order->title));
+		reject_list->title = malloc(strlen(order->title)+1);
 		strcpy(reject_list->title, order->title);
 		reject_list->price = order->price;
 		reject_list->next = NULL;
+		s->rejected_next = reject_list;
 		return;
 	}
 	

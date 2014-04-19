@@ -4,8 +4,8 @@ Customer Name: "Brian Russell"
 Customer ID number: 1
 Remaining credit balance after all purchases: 336.130000
 ### SUCCESSFUL ORDERS ###
-"I Could Pee on This: And Other Poems by Cats" | 7.490000 | 492.510000
-"Across Islands and Oceans" | 1.990000 | 490.520000
+"Across Islands and Oceans" | 1.990000 | 498.010000
+"I Could Pee on This: And Other Poems by Cats" | 7.490000 | 490.520000
 "The Handbuilt Home: 34 Simple Stylish and Budget-Friendly Woodworking Projects for Every Room" | 15.630000 | 474.890000
 "Fifty Places to Dive Before You Die: Diving Experts Share the World's Greatest Destinations" | 16.470000 | 458.420000
 "The Greatest Hockey Stories Ever Told: The Finest Writers on Ice" | 9.710000 | 448.710000
@@ -31,6 +31,8 @@ Remaining credit balance after all purchases: 1.500000
 "How to Create a Mind: The Secret of Human Thought Revealed" | 16.400000 | 17.100000
 "The Joy of Hate: How to Triumph over Whiners in the Age of Phony Outrage" | 15.600000 | 1.500000
 ### REJECTED ORDERS ###
+"Soul Surfer: A True Story of Faith, Family, and Fighting to Get Back on the Board" | 7.990000
+"Swimming Studies" | 19.800000
 === END CUSTOMER INFO ===
 
 === BEGIN CUSTOMER INFO ===
@@ -41,6 +43,7 @@ Remaining credit balance after all purchases: 2.010000
 ### SUCCESSFUL ORDERS ###
 "Soul Surfer" | 7.990000 | 2.010000
 ### REJECTED ORDERS ###
+"Hockey; The Math of the Game (Sports Illustrated Kids: Sports Math)" | 7.950000
 === END CUSTOMER INFO ===
 
 === BEGIN CUSTOMER INFO ===
