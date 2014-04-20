@@ -251,14 +251,14 @@ void print_report(FILE *ofp){
 		fprintf(ofp, "### BALANCE ###\n");
 		fprintf(ofp, "Customer Name: %s\n", s->name);
 		fprintf(ofp, "Customer ID number: %s\n", s->customer_id);
-		fprintf(ofp, "Remaining credit balance after all purchases: %f\n", s->balance);
+		fprintf(ofp, "Remaining credit balance after all purchases: %.2f\n", s->balance);
 		fprintf(ofp, "### SUCCESSFUL ORDERS ###\n");
 		
 		struct final_orders *accepted;
 		accepted = s->order_next;
 		
 		while (accepted != NULL) {
-			fprintf(ofp, "%s | %f | %f\n", accepted->title, accepted->price, accepted->balance);
+			fprintf(ofp, "%s | %.2f | %.2f\n", accepted->title, accepted->price, accepted->balance);
 			revenue += accepted->price;
 			accepted = accepted->next;
 		}
@@ -268,14 +268,14 @@ void print_report(FILE *ofp){
 		
 		fprintf(ofp, "### REJECTED ORDERS ###\n");
 		while (rejected != NULL) {
-			fprintf(ofp, "%s | %f\n", rejected->title, rejected->price);
+			fprintf(ofp, "%s | %.2f\n", rejected->title, rejected->price);
 			rejected = rejected->next;
 		}
 
 		fprintf(ofp, "=== END CUSTOMER INFO ===\n\n");
 	}
 	
-	fprintf(ofp, "Total Revenue: %f", revenue);
+	fprintf(ofp, "Total Revenue: %.2f", revenue);
 	
 }
 
