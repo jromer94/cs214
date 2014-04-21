@@ -299,7 +299,6 @@ int main(int argc, const char * argv[])
 	fclose(orders);
 	fclose(categories);
 	
-	//////TEST
 	FILE *final;
 	char *outname = "finalreport.txt";
 	final = fopen(outname, "w");
