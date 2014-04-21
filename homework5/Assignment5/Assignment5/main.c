@@ -230,7 +230,7 @@ void *category_thread_function(void* args) {
 int main(int argc, const char * argv[])
 {
 
-	if (argc != 5){				/////// CHANGE BACK TO 4, IT IS 5 FOR OUR TEST
+	if (argc != 4){				/////// CHANGE BACK TO 4, IT IS 5 FOR OUR TEST
 		printf("Error: Incorrect number of arguements\n");
 		return -1;
 	}
@@ -300,11 +300,11 @@ int main(int argc, const char * argv[])
 	fclose(categories);
 	
 	//////TEST
-	
-	FILE *test;
-	test = fopen(argv[4], "w");
-	print_report(test);
-	fclose(test);
+	FILE *final;
+	char *outname = "finalreport.txt";
+	final = fopen(outname, "w");
+	print_report(final);
+	fclose(final);
 	return 0;
 
 }
