@@ -135,7 +135,7 @@ void *order_thread_function(void *arg) {
 		struct order_info* current = read_order(orders);
 		if(current == NULL){
 			
-			printf("exiting orders thread");
+			printf("exiting orders thread\n");
 			time_to_exit = 1;
 			pthread_exit("exited order thread");
 			

@@ -124,7 +124,7 @@ void cat_list(char *category, struct category_list *current_list){
 	temp->next->next = NULL;
 }
 
-void add_accepted(struct customer_info *info, struct order_info *order, struct customer_info *s){
+void add_accepted(struct customer_info *info, struct order_info *order){
 
 	struct final_orders  *accept_list = info->order_next;
 	struct final_orders *temp = accept_list;
@@ -134,10 +134,11 @@ void add_accepted(struct customer_info *info, struct order_info *order, struct c
 		accept_list = malloc(sizeof(struct final_orders));
 		accept_list->title = malloc(strlen(order->title) + 1);
 		strcpy(accept_list->title, order->title);
-		accept_list->balance = s->balance;
+		accept_list->balance = info->balance;
 		accept_list->price = order->price;
 		accept_list->next = NULL;
 		info->order_next = accept_list;
+		printf("Order Rejected: %s, %s, %.2f, Remaining Balance: %.2f\n", info->name, order->title, order->price, info->balance);
 		return;
 	}
 	else while (temp->next != NULL){
@@ -147,9 +148,10 @@ void add_accepted(struct customer_info *info, struct order_info *order, struct c
 	temp->next = malloc(sizeof(struct final_orders));
 	temp->next->title = malloc(strlen(order->title) + 1);
 	strcpy(temp->next->title, order->title);
-	temp->next->balance = s->balance;
+	temp->next->balance = info->balance;
 	temp->next->price = order->price;
 	temp->next->next = NULL;
+	printf("Order Rejected: %s, %s, %.2f, Remaining Balance: %.2f\n", info->name, order->title, order->price, info->balance);
 }
 
 void add_rejected(struct customer_info *s, struct order_info *order){
@@ -164,6 +166,7 @@ void add_rejected(struct customer_info *s, struct order_info *order){
 		reject_list->price = order->price;
 		reject_list->next = NULL;
 		s->rejected_next = reject_list;
+		printf("Order Confirmed: %s, %.2f, %s, %s %s %s\n", order->title, order->price, s->name, s->address1, s->address2, s->address3);
 		return;
 	}
 	
@@ -176,6 +179,7 @@ void add_rejected(struct customer_info *s, struct order_info *order){
 	strcpy(temp->next->title, order->title);
 	temp->next->price = order->price;
 	temp->next->next = NULL;
+	printf("Order Confirmed: %s, %.2f, %s %s %s\n", order->title, order->price, s->address1, s->address2, s->address3);
 	
 }
 
@@ -188,7 +192,7 @@ void purchase_book(struct order_queue *order){
 
 	if (s->balance >= order->head->price) {
 		s->balance = s->balance - order->head->price;
-		add_accepted(s, order->head, s);
+		add_accepted(s, order->head);
 	}
 	else {
 		add_rejected(s, order->head);
