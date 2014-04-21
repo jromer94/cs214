@@ -1,0 +1,21 @@
+The program begins by reading the customer info into a hash table using UTHASH.
+Then it reads the categories into memory and creates another hash with queues 
+for each category.
+
+The program then launches the producer thread that adds books to the queue. 
+The function works by reading the next book from the file. It then locks the
+ thread and checks if there is space in the category queue. If there is space 
+it adds it to the queue and unlocks the thread. If there is not space it
+ unlocks the thread and loops through the locking and checking phase until
+ there is space. The thread is locked to make sure the program doesn't add to a node that has already been dequeued by another thread.
+
+The program then launches the consumer threads for each category. These threads
+all use the same mutex as the producer thread. The threads work by locking the
+ mutex and then it checks if there is anything in the queue if there is it buys
+ the first thing in the queue and unlocks the thread. If it is empty it checks
+ if the producer thread has changed the time_to_exit variable. If it is time to
+ exit the thread unlocks and exits. The thread is unlocked after all these checks
+and loops until it is time to exit.
+
+The main uses pthread_join() to make sure all the threads are exited and then
+prints all the order info.   
