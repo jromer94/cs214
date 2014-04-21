@@ -142,18 +142,35 @@ void *order_thread_function(void *arg) {
 		}
 		
 		struct order_queue* cat_queue = get_queue(current->category);
-		
+	
+		int wait = 0;
+	
 		while(1){
 			
 			pthread_mutex_lock(&a_mutex);
 			if(cat_queue->total < 10){
 
 				//printf("adding %s for user %s\n", current->title, current->customer);
-				
+				if(wait == 1){
+
+					printf("producer resumes\n");
+					wait = 0;
+
+				}
 				add_to_queue(cat_queue, current);
 				pthread_mutex_unlock(&a_mutex);
 				break;
 				
+			} else {
+
+				if(wait == 0){
+
+					printf("producer waits\n");
+					wait = 1;
+
+				}
+
+			
 			}
 			pthread_mutex_unlock(&a_mutex);
 			
@@ -172,25 +189,35 @@ void *category_thread_function(void* args) {
 
 	struct order_queue* queue = get_queue(category);
 
-	while(1){
+	int wait = 0;
 
+	while(1){
 
 		//printf("%d = total for %s \n", queue->total, category);
 
 		pthread_mutex_lock(&a_mutex);
 		if(queue->total > 0){
 
-			//printf("purchasing %s for %s in %s\n", queue->head->title, queue->head->customer,category, queue->total);
-		
+			if(wait == 1){
+				printf("%s Consumer resumes\n", category);
+				wait = 0;
+			}
 			purchase_book(queue);
 
 		} else if(time_to_exit){
 			
-			printf("exiting the %s\n", category);
 			pthread_mutex_unlock(&a_mutex);
 			pthread_exit("exiting thread");
 
+		} else {
+
+			if(wait == 0){
+				printf("%s Consumer waits\n", category);
+				wait = 1;
+			}
 		}
+
+		
 
 		pthread_mutex_unlock(&a_mutex);	
 
@@ -238,7 +265,6 @@ int main(int argc, const char * argv[])
 	
 	int order_thread_id = pthread_create(&order_thread, NULL, order_thread_function, (void*)orders);
 
-	printf("im here\n");
 
 	pthread_t cat_threads[cat];
 	int loc = 0;
@@ -247,7 +273,6 @@ int main(int argc, const char * argv[])
 
 	while(list != NULL){
 
-		printf("creating thread %d\n", loc);
 		pthread_t category_thread;
 		int category_thread_id = pthread_create(&category_thread, NULL, category_thread_function, (void*)list->category);
 
@@ -267,7 +292,6 @@ int main(int argc, const char * argv[])
 	for(i = 0; i < cat; i++){
 
 		
-		printf("made it to here\n");
 		pthread_join(cat_threads[i], &thread_result);
 
 	} 
