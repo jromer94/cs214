@@ -137,6 +137,7 @@ void add_accepted(struct customer_info *info, struct order_info *order, struct c
 		accept_list->balance = s->balance;
 		accept_list->price = order->price;
 		accept_list->next = NULL;
+		info->order_next = accept_list;
 		return;
 	}
 	else while (temp->next != NULL){
@@ -158,10 +159,11 @@ void add_rejected(struct customer_info *s, struct order_info *order){
 	
 	if (reject_list == NULL) {
 		reject_list = malloc(sizeof(struct final_rejected));
-		reject_list->title = malloc(strlen(order->title));
+		reject_list->title = malloc(strlen(order->title)+1);
 		strcpy(reject_list->title, order->title);
 		reject_list->price = order->price;
 		reject_list->next = NULL;
+		s->rejected_next = reject_list;
 		return;
 	}
 	
@@ -249,16 +251,16 @@ void print_report(FILE *ofp){
 		fprintf(ofp, "### BALANCE ###\n");
 		fprintf(ofp, "Customer Name: %s\n", s->name);
 		fprintf(ofp, "Customer ID number: %s\n", s->customer_id);
-		fprintf(ofp, "Remaining credit balance after all purchases: %f\n", s->balance);
+		fprintf(ofp, "Remaining credit balance after all purchases: %.2f\n", s->balance);
 		fprintf(ofp, "### SUCCESSFUL ORDERS ###\n");
 		
 		struct final_orders *accepted;
 		accepted = s->order_next;
 		
 		while (accepted != NULL) {
-			fprintf(ofp, "%s | %f | %f\n", accepted->title, accepted->price, accepted->balance);
-			accepted = accepted->next;
+			fprintf(ofp, "%s | %.2f | %.2f\n", accepted->title, accepted->price, accepted->balance);
 			revenue += accepted->price;
+			accepted = accepted->next;
 		}
 		
 		struct final_rejected *rejected;
@@ -266,14 +268,14 @@ void print_report(FILE *ofp){
 		
 		fprintf(ofp, "### REJECTED ORDERS ###\n");
 		while (rejected != NULL) {
-			fprintf(ofp, "%s | %f\n", rejected->title, rejected->price);
+			fprintf(ofp, "%s | %.2f\n", rejected->title, rejected->price);
 			rejected = rejected->next;
 		}
 
 		fprintf(ofp, "=== END CUSTOMER INFO ===\n\n");
 	}
 	
-	fprintf(ofp, "Total Revenue: %f", revenue);
+	fprintf(ofp, "Total Revenue: %.2f", revenue);
 	
 }
 
