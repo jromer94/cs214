@@ -138,7 +138,7 @@ void add_accepted(struct customer_info *info, struct order_info *order){
 		accept_list->price = order->price;
 		accept_list->next = NULL;
 		info->order_next = accept_list;
-		printf("Order Rejected: %s, %s, %.2f, Remaining Balance: %.2f\n", info->name, order->title, order->price, info->balance);
+		printf("Order Confirmed: %s, %.2f, %s %s %s\n", order->title, order->price, info->address1, info->address2, info->address3);
 		return;
 	}
 	else while (temp->next != NULL){
@@ -151,7 +151,7 @@ void add_accepted(struct customer_info *info, struct order_info *order){
 	temp->next->balance = info->balance;
 	temp->next->price = order->price;
 	temp->next->next = NULL;
-	printf("Order Rejected: %s, %s, %.2f, Remaining Balance: %.2f\n", info->name, order->title, order->price, info->balance);
+	printf("Order Confirmed: %s, %.2f, %s %s %s\n", order->title, order->price, info->address1, info->address2, info->address3);
 }
 
 void add_rejected(struct customer_info *s, struct order_info *order){
@@ -166,7 +166,7 @@ void add_rejected(struct customer_info *s, struct order_info *order){
 		reject_list->price = order->price;
 		reject_list->next = NULL;
 		s->rejected_next = reject_list;
-		printf("Order Confirmed: %s, %.2f, %s, %s %s %s\n", order->title, order->price, s->name, s->address1, s->address2, s->address3);
+		printf("Order Rejected: %s, %s, %.2f, Remaining Balance: %.2f\n", s->name, order->title, order->price, s->balance);
 		return;
 	}
 	
@@ -179,7 +179,7 @@ void add_rejected(struct customer_info *s, struct order_info *order){
 	strcpy(temp->next->title, order->title);
 	temp->next->price = order->price;
 	temp->next->next = NULL;
-	printf("Order Confirmed: %s, %.2f, %s %s %s\n", order->title, order->price, s->address1, s->address2, s->address3);
+	printf("Order Rejected: %s, %s, %.2f, Remaining Balance: %.2f\n", s->name, order->title, order->price, s->balance);
 	
 }
 
