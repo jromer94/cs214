@@ -10,40 +10,23 @@
 #include "myAlloc.h"
 
 
-
-
 int main(int argc, const char * argv[])
 {
-	int a = 5;
-	int *h = &a;
+	void* hi = NULL;
+	free(hi);
 
-	mymalloc(1000, NULL, 0);
-	printf("DONE\n");
-	mymalloc(1000, NULL, 0);
-	printf("DONE\n");
-	mymalloc(1000, NULL, 0);
-	printf("DONE\n");
-	void* big = mymalloc(1000, NULL, 0);
-	printf("DONE\n");
-	mymalloc(500, NULL, 0);
-	mymalloc(300, NULL, 0);
-	mymalloc(280, NULL, 0);
-
-	myfree(big, NULL, 0);
+	void* big = malloc(4968);
+	malloc(1000);
 	
-	void* hello = mymalloc(sizeof(h), NULL, 0);
-	myfree(hello, NULL, 0);
-	printf("first free\n");
-
-	hello = mymalloc(sizeof(h), NULL, 0);
-	myfree(hello, NULL, 0);
-	printf("second free\n");
-
-	big = mymalloc(1000, NULL, 0);
-	printf("added");
 	
-	mymalloc(280, NULL, 0);
+	free(big+1000);
+	free(big);
+	
+	
+	malloc(1000);
+	
+	calloc(2000, 2);
 
 	
-}
+	}
 

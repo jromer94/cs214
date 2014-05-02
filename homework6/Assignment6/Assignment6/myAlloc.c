@@ -10,8 +10,7 @@
 #include "myAlloc.h"
 
 static char myblock[5000];
-
-struct checker inList= {NULL, NULL};
+int test = 1;
 
 union header *head = NULL;
 
@@ -22,43 +21,47 @@ void *mymalloc(size_t len, char *file, int line){
 	union header *p;
 	
 	unsigned blocks;
-	printf("made it in\n");
 	
 	blocks = (unsigned)(len + sizeof(union header)-1)/sizeof(union header) + 1;
 	
-	if ((prev = head) == NULL){
+	if ((prev = head) == NULL && test == 1){
 		prev = (union header*)&myblock[0];
 		head = (union header*)&myblock[0];
 		head->s.ptr = (union header*)&myblock[0];
-		head->s.size = prev->s.size = sizeof(myblock)/15.5;
-		printf("head was null\n");
+		head->s.size = prev->s.size = (sizeof(myblock)/sizeof(union header));
+		test--;
+	} else if(head == NULL){
+		
+		printf("Memory full. Cannot allocate enough memory in %s at line %d\n", file, line);
+		return NULL;
 	}
 	
 	for (p = prev->s.ptr; ; prev = p, p=p->s.ptr){
-		printf("for loop, blocks = %u\ns.size = %d\n", blocks, p->s.size);
 		if (p->s.size >= blocks) {
 			if (p->s.size == blocks) {
-				prev->s.ptr = p->s.ptr;
-				printf("size equal\n");
+				if(prev->s.ptr == p->s.ptr){
+					
+					prev = NULL;
+					
+				}
+				else prev->s.ptr = p->s.ptr;
 			}
 			else{
 				p->s.size -= blocks;
 				p += p->s.size;
 				p->s.size = blocks;
-				printf("size smaller than blocks left\n");
 			}
 		
-		head = prev;
-		return (void *)(p + 1);
-			
+			p->s.magic = 60666;
+			head = prev;
+			return (void *)(p + 1);
 		}
 	
 	if (p == head) {
-		printf("Not enough memory\n");
+		printf("Not enough memory to allocate in %s at line %d\n", file, line);
 		return NULL;
 		}
 	}
-		
 }
 
 void myfree(void* mem, char* file, int line){
@@ -68,9 +71,21 @@ void myfree(void* mem, char* file, int line){
 	
 	bp = (union header*)mem - 1;
 	
+	if (mem == NULL || bp->s.magic != 60666) {
+		printf("Invalid free in %s at line %d\n", file, line);
+		return;
+	}
+	else bp->s.magic = 0;
+	
+	if (head == NULL){
+		
+		head = bp;
+		return;
+		
+	}
+	
 	for (p = head; !(bp > p && bp < p->s.ptr); p = p->s.ptr) {
 		if (p >= p->s.ptr && (bp > p || bp < p->s.ptr)) {
-			printf("added first\n");
 			break;
 		}
 	}
@@ -78,16 +93,34 @@ void myfree(void* mem, char* file, int line){
 	if (bp + bp->s.size == p->s.ptr){
 		bp->s.size += p->s.ptr->s.size;
 		bp->s.ptr = p->s.ptr->s.ptr;
-		printf("added upper\n");
 	}
 	else bp->s.ptr = p->s.ptr;
 	
 	if (p + p->s.size == bp) {
 		p->s.size += bp->s.size;
 		p->s.ptr = bp->s.ptr;
-		printf("added lower\n");
 	}
 	else p->s.ptr = bp;
 	
 	head = p;
 }
+
+void *mycalloc(size_t num, size_t size, char *file, int line){
+	
+	char *p;
+	p = mymalloc(num*size, file, line);
+	
+	if (p == NULL) {
+		return p;
+	}
+	else for (int i = 0; i < num*size; i++) {
+		p[i] = 0;
+	}
+	return p;
+}
+
+
+#define malloc(x)		mymalloc(x, __FILE__, __LINE__)
+#define free(x)			myfree(x, __FILE__, __LINE__)
+#define calloc(x, y)	mycalloc(x, y, __FILE__, __LINE__)
+
