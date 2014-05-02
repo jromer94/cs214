@@ -24,13 +24,12 @@ void *mymalloc(size_t len, char *file, int line){
 	printf("made it in\n");
 	
 	blocks = (unsigned)(len + sizeof(union header)-1)/sizeof(union header) + 1;
-	unsigned spaceblocks = sizeof(myblock)-1/sizeof(myblock)+1;
 	
 	if ((prev = head) == NULL){
 		prev = (union header*)&myblock[0];
 		head = (union header*)&myblock[0];
 		head->s.ptr = (union header*)&myblock[0];
-		head->s.size = prev->s.size = sizeof(myblock)/15.923567;
+		head->s.size = prev->s.size = sizeof(myblock)/15.5;
 		printf("head was null\n");
 	}
 	
@@ -58,4 +57,17 @@ void *mymalloc(size_t len, char *file, int line){
 		}
 	}
 		
+}
+
+
+void free(void *p){
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

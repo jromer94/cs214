@@ -24,7 +24,9 @@ int main(int argc, const char * argv[])
 	mymalloc(1000, NULL, 0);
 	printf("DONE\n");
 	mymalloc(500, NULL, 0);
-	mymalloc(360, NULL, 0);
+	mymalloc(300, NULL, 0);
+	mymalloc(200, NULL, 0);
+
 
 	
 	
