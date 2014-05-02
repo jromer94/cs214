@@ -106,14 +106,14 @@ void myfree(void* mem, char* file, int line){
 }
 
 void *mycalloc(size_t num, size_t size, char *file, int line){
-	
+	int i;	
 	char *p;
 	p = mymalloc(num*size, file, line);
 	
 	if (p == NULL) {
 		return p;
 	}
-	else for (int i = 0; i < num*size; i++) {
+	else for (i = 0; i < num*size; i++) {
 		p[i] = 0;
 	}
 	return p;
