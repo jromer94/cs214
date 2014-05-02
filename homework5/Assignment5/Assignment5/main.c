@@ -12,7 +12,7 @@
 #include "uthash.h"
 #include <pthread.h>
 
-pthread_mutex_t a_mutex = PTHREAD_MUTEX_INITIALIZER;	
+pthread_mutex_t a_mutex = PTHREAD_MUTEX_INITIALIZER;
 int time_to_exit = 0;
 struct category_list *current_list = NULL;
 int cat = 0;
@@ -60,7 +60,7 @@ void read_customers(FILE *ifp)
 		address1 = strtok(NULL, "|");
 		address2 = strtok(NULL, "|");
 		address3 = strtok(NULL, "|");
-
+		
 		add_customer(name, customer_id, balance, address1, address2, address3);
 		
 	}
@@ -75,7 +75,7 @@ struct order_info *read_order(FILE *ifp){
 	char *category = NULL;
 	size_t len = 0;
 	struct order_info *s;
-
+	
 	
 	if (!feof(ifp))
 	{
@@ -93,7 +93,7 @@ struct order_info *read_order(FILE *ifp){
 		add_order(title, price, customer, category);
 	}
 	else return NULL;
-		
+	
 	
 	s = malloc(sizeof(struct customer_info));
 	
@@ -106,7 +106,7 @@ struct order_info *read_order(FILE *ifp){
 	strcpy(s->category, category);
 	s->next = NULL;
 	return s;
-
+	
 }
 
 void read_cat(FILE *ifp){
@@ -119,7 +119,7 @@ void read_cat(FILE *ifp){
 		category = strtok(category, "\n");
 		
 		add_cat(category);
-
+		
 		cat++;
 	}
 }
@@ -128,9 +128,9 @@ void read_cat(FILE *ifp){
 void *order_thread_function(void *arg) {
 	
 	FILE* orders = (FILE*) arg;
-
-	printf("order thread started\n");	
-
+	
+	printf("order thread started\n");
+	
 	while(1){
 		struct order_info* current = read_order(orders);
 		if(current == NULL){
@@ -142,13 +142,20 @@ void *order_thread_function(void *arg) {
 		}
 		
 		struct order_queue* cat_queue = get_queue(current->category);
+<<<<<<< HEAD
 	
 		int wait = 0;
 	
+=======
+		
+		int wait = 0;
+		
+>>>>>>> 5bbe9373736b2bb8725abc7a8446d7164201a840
 		while(1){
 			
 			pthread_mutex_lock(&a_mutex);
 			if(cat_queue->total < 10){
+<<<<<<< HEAD
 
 				//printf("adding %s for user %s\n", current->title, current->customer);
 				if(wait == 1){
@@ -156,12 +163,22 @@ void *order_thread_function(void *arg) {
 					printf("producer resumes\n");
 					wait = 0;
 
+=======
+				
+				//printf("adding %s for user %s\n", current->title, current->customer);
+				if(wait == 1){
+					
+					printf("producer resumes\n");
+					wait = 0;
+					
+>>>>>>> 5bbe9373736b2bb8725abc7a8446d7164201a840
 				}
 				add_to_queue(cat_queue, current);
 				pthread_mutex_unlock(&a_mutex);
 				break;
 				
 			} else {
+<<<<<<< HEAD
 
 				if(wait == 0){
 
@@ -171,6 +188,17 @@ void *order_thread_function(void *arg) {
 				}
 
 			
+=======
+				
+				if(wait == 0){
+					
+					printf("producer waits\n");
+					wait = 1;
+					
+				}
+				
+				
+>>>>>>> 5bbe9373736b2bb8725abc7a8446d7164201a840
 			}
 			pthread_mutex_unlock(&a_mutex);
 			
@@ -184,38 +212,57 @@ void *order_thread_function(void *arg) {
 void *category_thread_function(void* args) {
 	
 	char* category = (char*) args;
-
+	
 	//printf("category thread %s started \n", category);
-
+	
 	struct order_queue* queue = get_queue(category);
+<<<<<<< HEAD
 
 	int wait = 0;
 
 	while(1){
 
+=======
+	
+	int wait = 0;
+	
+	while(1){
+		
+>>>>>>> 5bbe9373736b2bb8725abc7a8446d7164201a840
 		//printf("%d = total for %s \n", queue->total, category);
-
+		
 		pthread_mutex_lock(&a_mutex);
 		if(queue->total > 0){
+<<<<<<< HEAD
 
+=======
+			
+>>>>>>> 5bbe9373736b2bb8725abc7a8446d7164201a840
 			if(wait == 1){
 				printf("%s Consumer resumes\n", category);
 				wait = 0;
 			}
 			purchase_book(queue);
-
+			
 		} else if(time_to_exit){
 			
 			pthread_mutex_unlock(&a_mutex);
 			pthread_exit("exiting thread");
+<<<<<<< HEAD
 
 		} else {
 
+=======
+			
+		} else {
+			
+>>>>>>> 5bbe9373736b2bb8725abc7a8446d7164201a840
 			if(wait == 0){
 				printf("%s Consumer waits\n", category);
 				wait = 1;
 			}
 		}
+<<<<<<< HEAD
 
 		
 
@@ -223,13 +270,22 @@ void *category_thread_function(void* args) {
 
 	} 
 
+=======
+		
+		
+		
+		pthread_mutex_unlock(&a_mutex);
+		
+	}
+	
+>>>>>>> 5bbe9373736b2bb8725abc7a8446d7164201a840
 	
 	return 0;
 }
 
 int main(int argc, const char * argv[])
 {
-
+	
 	if (argc != 4){				/////// CHANGE BACK TO 4, IT IS 5 FOR OUR TEST
 		printf("Error: Incorrect number of arguements\n");
 		return -1;
@@ -264,38 +320,50 @@ int main(int argc, const char * argv[])
 	void *thread_result;
 	
 	int order_thread_id = pthread_create(&order_thread, NULL, order_thread_function, (void*)orders);
+<<<<<<< HEAD
 
 
+=======
+	
+	
+>>>>>>> 5bbe9373736b2bb8725abc7a8446d7164201a840
 	pthread_t cat_threads[cat];
 	int loc = 0;
 	
 	struct order_queue* list = get_cat();
-
+	
 	while(list != NULL){
+<<<<<<< HEAD
 
+=======
+		
+>>>>>>> 5bbe9373736b2bb8725abc7a8446d7164201a840
 		pthread_t category_thread;
 		int category_thread_id = pthread_create(&category_thread, NULL, category_thread_function, (void*)list->category);
-
+		
 		cat_threads[loc] = category_thread;
 		loc++;
-
+		
 		list = list->hh.next;
-
-
+		
+		
 	}
-
+	
 	pthread_join(order_thread, &thread_result);
-
+	
 	
 	int i;
 	
 	for(i = 0; i < cat; i++){
-
 		
+<<<<<<< HEAD
+=======
+		
+>>>>>>> 5bbe9373736b2bb8725abc7a8446d7164201a840
 		pthread_join(cat_threads[i], &thread_result);
-
-	} 
-
+		
+	}
+	
 	fclose(orders);
 	fclose(categories);
 	
@@ -305,7 +373,7 @@ int main(int argc, const char * argv[])
 	print_report(final);
 	fclose(final);
 	return 0;
-
+	
 }
 
 

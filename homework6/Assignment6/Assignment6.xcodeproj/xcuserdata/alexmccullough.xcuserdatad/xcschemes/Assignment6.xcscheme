@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
    LastUpgradeVersion = "0500"
-   version = "1.7">
+   version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES">
@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "289ED64518FC54F9003B2E82"
-               BuildableName = "Assignment5"
-               BlueprintName = "Assignment5"
-               ReferencedContainer = "container:Assignment5.xcodeproj">
+               BlueprintIdentifier = "28D54F23190ED187007B5C1A"
+               BuildableName = "Assignment6"
+               BlueprintName = "Assignment6"
+               ReferencedContainer = "container:Assignment6.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -32,10 +32,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "289ED64518FC54F9003B2E82"
-            BuildableName = "Assignment5"
-            BlueprintName = "Assignment5"
-            ReferencedContainer = "container:Assignment5.xcodeproj">
+            BlueprintIdentifier = "28D54F23190ED187007B5C1A"
+            BuildableName = "Assignment6"
+            BlueprintName = "Assignment6"
+            ReferencedContainer = "container:Assignment6.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -43,8 +43,7 @@
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
-      useCustomWorkingDirectory = "YES"
-      customWorkingDirectory = "/Users/alexmccullough/cs214/homework5/Assignment5/Assignment5"
+      useCustomWorkingDirectory = "NO"
       buildConfiguration = "Debug"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
@@ -52,32 +51,14 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "289ED64518FC54F9003B2E82"
-            BuildableName = "Assignment5"
-            BlueprintName = "Assignment5"
-            ReferencedContainer = "container:Assignment5.xcodeproj">
+            BlueprintIdentifier = "28D54F23190ED187007B5C1A"
+            BuildableName = "Assignment6"
+            BlueprintName = "Assignment6"
+            ReferencedContainer = "container:Assignment6.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
-      <CommandLineArguments>
-         <CommandLineArgument
-            argument = "database.txt"
-            isEnabled = "YES">
-         </CommandLineArgument>
-         <CommandLineArgument
-            argument = "orders.txt"
-            isEnabled = "YES">
-         </CommandLineArgument>
-         <CommandLineArgument
-            argument = "categories.txt"
-            isEnabled = "YES">
-         </CommandLineArgument>
-      </CommandLineArguments>
       <AdditionalOptions>
       </AdditionalOptions>
-      <LocationScenarioReference
-         identifier = "com.apple.dt.IDEFoundation.CurrentLocationScenarioIdentifier"
-         referenceType = "1">
-      </LocationScenarioReference>
    </LaunchAction>
    <ProfileAction
       shouldUseLaunchSchemeArgsEnv = "YES"
@@ -88,10 +69,10 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "289ED64518FC54F9003B2E82"
-            BuildableName = "Assignment5"
-            BlueprintName = "Assignment5"
-            ReferencedContainer = "container:Assignment5.xcodeproj">
+            BlueprintIdentifier = "28D54F23190ED187007B5C1A"
+            BuildableName = "Assignment6"
+            BlueprintName = "Assignment6"
+            ReferencedContainer = "container:Assignment6.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
