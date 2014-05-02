@@ -142,13 +142,28 @@ void *order_thread_function(void *arg) {
 		}
 		
 		struct order_queue* cat_queue = get_queue(current->category);
+<<<<<<< HEAD
+	
+		int wait = 0;
+	
+=======
 		
 		int wait = 0;
 		
+>>>>>>> 5bbe9373736b2bb8725abc7a8446d7164201a840
 		while(1){
 			
 			pthread_mutex_lock(&a_mutex);
 			if(cat_queue->total < 10){
+<<<<<<< HEAD
+
+				//printf("adding %s for user %s\n", current->title, current->customer);
+				if(wait == 1){
+
+					printf("producer resumes\n");
+					wait = 0;
+
+=======
 				
 				//printf("adding %s for user %s\n", current->title, current->customer);
 				if(wait == 1){
@@ -156,12 +171,24 @@ void *order_thread_function(void *arg) {
 					printf("producer resumes\n");
 					wait = 0;
 					
+>>>>>>> 5bbe9373736b2bb8725abc7a8446d7164201a840
 				}
 				add_to_queue(cat_queue, current);
 				pthread_mutex_unlock(&a_mutex);
 				break;
 				
 			} else {
+<<<<<<< HEAD
+
+				if(wait == 0){
+
+					printf("producer waits\n");
+					wait = 1;
+
+				}
+
+			
+=======
 				
 				if(wait == 0){
 					
@@ -171,6 +198,7 @@ void *order_thread_function(void *arg) {
 				}
 				
 				
+>>>>>>> 5bbe9373736b2bb8725abc7a8446d7164201a840
 			}
 			pthread_mutex_unlock(&a_mutex);
 			
@@ -188,16 +216,28 @@ void *category_thread_function(void* args) {
 	//printf("category thread %s started \n", category);
 	
 	struct order_queue* queue = get_queue(category);
+<<<<<<< HEAD
+
+	int wait = 0;
+
+	while(1){
+
+=======
 	
 	int wait = 0;
 	
 	while(1){
 		
+>>>>>>> 5bbe9373736b2bb8725abc7a8446d7164201a840
 		//printf("%d = total for %s \n", queue->total, category);
 		
 		pthread_mutex_lock(&a_mutex);
 		if(queue->total > 0){
+<<<<<<< HEAD
+
+=======
 			
+>>>>>>> 5bbe9373736b2bb8725abc7a8446d7164201a840
 			if(wait == 1){
 				printf("%s Consumer resumes\n", category);
 				wait = 0;
@@ -208,14 +248,29 @@ void *category_thread_function(void* args) {
 			
 			pthread_mutex_unlock(&a_mutex);
 			pthread_exit("exiting thread");
+<<<<<<< HEAD
+
+		} else {
+
+=======
 			
 		} else {
 			
+>>>>>>> 5bbe9373736b2bb8725abc7a8446d7164201a840
 			if(wait == 0){
 				printf("%s Consumer waits\n", category);
 				wait = 1;
 			}
 		}
+<<<<<<< HEAD
+
+		
+
+		pthread_mutex_unlock(&a_mutex);	
+
+	} 
+
+=======
 		
 		
 		
@@ -223,6 +278,7 @@ void *category_thread_function(void* args) {
 		
 	}
 	
+>>>>>>> 5bbe9373736b2bb8725abc7a8446d7164201a840
 	
 	return 0;
 }
@@ -264,15 +320,24 @@ int main(int argc, const char * argv[])
 	void *thread_result;
 	
 	int order_thread_id = pthread_create(&order_thread, NULL, order_thread_function, (void*)orders);
+<<<<<<< HEAD
+
+
+=======
 	
 	
+>>>>>>> 5bbe9373736b2bb8725abc7a8446d7164201a840
 	pthread_t cat_threads[cat];
 	int loc = 0;
 	
 	struct order_queue* list = get_cat();
 	
 	while(list != NULL){
+<<<<<<< HEAD
+
+=======
 		
+>>>>>>> 5bbe9373736b2bb8725abc7a8446d7164201a840
 		pthread_t category_thread;
 		int category_thread_id = pthread_create(&category_thread, NULL, category_thread_function, (void*)list->category);
 		
@@ -291,7 +356,10 @@ int main(int argc, const char * argv[])
 	
 	for(i = 0; i < cat; i++){
 		
+<<<<<<< HEAD
+=======
 		
+>>>>>>> 5bbe9373736b2bb8725abc7a8446d7164201a840
 		pthread_join(cat_threads[i], &thread_result);
 		
 	}

@@ -11,6 +11,7 @@
 
 static char myblock[5000];
 
+struct checker inList= {NULL, NULL};
 
 union header *head = NULL;
 
@@ -49,6 +50,7 @@ void *mymalloc(size_t len, char *file, int line){
 		
 		head = prev;
 		return (void *)(p + 1);
+			
 		}
 	
 	if (p == head) {
@@ -59,15 +61,33 @@ void *mymalloc(size_t len, char *file, int line){
 		
 }
 
+void myfree(void* mem, char* file, int line){
 
-void free(void *p){
 	
+	union header *bp, *p;
 	
+	bp = (union header*)mem - 1;
 	
+	for (p = head; !(bp > p && bp < p->s.ptr); p = p->s.ptr) {
+		if (p >= p->s.ptr && (bp > p || bp < p->s.ptr)) {
+			printf("added first\n");
+			break;
+		}
+	}
+
+	if (bp + bp->s.size == p->s.ptr){
+		bp->s.size += p->s.ptr->s.size;
+		bp->s.ptr = p->s.ptr->s.ptr;
+		printf("added upper\n");
+	}
+	else bp->s.ptr = p->s.ptr;
 	
+	if (p + p->s.size == bp) {
+		p->s.size += bp->s.size;
+		p->s.ptr = bp->s.ptr;
+		printf("added lower\n");
+	}
+	else p->s.ptr = bp;
 	
-	
-	
-	
-	
+	head = p;
 }

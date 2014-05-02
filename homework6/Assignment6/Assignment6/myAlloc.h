@@ -20,9 +20,10 @@ union header{
 	Align x;
 };
 
+
 void *mymalloc(size_t len, char *file, int line);
 
-void myfree(void *p);
+void myfree(void *p, char *file, int line);
 
 
 #endif
